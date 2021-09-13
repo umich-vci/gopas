@@ -155,6 +155,7 @@ docs/PTAData.md
 docs/PVFileVersion.md
 docs/PageQS.md
 docs/Platform.md
+docs/PlatformListModel.md
 docs/PlatformModel.md
 docs/PlatformsApi.md
 docs/PrivateSSHKeyModel.md
@@ -309,6 +310,7 @@ model_op_configurations.go
 model_operation_account_model.go
 model_page_qs.go
 model_platform.go
+model_platform_list_model.go
 model_platform_model.go
 model_private_ssh_key_model.go
 model_privileged_access_workflows.go

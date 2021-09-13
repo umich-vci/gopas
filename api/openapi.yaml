@@ -4231,32 +4231,32 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/PlatformModel'
+                  $ref: '#/components/schemas/PlatformListModel'
                 type: array
             text/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/PlatformModel'
+                  $ref: '#/components/schemas/PlatformListModel'
                 type: array
             application/xml:
               schema:
                 items:
-                  $ref: '#/components/schemas/PlatformModel'
+                  $ref: '#/components/schemas/PlatformListModel'
                 type: array
             text/xml:
               schema:
                 items:
-                  $ref: '#/components/schemas/PlatformModel'
+                  $ref: '#/components/schemas/PlatformListModel'
                 type: array
             multipart/form-data:
               schema:
                 items:
-                  $ref: '#/components/schemas/PlatformModel'
+                  $ref: '#/components/schemas/PlatformListModel'
                 type: array
             application/vnd.cyberark.api+json:
               schema:
                 items:
-                  $ref: '#/components/schemas/PlatformModel'
+                  $ref: '#/components/schemas/PlatformListModel'
                 type: array
           description: 'A list of all relevant platforms, for each platform the following
             should return:'
@@ -11228,6 +11228,102 @@ components:
           type: string
         systemType:
           type: string
+      type: object
+    PlatformListModel:
+      example:
+        Platforms:
+        - general:
+            platformBaseID: platformBaseID
+            name: name
+            systemType: systemType
+            platformType: platformType
+            active: true
+            description: description
+            id: id
+          credentialsManagement:
+            allowManualReconciliation: true
+            allowedSafes: allowedSafes
+            performPeriodicChange: true
+            allowManualChange: true
+            allowManualVerification: true
+            performPeriodicVerification: true
+            requirePasswordChangeEveryXDays: 0
+            requirePasswordVerificationEveryXDays: 6
+            automaticReconcileWhenUnsynched: true
+          sessionManagement:
+            recordAndSaveSessionActivity: true
+            requirePrivilegedSessionMonitoringAndIsolation: true
+            PSMServerID: PSMServerID
+          linkedAccounts:
+          - displayName: displayName
+            name: name
+          - displayName: displayName
+            name: name
+          privilegedAccessWorkflows:
+            enforceOnetimePasswordAccess: true
+            requireDualControlPasswordAccessApproval: true
+            enforceCheckinCheckoutExclusiveAccess: true
+          properties:
+            optional:
+            - displayName: displayName
+              name: name
+            - displayName: displayName
+              name: name
+            required:
+            - displayName: displayName
+              name: name
+            - displayName: displayName
+              name: name
+        - general:
+            platformBaseID: platformBaseID
+            name: name
+            systemType: systemType
+            platformType: platformType
+            active: true
+            description: description
+            id: id
+          credentialsManagement:
+            allowManualReconciliation: true
+            allowedSafes: allowedSafes
+            performPeriodicChange: true
+            allowManualChange: true
+            allowManualVerification: true
+            performPeriodicVerification: true
+            requirePasswordChangeEveryXDays: 0
+            requirePasswordVerificationEveryXDays: 6
+            automaticReconcileWhenUnsynched: true
+          sessionManagement:
+            recordAndSaveSessionActivity: true
+            requirePrivilegedSessionMonitoringAndIsolation: true
+            PSMServerID: PSMServerID
+          linkedAccounts:
+          - displayName: displayName
+            name: name
+          - displayName: displayName
+            name: name
+          privilegedAccessWorkflows:
+            enforceOnetimePasswordAccess: true
+            requireDualControlPasswordAccessApproval: true
+            enforceCheckinCheckoutExclusiveAccess: true
+          properties:
+            optional:
+            - displayName: displayName
+              name: name
+            - displayName: displayName
+              name: name
+            required:
+            - displayName: displayName
+              name: name
+            - displayName: displayName
+              name: name
+        Total: 1.4658129805029452
+      properties:
+        Platforms:
+          items:
+            $ref: '#/components/schemas/PlatformModel'
+          type: array
+        Total:
+          type: number
       type: object
     PlatformModel:
       example:

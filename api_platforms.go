@@ -2433,7 +2433,7 @@ func (r ApiPlatformsGetPlatformsRequest) SystemType(systemType string) ApiPlatfo
 	return r
 }
 
-func (r ApiPlatformsGetPlatformsRequest) Execute() ([]PlatformModel, *_nethttp.Response, error) {
+func (r ApiPlatformsGetPlatformsRequest) Execute() ([]PlatformListModel, *_nethttp.Response, error) {
 	return r.ApiService.PlatformsGetPlatformsExecute(r)
 }
 
@@ -2453,15 +2453,15 @@ func (a *PlatformsApiService) PlatformsGetPlatforms(ctx _context.Context) ApiPla
 }
 
 // Execute executes the request
-//  @return []PlatformModel
-func (a *PlatformsApiService) PlatformsGetPlatformsExecute(r ApiPlatformsGetPlatformsRequest) ([]PlatformModel, *_nethttp.Response, error) {
+//  @return []PlatformListModel
+func (a *PlatformsApiService) PlatformsGetPlatformsExecute(r ApiPlatformsGetPlatformsRequest) ([]PlatformListModel, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  []PlatformModel
+		localVarReturnValue  []PlatformListModel
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PlatformsApiService.PlatformsGetPlatforms")

@@ -335,6 +335,7 @@ Class | Method | HTTP request | Description
  - [PVFileVersion](docs/PVFileVersion.md)
  - [PageQS](docs/PageQS.md)
  - [Platform](docs/Platform.md)
+ - [PlatformListModel](docs/PlatformListModel.md)
  - [PlatformModel](docs/PlatformModel.md)
  - [PrivateSSHKeyModel](docs/PrivateSSHKeyModel.md)
  - [PrivilegedAccessWorkflows](docs/PrivilegedAccessWorkflows.md)
