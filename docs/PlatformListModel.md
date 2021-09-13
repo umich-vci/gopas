@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Platforms** | Pointer to [**[]PlatformModel**](PlatformModel.md) |  | [optional] 
-**Total** | Pointer to **float32** |  | [optional] 
+**Total** | Pointer to **int32** |  | [optional] 
 
 ## Methods
 
@@ -53,20 +53,20 @@ HasPlatforms returns a boolean if a field has been set.
 
 ### GetTotal
 
-`func (o *PlatformListModel) GetTotal() float32`
+`func (o *PlatformListModel) GetTotal() int32`
 
 GetTotal returns the Total field if non-nil, zero value otherwise.
 
 ### GetTotalOk
 
-`func (o *PlatformListModel) GetTotalOk() (*float32, bool)`
+`func (o *PlatformListModel) GetTotalOk() (*int32, bool)`
 
 GetTotalOk returns a tuple with the Total field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTotal
 
-`func (o *PlatformListModel) SetTotal(v float32)`
+`func (o *PlatformListModel) SetTotal(v int32)`
 
 SetTotal sets Total field to given value.
 

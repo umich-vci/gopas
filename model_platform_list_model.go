@@ -17,7 +17,7 @@ import (
 // PlatformListModel struct for PlatformListModel
 type PlatformListModel struct {
 	Platforms *[]PlatformModel `json:"Platforms,omitempty"`
-	Total     *float32         `json:"Total,omitempty"`
+	Total     *int32           `json:"Total,omitempty"`
 }
 
 // NewPlatformListModel instantiates a new PlatformListModel object
@@ -70,9 +70,9 @@ func (o *PlatformListModel) SetPlatforms(v []PlatformModel) {
 }
 
 // GetTotal returns the Total field value if set, zero value otherwise.
-func (o *PlatformListModel) GetTotal() float32 {
+func (o *PlatformListModel) GetTotal() int32 {
 	if o == nil || o.Total == nil {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.Total
@@ -80,7 +80,7 @@ func (o *PlatformListModel) GetTotal() float32 {
 
 // GetTotalOk returns a tuple with the Total field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PlatformListModel) GetTotalOk() (*float32, bool) {
+func (o *PlatformListModel) GetTotalOk() (*int32, bool) {
 	if o == nil || o.Total == nil {
 		return nil, false
 	}
@@ -96,8 +96,8 @@ func (o *PlatformListModel) HasTotal() bool {
 	return false
 }
 
-// SetTotal gets a reference to the given float32 and assigns it to the Total field.
-func (o *PlatformListModel) SetTotal(v float32) {
+// SetTotal gets a reference to the given int32 and assigns it to the Total field.
+func (o *PlatformListModel) SetTotal(v int32) {
 	o.Total = &v
 }
 

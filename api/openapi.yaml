@@ -11316,14 +11316,15 @@ components:
               name: name
             - displayName: displayName
               name: name
-        Total: 1.4658129805029452
+        Total: 1
       properties:
         Platforms:
           items:
             $ref: '#/components/schemas/PlatformModel'
           type: array
         Total:
-          type: number
+          format: int32
+          type: integer
       type: object
     PlatformModel:
       example:
