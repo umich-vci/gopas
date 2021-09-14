@@ -4230,34 +4230,22 @@ paths:
           content:
             application/json:
               schema:
-                items:
-                  $ref: '#/components/schemas/PlatformListModel'
-                type: array
+                $ref: '#/components/schemas/PlatformListModel'
             text/json:
               schema:
-                items:
-                  $ref: '#/components/schemas/PlatformListModel'
-                type: array
+                $ref: '#/components/schemas/PlatformListModel'
             application/xml:
               schema:
-                items:
-                  $ref: '#/components/schemas/PlatformListModel'
-                type: array
+                $ref: '#/components/schemas/PlatformListModel'
             text/xml:
               schema:
-                items:
-                  $ref: '#/components/schemas/PlatformListModel'
-                type: array
+                $ref: '#/components/schemas/PlatformListModel'
             multipart/form-data:
               schema:
-                items:
-                  $ref: '#/components/schemas/PlatformListModel'
-                type: array
+                $ref: '#/components/schemas/PlatformListModel'
             application/vnd.cyberark.api+json:
               schema:
-                items:
-                  $ref: '#/components/schemas/PlatformListModel'
-                type: array
+                $ref: '#/components/schemas/PlatformListModel'
           description: 'A list of all relevant platforms, for each platform the following
             should return:'
       tags:

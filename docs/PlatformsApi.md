@@ -1577,7 +1577,7 @@ No authorization required
 
 ## PlatformsGetPlatforms
 
-> []PlatformListModel PlatformsGetPlatforms(ctx).Active(active).PlatformType(platformType).Search(search).SystemType(systemType).Execute()
+> PlatformListModel PlatformsGetPlatforms(ctx).Active(active).PlatformType(platformType).Search(search).SystemType(systemType).Execute()
 
 
 
@@ -1608,7 +1608,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `PlatformsApi.PlatformsGetPlatforms``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `PlatformsGetPlatforms`: []PlatformListModel
+    // response from `PlatformsGetPlatforms`: PlatformListModel
     fmt.Fprintf(os.Stdout, "Response from `PlatformsApi.PlatformsGetPlatforms`: %v\n", resp)
 }
 ```
@@ -1631,7 +1631,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[]PlatformListModel**](PlatformListModel.md)
+[**PlatformListModel**](PlatformListModel.md)
 
 ### Authorization
 
