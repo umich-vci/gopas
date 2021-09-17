@@ -37,6 +37,7 @@ docs/AccountGroupsApi.md
 docs/AccountInSafe.md
 docs/AccountModel.md
 docs/AccountModelv1.md
+docs/AccountModelv1Accounts.md
 docs/AccountPSMConnectPrerequisites.md
 docs/AccountsApi.md
 docs/AdHocConnectionData.md
@@ -216,6 +217,7 @@ model_account_group_member.go
 model_account_in_safe.go
 model_account_model.go
 model_account_modelv1.go
+model_account_modelv1_accounts.go
 model_account_psm_connect_prerequisites.go
 model_ad_hoc_connection_data.go
 model_add_account_group_data.go

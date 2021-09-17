@@ -236,6 +236,7 @@ Class | Method | HTTP request | Description
  - [AccountInSafe](docs/AccountInSafe.md)
  - [AccountModel](docs/AccountModel.md)
  - [AccountModelv1](docs/AccountModelv1.md)
+ - [AccountModelv1Accounts](docs/AccountModelv1Accounts.md)
  - [AccountPSMConnectPrerequisites](docs/AccountPSMConnectPrerequisites.md)
  - [AdHocConnectionData](docs/AdHocConnectionData.md)
  - [AddAccountGroupData](docs/AddAccountGroupData.md)

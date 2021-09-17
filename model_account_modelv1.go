@@ -18,7 +18,7 @@ import (
 type AccountModelv1 struct {
 	// Number of accounts found by the search.
 	Count    *int32                    `json:"Count,omitempty"`
-	Accounts *[]map[string]interface{} `json:"accounts,omitempty"`
+	Accounts *[]AccountModelv1Accounts `json:"accounts,omitempty"`
 }
 
 // NewAccountModelv1 instantiates a new AccountModelv1 object
@@ -71,9 +71,9 @@ func (o *AccountModelv1) SetCount(v int32) {
 }
 
 // GetAccounts returns the Accounts field value if set, zero value otherwise.
-func (o *AccountModelv1) GetAccounts() []map[string]interface{} {
+func (o *AccountModelv1) GetAccounts() []AccountModelv1Accounts {
 	if o == nil || o.Accounts == nil {
-		var ret []map[string]interface{}
+		var ret []AccountModelv1Accounts
 		return ret
 	}
 	return *o.Accounts
@@ -81,7 +81,7 @@ func (o *AccountModelv1) GetAccounts() []map[string]interface{} {
 
 // GetAccountsOk returns a tuple with the Accounts field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AccountModelv1) GetAccountsOk() (*[]map[string]interface{}, bool) {
+func (o *AccountModelv1) GetAccountsOk() (*[]AccountModelv1Accounts, bool) {
 	if o == nil || o.Accounts == nil {
 		return nil, false
 	}
@@ -97,8 +97,8 @@ func (o *AccountModelv1) HasAccounts() bool {
 	return false
 }
 
-// SetAccounts gets a reference to the given []map[string]interface{} and assigns it to the Accounts field.
-func (o *AccountModelv1) SetAccounts(v []map[string]interface{}) {
+// SetAccounts gets a reference to the given []AccountModelv1Accounts and assigns it to the Accounts field.
+func (o *AccountModelv1) SetAccounts(v []AccountModelv1Accounts) {
 	o.Accounts = &v
 }
 

@@ -7744,6 +7744,9 @@ components:
           type: string
       type: object
     KeyValuePair:
+      example:
+        value: value
+        key: key
       properties:
         key:
           type: string
@@ -7754,8 +7757,28 @@ components:
       example:
         Count: 0
         accounts:
-        - '{}'
-        - '{}'
+        - AccountID: AccountID
+          InternalProperties:
+          - value: value
+            key: key
+          - value: value
+            key: key
+          Properties:
+          - value: value
+            key: key
+          - value: value
+            key: key
+        - AccountID: AccountID
+          InternalProperties:
+          - value: value
+            key: key
+          - value: value
+            key: key
+          Properties:
+          - value: value
+            key: key
+          - value: value
+            key: key
       properties:
         Count:
           description: Number of accounts found by the search.
@@ -7763,7 +7786,7 @@ components:
           type: integer
         accounts:
           items:
-            type: object
+            $ref: '#/components/schemas/AccountModelv1_accounts'
           type: array
       type: object
     AccountModel:
@@ -13335,5 +13358,31 @@ components:
           - 5
           format: int32
           type: integer
+      type: object
+    AccountModelv1_accounts:
+      example:
+        AccountID: AccountID
+        InternalProperties:
+        - value: value
+          key: key
+        - value: value
+          key: key
+        Properties:
+        - value: value
+          key: key
+        - value: value
+          key: key
+      properties:
+        AccountID:
+          description: The account ID of the account
+          type: string
+        InternalProperties:
+          items:
+            $ref: '#/components/schemas/KeyValuePair'
+          type: array
+        Properties:
+          items:
+            $ref: '#/components/schemas/KeyValuePair'
+          type: array
       type: object
 x-original-swagger-version: "2.0"

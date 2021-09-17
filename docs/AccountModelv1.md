@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Count** | Pointer to **int32** | Number of accounts found by the search. | [optional] 
-**Accounts** | Pointer to **[]map[string]interface{}** |  | [optional] 
+**Accounts** | Pointer to [**[]AccountModelv1Accounts**](AccountModelv1Accounts.md) |  | [optional] 
 
 ## Methods
 
@@ -53,20 +53,20 @@ HasCount returns a boolean if a field has been set.
 
 ### GetAccounts
 
-`func (o *AccountModelv1) GetAccounts() []map[string]interface{}`
+`func (o *AccountModelv1) GetAccounts() []AccountModelv1Accounts`
 
 GetAccounts returns the Accounts field if non-nil, zero value otherwise.
 
 ### GetAccountsOk
 
-`func (o *AccountModelv1) GetAccountsOk() (*[]map[string]interface{}, bool)`
+`func (o *AccountModelv1) GetAccountsOk() (*[]AccountModelv1Accounts, bool)`
 
 GetAccountsOk returns a tuple with the Accounts field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAccounts
 
-`func (o *AccountModelv1) SetAccounts(v []map[string]interface{})`
+`func (o *AccountModelv1) SetAccounts(v []AccountModelv1Accounts)`
 
 SetAccounts sets Accounts field to given value.
 
