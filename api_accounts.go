@@ -1193,7 +1193,7 @@ func (r ApiAccountsGetAccountLegacyRequest) Safe(safe string) ApiAccountsGetAcco
 	return r
 }
 
-func (r ApiAccountsGetAccountLegacyRequest) Execute() (AccountModel, *_nethttp.Response, error) {
+func (r ApiAccountsGetAccountLegacyRequest) Execute() (AccountModelv1, *_nethttp.Response, error) {
 	return r.ApiService.AccountsGetAccountLegacyExecute(r)
 }
 
@@ -1213,15 +1213,15 @@ func (a *AccountsApiService) AccountsGetAccountLegacy(ctx _context.Context) ApiA
 }
 
 // Execute executes the request
-//  @return AccountModel
-func (a *AccountsApiService) AccountsGetAccountLegacyExecute(r ApiAccountsGetAccountLegacyRequest) (AccountModel, *_nethttp.Response, error) {
+//  @return AccountModelv1
+func (a *AccountsApiService) AccountsGetAccountLegacyExecute(r ApiAccountsGetAccountLegacyRequest) (AccountModelv1, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  AccountModel
+		localVarReturnValue  AccountModelv1
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccountsApiService.AccountsGetAccountLegacy")

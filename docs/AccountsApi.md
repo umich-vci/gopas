@@ -730,7 +730,7 @@ No authorization required
 
 ## AccountsGetAccountLegacy
 
-> AccountModel AccountsGetAccountLegacy(ctx).Keywords(keywords).Safe(safe).Execute()
+> AccountModelv1 AccountsGetAccountLegacy(ctx).Keywords(keywords).Safe(safe).Execute()
 
 
 
@@ -759,7 +759,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `AccountsApi.AccountsGetAccountLegacy``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `AccountsGetAccountLegacy`: AccountModel
+    // response from `AccountsGetAccountLegacy`: AccountModelv1
     fmt.Fprintf(os.Stdout, "Response from `AccountsApi.AccountsGetAccountLegacy`: %v\n", resp)
 }
 ```
@@ -780,7 +780,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AccountModel**](AccountModel.md)
+[**AccountModelv1**](AccountModelv1.md)
 
 ### Authorization
 

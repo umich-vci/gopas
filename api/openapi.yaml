@@ -1233,7 +1233,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AccountModel'
+                $ref: '#/components/schemas/AccountModelv1'
           description: OK
       tags:
       - Accounts
@@ -7751,6 +7751,11 @@ components:
           type: string
       type: object
     AccountModelv1:
+      example:
+        Count: 0
+        accounts:
+        - '{}'
+        - '{}'
       properties:
         Count:
           description: Number of accounts found by the search.
