@@ -1386,7 +1386,7 @@ import (
 
 func main() {
     accountId := "accountId_example" // string | The unique ID of the account to update. This is retrieved by the Get Account Service.
-    accountPatch := *openapiclient.NewJsonPatchDocumentAccountModel() // JsonPatchDocumentAccountModel | 
+    accountPatch := []openapiclient.OperationAccountModel{*openapiclient.NewOperationAccountModel()} // []OperationAccountModel | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -1416,7 +1416,7 @@ Other parameters are passed through a pointer to a apiAccountsUpdateAccountReque
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **accountPatch** | [**JsonPatchDocumentAccountModel**](JsonPatchDocumentAccountModel.md) |  | 
+ **accountPatch** | [**[]OperationAccountModel**](OperationAccountModel.md) |  | 
 
 ### Return type
 

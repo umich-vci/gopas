@@ -125,7 +125,6 @@ docs/ImportPlatformResponse.md
 docs/Incident.md
 docs/IncomingRequest.md
 docs/IncomingRequestsApi.md
-docs/JsonPatchDocumentAccountModel.md
 docs/KeyValuePair.md
 docs/LDAPDirectoriesApi.md
 docs/LDAPDirectory.md
@@ -294,7 +293,6 @@ model_import_platform_data.go
 model_import_platform_response.go
 model_incident.go
 model_incoming_request.go
-model_json_patch_document_account_model.go
 model_key_value_pair.go
 model_ldap_directory.go
 model_ldap_directory_base.go

@@ -8007,13 +8007,9 @@ components:
           type: boolean
       type: object
     JsonPatchDocument[AccountModel]:
-      properties:
-        Operations:
-          items:
-            $ref: '#/components/schemas/Operation[AccountModel]'
-          readOnly: true
-          type: array
-      type: object
+      items:
+        $ref: '#/components/schemas/Operation[AccountModel]'
+      type: array
     Operation[AccountModel]:
       properties:
         value:

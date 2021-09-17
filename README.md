@@ -313,7 +313,6 @@ Class | Method | HTTP request | Description
  - [ImportPlatformResponse](docs/ImportPlatformResponse.md)
  - [Incident](docs/Incident.md)
  - [IncomingRequest](docs/IncomingRequest.md)
- - [JsonPatchDocumentAccountModel](docs/JsonPatchDocumentAccountModel.md)
  - [KeyValuePair](docs/KeyValuePair.md)
  - [LDAPDirectory](docs/LDAPDirectory.md)
  - [LDAPDirectoryBase](docs/LDAPDirectoryBase.md)

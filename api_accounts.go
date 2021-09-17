@@ -2244,10 +2244,10 @@ type ApiAccountsUpdateAccountRequest struct {
 	ctx          _context.Context
 	ApiService   *AccountsApiService
 	accountId    string
-	accountPatch *JsonPatchDocumentAccountModel
+	accountPatch *[]OperationAccountModel
 }
 
-func (r ApiAccountsUpdateAccountRequest) AccountPatch(accountPatch JsonPatchDocumentAccountModel) ApiAccountsUpdateAccountRequest {
+func (r ApiAccountsUpdateAccountRequest) AccountPatch(accountPatch []OperationAccountModel) ApiAccountsUpdateAccountRequest {
 	r.accountPatch = &accountPatch
 	return r
 }
