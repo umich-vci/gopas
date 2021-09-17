@@ -93,6 +93,7 @@ Class | Method | HTTP request | Description
 *AccountsApi* | [**AccountsDownload**](docs/AccountsApi.md#accountsdownload) | **Post** /api/Accounts/{accountId}/Secret/Retrieve | 
 *AccountsApi* | [**AccountsGeneratePassword**](docs/AccountsApi.md#accountsgeneratepassword) | **Post** /api/Accounts/{accountId}/Secret/Generate | 
 *AccountsApi* | [**AccountsGetAccount**](docs/AccountsApi.md#accountsgetaccount) | **Get** /api/Accounts/{id} | 
+*AccountsApi* | [**AccountsGetAccountLegacy**](docs/AccountsApi.md#accountsgetaccountlegacy) | **Get** /WebServices/PIMServices.svc/Accounts | 
 *AccountsApi* | [**AccountsGetAccounts**](docs/AccountsApi.md#accountsgetaccounts) | **Get** /api/Accounts | 
 *AccountsApi* | [**AccountsGetVersions**](docs/AccountsApi.md#accountsgetversions) | **Get** /api/Accounts/{accountId}/Secret/Versions | 
 *AccountsApi* | [**AccountsGrantAccess**](docs/AccountsApi.md#accountsgrantaccess) | **Post** /api/Accounts/{accountId}/GrantAdministrativeAccess | 
@@ -234,6 +235,7 @@ Class | Method | HTTP request | Description
  - [AccountGroupMember](docs/AccountGroupMember.md)
  - [AccountInSafe](docs/AccountInSafe.md)
  - [AccountModel](docs/AccountModel.md)
+ - [AccountModelv1](docs/AccountModelv1.md)
  - [AccountPSMConnectPrerequisites](docs/AccountPSMConnectPrerequisites.md)
  - [AdHocConnectionData](docs/AdHocConnectionData.md)
  - [AddAccountGroupData](docs/AddAccountGroupData.md)
@@ -311,6 +313,7 @@ Class | Method | HTTP request | Description
  - [Incident](docs/Incident.md)
  - [IncomingRequest](docs/IncomingRequest.md)
  - [JsonPatchDocumentAccountModel](docs/JsonPatchDocumentAccountModel.md)
+ - [KeyValuePair](docs/KeyValuePair.md)
  - [LDAPDirectory](docs/LDAPDirectory.md)
  - [LDAPDirectoryBase](docs/LDAPDirectoryBase.md)
  - [LDAPDomainController](docs/LDAPDomainController.md)

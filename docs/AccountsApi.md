@@ -14,6 +14,7 @@ Method | HTTP request | Description
 [**AccountsDownload**](AccountsApi.md#AccountsDownload) | **Post** /api/Accounts/{accountId}/Secret/Retrieve | 
 [**AccountsGeneratePassword**](AccountsApi.md#AccountsGeneratePassword) | **Post** /api/Accounts/{accountId}/Secret/Generate | 
 [**AccountsGetAccount**](AccountsApi.md#AccountsGetAccount) | **Get** /api/Accounts/{id} | 
+[**AccountsGetAccountLegacy**](AccountsApi.md#AccountsGetAccountLegacy) | **Get** /WebServices/PIMServices.svc/Accounts | 
 [**AccountsGetAccounts**](AccountsApi.md#AccountsGetAccounts) | **Get** /api/Accounts | 
 [**AccountsGetVersions**](AccountsApi.md#AccountsGetVersions) | **Get** /api/Accounts/{accountId}/Secret/Versions | 
 [**AccountsGrantAccess**](AccountsApi.md#AccountsGrantAccess) | **Post** /api/Accounts/{accountId}/GrantAdministrativeAccess | 
@@ -721,6 +722,74 @@ No authorization required
 
 - **Content-Type**: Not defined
 - **Accept**: application/json, text/json, application/xml, text/xml, multipart/form-data, application/vnd.cyberark.api+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## AccountsGetAccountLegacy
+
+> AccountModel AccountsGetAccountLegacy(ctx).Keywords(keywords).Safe(safe).Execute()
+
+
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    keywords := "keywords_example" // string | Keywords to identify the account (optional)
+    safe := "safe_example" // string | Safe to search in for the account (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.AccountsApi.AccountsGetAccountLegacy(context.Background()).Keywords(keywords).Safe(safe).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `AccountsApi.AccountsGetAccountLegacy``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `AccountsGetAccountLegacy`: AccountModel
+    fmt.Fprintf(os.Stdout, "Response from `AccountsApi.AccountsGetAccountLegacy`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiAccountsGetAccountLegacyRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **keywords** | **string** | Keywords to identify the account | 
+ **safe** | **string** | Safe to search in for the account | 
+
+### Return type
+
+[**AccountModel**](AccountModel.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

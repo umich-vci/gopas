@@ -36,6 +36,7 @@ docs/AccountGroupMember.md
 docs/AccountGroupsApi.md
 docs/AccountInSafe.md
 docs/AccountModel.md
+docs/AccountModelv1.md
 docs/AccountPSMConnectPrerequisites.md
 docs/AccountsApi.md
 docs/AdHocConnectionData.md
@@ -124,6 +125,7 @@ docs/Incident.md
 docs/IncomingRequest.md
 docs/IncomingRequestsApi.md
 docs/JsonPatchDocumentAccountModel.md
+docs/KeyValuePair.md
 docs/LDAPDirectoriesApi.md
 docs/LDAPDirectory.md
 docs/LDAPDirectoryBase.md
@@ -213,6 +215,7 @@ model_account_group.go
 model_account_group_member.go
 model_account_in_safe.go
 model_account_model.go
+model_account_modelv1.go
 model_account_psm_connect_prerequisites.go
 model_ad_hoc_connection_data.go
 model_add_account_group_data.go
@@ -290,6 +293,7 @@ model_import_platform_response.go
 model_incident.go
 model_incoming_request.go
 model_json_patch_document_account_model.go
+model_key_value_pair.go
 model_ldap_directory.go
 model_ldap_directory_base.go
 model_ldap_domain_controller.go

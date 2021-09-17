@@ -1212,6 +1212,31 @@ paths:
           description: OK
       tags:
       - Accounts
+  /WebServices/PIMServices.svc/Accounts:
+    get:
+      description: This method returns information about an account with the legacy
+        v1 API.
+      operationId: Accounts_GetAccountLegacy
+      parameters:
+      - description: Keywords to identify the account
+        in: query
+        name: Keywords
+        schema:
+          type: string
+      - description: Safe to search in for the account
+        in: query
+        name: Safe
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountModel'
+          description: OK
+      tags:
+      - Accounts
   /api/Accounts/{id}/LinkAccount:
     post:
       description: "This method gives the ability to associate a linked account that\
@@ -7717,6 +7742,24 @@ components:
           type: integer
         nextLink:
           type: string
+      type: object
+    KeyValuePair:
+      properties:
+        key:
+          type: string
+        value:
+          type: string
+      type: object
+    AccountModelv1:
+      properties:
+        Count:
+          description: Number of accounts found by the search.
+          format: int32
+          type: integer
+        accounts:
+          items:
+            type: object
+          type: array
       type: object
     AccountModel:
       example:
