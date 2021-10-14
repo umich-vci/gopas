@@ -16,6 +16,7 @@ import (
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
 	_neturl "net/url"
+	"reflect"
 	"strings"
 )
 
@@ -489,12 +490,17 @@ type ApiUserGroupsGetUserGroupsRequest struct {
 	ctx            _context.Context
 	ApiService     *UserGroupsApiService
 	search         *string
+	sort           *[]string
 	filter         *string
 	includeMembers *bool
 }
 
 func (r ApiUserGroupsGetUserGroupsRequest) Search(search string) ApiUserGroupsGetUserGroupsRequest {
 	r.search = &search
+	return r
+}
+func (r ApiUserGroupsGetUserGroupsRequest) Sort(sort []string) ApiUserGroupsGetUserGroupsRequest {
+	r.sort = &sort
 	return r
 }
 func (r ApiUserGroupsGetUserGroupsRequest) Filter(filter string) ApiUserGroupsGetUserGroupsRequest {
@@ -558,6 +564,17 @@ func (a *UserGroupsApiService) UserGroupsGetUserGroupsExecute(r ApiUserGroupsGet
 
 	if r.search != nil {
 		localVarQueryParams.Add("search", parameterToString(*r.search, ""))
+	}
+	if r.sort != nil {
+		t := *r.sort
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				localVarQueryParams.Add("sort", parameterToString(s.Index(i), "multi"))
+			}
+		} else {
+			localVarQueryParams.Add("sort", parameterToString(t, "multi"))
+		}
 	}
 	if r.filter != nil {
 		localVarQueryParams.Add("filter", parameterToString(*r.filter, ""))

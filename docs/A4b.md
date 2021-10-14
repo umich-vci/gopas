@@ -1,4 +1,4 @@
-# A2j
+# A4b
 
 ## Properties
 
@@ -9,59 +9,59 @@ Name | Type | Description | Notes
 
 ## Methods
 
-### NewA2j
+### NewA4b
 
-`func NewA2j(pSMConnectorID string, enabled bool, ) *A2j`
+`func NewA4b(pSMConnectorID string, enabled bool, ) *A4b`
 
-NewA2j instantiates a new A2j object
+NewA4b instantiates a new A4b object
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
 will change when the set of required properties is changed
 
-### NewA2jWithDefaults
+### NewA4bWithDefaults
 
-`func NewA2jWithDefaults() *A2j`
+`func NewA4bWithDefaults() *A4b`
 
-NewA2jWithDefaults instantiates a new A2j object
+NewA4bWithDefaults instantiates a new A4b object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
 ### GetPSMConnectorID
 
-`func (o *A2j) GetPSMConnectorID() string`
+`func (o *A4b) GetPSMConnectorID() string`
 
 GetPSMConnectorID returns the PSMConnectorID field if non-nil, zero value otherwise.
 
 ### GetPSMConnectorIDOk
 
-`func (o *A2j) GetPSMConnectorIDOk() (*string, bool)`
+`func (o *A4b) GetPSMConnectorIDOk() (*string, bool)`
 
 GetPSMConnectorIDOk returns a tuple with the PSMConnectorID field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPSMConnectorID
 
-`func (o *A2j) SetPSMConnectorID(v string)`
+`func (o *A4b) SetPSMConnectorID(v string)`
 
 SetPSMConnectorID sets PSMConnectorID field to given value.
 
 
 ### GetEnabled
 
-`func (o *A2j) GetEnabled() bool`
+`func (o *A4b) GetEnabled() bool`
 
 GetEnabled returns the Enabled field if non-nil, zero value otherwise.
 
 ### GetEnabledOk
 
-`func (o *A2j) GetEnabledOk() (*bool, bool)`
+`func (o *A4b) GetEnabledOk() (*bool, bool)`
 
 GetEnabledOk returns a tuple with the Enabled field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEnabled
 
-`func (o *A2j) SetEnabled(v bool)`
+`func (o *A4b) SetEnabled(v bool)`
 
 SetEnabled sets Enabled field to given value.
 

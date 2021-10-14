@@ -29,17 +29,17 @@ var (
 type SafesApiService service
 
 type ApiSafesAddSafeRequest struct {
-	ctx        _context.Context
-	ApiService *SafesApiService
-	safe       *AddSafeData
+	ctx            _context.Context
+	ApiService     *SafesApiService
+	addSafeRequest *AddSafeRequest
 }
 
-func (r ApiSafesAddSafeRequest) Safe(safe AddSafeData) ApiSafesAddSafeRequest {
-	r.safe = &safe
+func (r ApiSafesAddSafeRequest) AddSafeRequest(addSafeRequest AddSafeRequest) ApiSafesAddSafeRequest {
+	r.addSafeRequest = &addSafeRequest
 	return r
 }
 
-func (r ApiSafesAddSafeRequest) Execute() (map[string]interface{}, *_nethttp.Response, error) {
+func (r ApiSafesAddSafeRequest) Execute() (AddSafeResponse, *_nethttp.Response, error) {
 	return r.ApiService.SafesAddSafeExecute(r)
 }
 
@@ -60,15 +60,15 @@ func (a *SafesApiService) SafesAddSafe(ctx _context.Context) ApiSafesAddSafeRequ
 }
 
 // Execute executes the request
-//  @return map[string]interface{}
-func (a *SafesApiService) SafesAddSafeExecute(r ApiSafesAddSafeRequest) (map[string]interface{}, *_nethttp.Response, error) {
+//  @return AddSafeResponse
+func (a *SafesApiService) SafesAddSafeExecute(r ApiSafesAddSafeRequest) (AddSafeResponse, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  map[string]interface{}
+		localVarReturnValue  AddSafeResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SafesApiService.SafesAddSafe")
@@ -81,8 +81,8 @@ func (a *SafesApiService) SafesAddSafeExecute(r ApiSafesAddSafeRequest) (map[str
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
-	if r.safe == nil {
-		return localVarReturnValue, nil, reportError("safe is required and must be specified")
+	if r.addSafeRequest == nil {
+		return localVarReturnValue, nil, reportError("addSafeRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -103,7 +103,7 @@ func (a *SafesApiService) SafesAddSafeExecute(r ApiSafesAddSafeRequest) (map[str
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.safe
+	localVarPostBody = r.addSafeRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -141,35 +141,34 @@ func (a *SafesApiService) SafesAddSafeExecute(r ApiSafesAddSafeRequest) (map[str
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiSafesAddSafeOwnerRequest struct {
-	ctx        _context.Context
-	ApiService *SafesApiService
-	safeUrlId  string
-	member     *SafeMemberItem
+type ApiSafesAddSafeMemberRequest struct {
+	ctx                      _context.Context
+	ApiService               *SafesApiService
+	safeUrlId                string
+	addSafeMemberRequestBody *AddSafeMemberRequestBody
 }
 
-// An existing user to add as a Safe member.
-func (r ApiSafesAddSafeOwnerRequest) Member(member SafeMemberItem) ApiSafesAddSafeOwnerRequest {
-	r.member = &member
+func (r ApiSafesAddSafeMemberRequest) AddSafeMemberRequestBody(addSafeMemberRequestBody AddSafeMemberRequestBody) ApiSafesAddSafeMemberRequest {
+	r.addSafeMemberRequestBody = &addSafeMemberRequestBody
 	return r
 }
 
-func (r ApiSafesAddSafeOwnerRequest) Execute() (map[string]interface{}, *_nethttp.Response, error) {
-	return r.ApiService.SafesAddSafeOwnerExecute(r)
+func (r ApiSafesAddSafeMemberRequest) Execute() (AddSafeMemberResponse, *_nethttp.Response, error) {
+	return r.ApiService.SafesAddSafeMemberExecute(r)
 }
 
 /*
-SafesAddSafeOwner Method for SafesAddSafeOwner
+SafesAddSafeMember Method for SafesAddSafeMember
 
 This method adds an existing user as a Safe member.
 The user who run this web service requires Manage and View Members permissions in the Safe.
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param safeUrlId The unique ID of the Safe.
- @return ApiSafesAddSafeOwnerRequest
+ @param safeUrlId The name of the Safe used when calling Safe APIs.
+ @return ApiSafesAddSafeMemberRequest
 */
-func (a *SafesApiService) SafesAddSafeOwner(ctx _context.Context, safeUrlId string) ApiSafesAddSafeOwnerRequest {
-	return ApiSafesAddSafeOwnerRequest{
+func (a *SafesApiService) SafesAddSafeMember(ctx _context.Context, safeUrlId string) ApiSafesAddSafeMemberRequest {
+	return ApiSafesAddSafeMemberRequest{
 		ApiService: a,
 		ctx:        ctx,
 		safeUrlId:  safeUrlId,
@@ -177,18 +176,18 @@ func (a *SafesApiService) SafesAddSafeOwner(ctx _context.Context, safeUrlId stri
 }
 
 // Execute executes the request
-//  @return map[string]interface{}
-func (a *SafesApiService) SafesAddSafeOwnerExecute(r ApiSafesAddSafeOwnerRequest) (map[string]interface{}, *_nethttp.Response, error) {
+//  @return AddSafeMemberResponse
+func (a *SafesApiService) SafesAddSafeMemberExecute(r ApiSafesAddSafeMemberRequest) (AddSafeMemberResponse, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  map[string]interface{}
+		localVarReturnValue  AddSafeMemberResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SafesApiService.SafesAddSafeOwner")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SafesApiService.SafesAddSafeMember")
 	if err != nil {
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
@@ -199,8 +198,8 @@ func (a *SafesApiService) SafesAddSafeOwnerExecute(r ApiSafesAddSafeOwnerRequest
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
-	if r.member == nil {
-		return localVarReturnValue, nil, reportError("member is required and must be specified")
+	if r.addSafeMemberRequestBody == nil {
+		return localVarReturnValue, nil, reportError("addSafeMemberRequestBody is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -221,7 +220,7 @@ func (a *SafesApiService) SafesAddSafeOwnerExecute(r ApiSafesAddSafeOwnerRequest
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.member
+	localVarPostBody = r.addSafeMemberRequestBody
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -259,28 +258,28 @@ func (a *SafesApiService) SafesAddSafeOwnerExecute(r ApiSafesAddSafeOwnerRequest
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiSafesDeleteSafeDetailsRequest struct {
+type ApiSafesDeleteSafeRequest struct {
 	ctx        _context.Context
 	ApiService *SafesApiService
 	safeUrlId  string
 }
 
-func (r ApiSafesDeleteSafeDetailsRequest) Execute() (*_nethttp.Response, error) {
-	return r.ApiService.SafesDeleteSafeDetailsExecute(r)
+func (r ApiSafesDeleteSafeRequest) Execute() (map[string]interface{}, *_nethttp.Response, error) {
+	return r.ApiService.SafesDeleteSafeExecute(r)
 }
 
 /*
-SafesDeleteSafeDetails Method for SafesDeleteSafeDetails
+SafesDeleteSafe Method for SafesDeleteSafe
 
 This method deletes a safe from the Vault.
 The user who runs this web service requires Manage Safe permission on the required Safe.
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param safeUrlId The unique ID of the Safe.
- @return ApiSafesDeleteSafeDetailsRequest
+ @param safeUrlId The name of the Safe.
+ @return ApiSafesDeleteSafeRequest
 */
-func (a *SafesApiService) SafesDeleteSafeDetails(ctx _context.Context, safeUrlId string) ApiSafesDeleteSafeDetailsRequest {
-	return ApiSafesDeleteSafeDetailsRequest{
+func (a *SafesApiService) SafesDeleteSafe(ctx _context.Context, safeUrlId string) ApiSafesDeleteSafeRequest {
+	return ApiSafesDeleteSafeRequest{
 		ApiService: a,
 		ctx:        ctx,
 		safeUrlId:  safeUrlId,
@@ -288,18 +287,20 @@ func (a *SafesApiService) SafesDeleteSafeDetails(ctx _context.Context, safeUrlId
 }
 
 // Execute executes the request
-func (a *SafesApiService) SafesDeleteSafeDetailsExecute(r ApiSafesDeleteSafeDetailsRequest) (*_nethttp.Response, error) {
+//  @return map[string]interface{}
+func (a *SafesApiService) SafesDeleteSafeExecute(r ApiSafesDeleteSafeRequest) (map[string]interface{}, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodDelete
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
+		localVarReturnValue  map[string]interface{}
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SafesApiService.SafesDeleteSafeDetails")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SafesApiService.SafesDeleteSafe")
 	if err != nil {
-		return nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/api/Safes/{safeUrlId}"
@@ -319,7 +320,7 @@ func (a *SafesApiService) SafesDeleteSafeDetailsExecute(r ApiSafesDeleteSafeDeta
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json", "text/json", "application/xml", "text/xml", "multipart/form-data", "application/vnd.cyberark.api+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -328,19 +329,19 @@ func (a *SafesApiService) SafesDeleteSafeDetailsExecute(r ApiSafesDeleteSafeDeta
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -348,10 +349,129 @@ func (a *SafesApiService) SafesDeleteSafeDetailsExecute(r ApiSafesDeleteSafeDeta
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiSafesDeleteSafeMemberRequest struct {
+	ctx        _context.Context
+	ApiService *SafesApiService
+	safeUrlId  string
+	memberName string
+}
+
+func (r ApiSafesDeleteSafeMemberRequest) Execute() (map[string]interface{}, *_nethttp.Response, error) {
+	return r.ApiService.SafesDeleteSafeMemberExecute(r)
+}
+
+/*
+SafesDeleteSafeMember Method for SafesDeleteSafeMember
+
+This method removes a specific member from a Safe.
+The user who run this web service requires Manage Safe Members permission on the Safe.
+
+ @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param safeUrlId The name of the Safe from which to delete the member.
+ @param memberName The name of the Safe member to delete from the list of Safe members.
+ @return ApiSafesDeleteSafeMemberRequest
+*/
+func (a *SafesApiService) SafesDeleteSafeMember(ctx _context.Context, safeUrlId string, memberName string) ApiSafesDeleteSafeMemberRequest {
+	return ApiSafesDeleteSafeMemberRequest{
+		ApiService: a,
+		ctx:        ctx,
+		safeUrlId:  safeUrlId,
+		memberName: memberName,
+	}
+}
+
+// Execute executes the request
+//  @return map[string]interface{}
+func (a *SafesApiService) SafesDeleteSafeMemberExecute(r ApiSafesDeleteSafeMemberRequest) (map[string]interface{}, *_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodDelete
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  map[string]interface{}
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SafesApiService.SafesDeleteSafeMember")
+	if err != nil {
+		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/Safes/{safeUrlId}/members/{memberName}"
+	localVarPath = strings.Replace(localVarPath, "{"+"safeUrlId"+"}", _neturl.PathEscape(parameterToString(r.safeUrlId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"memberName"+"}", _neturl.PathEscape(parameterToString(r.memberName, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "text/json", "application/xml", "text/xml", "multipart/form-data", "application/vnd.cyberark.api+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type ApiSafesGetGroupsRequest struct {
@@ -460,6 +580,252 @@ func (a *SafesApiService) SafesGetGroupsExecute(r ApiSafesGetGroupsRequest) (Acc
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ApiSafesGetSafeDetailsRequest struct {
+	ctx             _context.Context
+	ApiService      *SafesApiService
+	safeUrlId       string
+	includeAccounts *bool
+	useCache        *bool
+}
+
+// Whether or not to return accounts for each Safe as part of the response. If not sent, the value will be False.
+func (r ApiSafesGetSafeDetailsRequest) IncludeAccounts(includeAccounts bool) ApiSafesGetSafeDetailsRequest {
+	r.includeAccounts = &includeAccounts
+	return r
+}
+
+// Whether to retrieve from session or not.
+func (r ApiSafesGetSafeDetailsRequest) UseCache(useCache bool) ApiSafesGetSafeDetailsRequest {
+	r.useCache = &useCache
+	return r
+}
+
+func (r ApiSafesGetSafeDetailsRequest) Execute() (GetSafeDetailsResponse, *_nethttp.Response, error) {
+	return r.ApiService.SafesGetSafeDetailsExecute(r)
+}
+
+/*
+SafesGetSafeDetails Method for SafesGetSafeDetails
+
+This method returns information about a specific Safe in the Vault.
+The user who runs this web service must be a member of the Safe in the Vault that is returned.
+
+ @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param safeUrlId The name of the Safe.
+ @return ApiSafesGetSafeDetailsRequest
+*/
+func (a *SafesApiService) SafesGetSafeDetails(ctx _context.Context, safeUrlId string) ApiSafesGetSafeDetailsRequest {
+	return ApiSafesGetSafeDetailsRequest{
+		ApiService: a,
+		ctx:        ctx,
+		safeUrlId:  safeUrlId,
+	}
+}
+
+// Execute executes the request
+//  @return GetSafeDetailsResponse
+func (a *SafesApiService) SafesGetSafeDetailsExecute(r ApiSafesGetSafeDetailsRequest) (GetSafeDetailsResponse, *_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  GetSafeDetailsResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SafesApiService.SafesGetSafeDetails")
+	if err != nil {
+		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/Safes/{safeUrlId}"
+	localVarPath = strings.Replace(localVarPath, "{"+"safeUrlId"+"}", _neturl.PathEscape(parameterToString(r.safeUrlId, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+
+	if r.includeAccounts != nil {
+		localVarQueryParams.Add("includeAccounts", parameterToString(*r.includeAccounts, ""))
+	}
+	if r.useCache != nil {
+		localVarQueryParams.Add("useCache", parameterToString(*r.useCache, ""))
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "text/json", "application/xml", "text/xml", "multipart/form-data", "application/vnd.cyberark.api+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiSafesGetSafeMemberRequest struct {
+	ctx        _context.Context
+	ApiService *SafesApiService
+	safeUrlId  string
+	memberName string
+	useCache   *bool
+}
+
+// Whether to retrieve from session or not.
+func (r ApiSafesGetSafeMemberRequest) UseCache(useCache bool) ApiSafesGetSafeMemberRequest {
+	r.useCache = &useCache
+	return r
+}
+
+func (r ApiSafesGetSafeMemberRequest) Execute() (GetSafeMemberResponse, *_nethttp.Response, error) {
+	return r.ApiService.SafesGetSafeMemberExecute(r)
+}
+
+/*
+SafesGetSafeMember Method for SafesGetSafeMember
+
+This method returns a member of a Safe.
+To run this web service, the user must have View Safe Members permission for the Safe.
+
+ @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param safeUrlId The name of the Safe used when calling Safe APIs.
+ @param memberName The Vault user name, Domain user name or group name of the Safe member.
+ @return ApiSafesGetSafeMemberRequest
+*/
+func (a *SafesApiService) SafesGetSafeMember(ctx _context.Context, safeUrlId string, memberName string) ApiSafesGetSafeMemberRequest {
+	return ApiSafesGetSafeMemberRequest{
+		ApiService: a,
+		ctx:        ctx,
+		safeUrlId:  safeUrlId,
+		memberName: memberName,
+	}
+}
+
+// Execute executes the request
+//  @return GetSafeMemberResponse
+func (a *SafesApiService) SafesGetSafeMemberExecute(r ApiSafesGetSafeMemberRequest) (GetSafeMemberResponse, *_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  GetSafeMemberResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SafesApiService.SafesGetSafeMember")
+	if err != nil {
+		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/Safes/{safeUrlId}/members/{memberName}"
+	localVarPath = strings.Replace(localVarPath, "{"+"safeUrlId"+"}", _neturl.PathEscape(parameterToString(r.safeUrlId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"memberName"+"}", _neturl.PathEscape(parameterToString(r.memberName, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+
+	if r.useCache != nil {
+		localVarQueryParams.Add("useCache", parameterToString(*r.useCache, ""))
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "text/json", "application/xml", "text/xml", "multipart/form-data", "application/vnd.cyberark.api+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiSafesGetSafeMembersRequest struct {
 	ctx        _context.Context
 	ApiService *SafesApiService
@@ -510,7 +876,7 @@ This method returns the list of members of a Safe.
 The user who run this web service requires View Safe Members permission on the Safe.
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param safeUrlId The unique ID of the safe to return all its members
+ @param safeUrlId The name of the safe to return all its members
  @return ApiSafesGetSafeMembersRequest
 */
 func (a *SafesApiService) SafesGetSafeMembers(ctx _context.Context, safeUrlId string) ApiSafesGetSafeMembersRequest {
@@ -759,6 +1125,244 @@ func (a *SafesApiService) SafesGetSafesExecute(r ApiSafesGetSafesRequest) ([]Saf
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiSafesUpdateSafeRequest struct {
+	ctx                   _context.Context
+	ApiService            *SafesApiService
+	safeUrlId             string
+	updateSafeRequestBody *UpdateSafeRequestBody
+}
+
+func (r ApiSafesUpdateSafeRequest) UpdateSafeRequestBody(updateSafeRequestBody UpdateSafeRequestBody) ApiSafesUpdateSafeRequest {
+	r.updateSafeRequestBody = &updateSafeRequestBody
+	return r
+}
+
+func (r ApiSafesUpdateSafeRequest) Execute() (UpdateSafeResponse, *_nethttp.Response, error) {
+	return r.ApiService.SafesUpdateSafeExecute(r)
+}
+
+/*
+SafesUpdateSafe Method for SafesUpdateSafe
+
+This method updates a single Safe in the Vault.
+The user who runs this web service requires Manage safe permissions and ViewOwners permissions on the safe.
+
+ @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param safeUrlId The name of the Safe used when calling Safe APIs.
+ @return ApiSafesUpdateSafeRequest
+*/
+func (a *SafesApiService) SafesUpdateSafe(ctx _context.Context, safeUrlId string) ApiSafesUpdateSafeRequest {
+	return ApiSafesUpdateSafeRequest{
+		ApiService: a,
+		ctx:        ctx,
+		safeUrlId:  safeUrlId,
+	}
+}
+
+// Execute executes the request
+//  @return UpdateSafeResponse
+func (a *SafesApiService) SafesUpdateSafeExecute(r ApiSafesUpdateSafeRequest) (UpdateSafeResponse, *_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodPut
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  UpdateSafeResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SafesApiService.SafesUpdateSafe")
+	if err != nil {
+		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/Safes/{safeUrlId}"
+	localVarPath = strings.Replace(localVarPath, "{"+"safeUrlId"+"}", _neturl.PathEscape(parameterToString(r.safeUrlId, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+	if r.updateSafeRequestBody == nil {
+		return localVarReturnValue, nil, reportError("updateSafeRequestBody is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json", "text/json", "application/xml", "text/xml", "multipart/form-data", "application/x-www-form-urlencoded"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "text/json", "application/xml", "text/xml", "multipart/form-data", "application/vnd.cyberark.api+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.updateSafeRequestBody
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiSafesUpdateSafeMemberRequest struct {
+	ctx                         _context.Context
+	ApiService                  *SafesApiService
+	safeUrlId                   string
+	memberName                  string
+	updateSafeMemberRequestBody *UpdateSafeMemberRequestBody
+}
+
+func (r ApiSafesUpdateSafeMemberRequest) UpdateSafeMemberRequestBody(updateSafeMemberRequestBody UpdateSafeMemberRequestBody) ApiSafesUpdateSafeMemberRequest {
+	r.updateSafeMemberRequestBody = &updateSafeMemberRequestBody
+	return r
+}
+
+func (r ApiSafesUpdateSafeMemberRequest) Execute() (UpdateSafeMemberResponse, *_nethttp.Response, error) {
+	return r.ApiService.SafesUpdateSafeMemberExecute(r)
+}
+
+/*
+SafesUpdateSafeMember Method for SafesUpdateSafeMember
+
+This method updates an existing safe member.
+The user who run this web service requires Manage and View Safe Members permissions on the Safe.
+
+ @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param safeUrlId The name of the Safe used when calling Safe APIs.
+ @param memberName The Vault user name, Domain user name or group name of the Safe member.
+ @return ApiSafesUpdateSafeMemberRequest
+*/
+func (a *SafesApiService) SafesUpdateSafeMember(ctx _context.Context, safeUrlId string, memberName string) ApiSafesUpdateSafeMemberRequest {
+	return ApiSafesUpdateSafeMemberRequest{
+		ApiService: a,
+		ctx:        ctx,
+		safeUrlId:  safeUrlId,
+		memberName: memberName,
+	}
+}
+
+// Execute executes the request
+//  @return UpdateSafeMemberResponse
+func (a *SafesApiService) SafesUpdateSafeMemberExecute(r ApiSafesUpdateSafeMemberRequest) (UpdateSafeMemberResponse, *_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodPut
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  UpdateSafeMemberResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SafesApiService.SafesUpdateSafeMember")
+	if err != nil {
+		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/Safes/{safeUrlId}/members/{memberName}"
+	localVarPath = strings.Replace(localVarPath, "{"+"safeUrlId"+"}", _neturl.PathEscape(parameterToString(r.safeUrlId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"memberName"+"}", _neturl.PathEscape(parameterToString(r.memberName, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+	if r.updateSafeMemberRequestBody == nil {
+		return localVarReturnValue, nil, reportError("updateSafeMemberRequestBody is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json", "text/json", "application/xml", "text/xml", "multipart/form-data", "application/x-www-form-urlencoded"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "text/json", "application/xml", "text/xml", "multipart/form-data", "application/vnd.cyberark.api+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.updateSafeMemberRequestBody
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err

@@ -726,6 +726,108 @@ func (a *AccountsApiService) AccountsCheckInExecute(r ApiAccountsCheckInRequest)
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ApiAccountsClearAccountRequest struct {
+	ctx                _context.Context
+	ApiService         *AccountsApiService
+	accountId          string
+	extraPasswordIndex int32
+}
+
+func (r ApiAccountsClearAccountRequest) Execute() (*_nethttp.Response, error) {
+	return r.ApiService.AccountsClearAccountExecute(r)
+}
+
+/*
+AccountsClearAccount Method for AccountsClearAccount
+
+This method enables a user to remove association between linked account and source account.
+To run this service, the user must have the following Safe member authorizations for the Safe of the source account:
+List accounts
+Update account properties
+Manage Safe - This authorization is needed only in case "RequireManageSafeToClearLinkedAccount" is enabled in the configuration
+
+ @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param accountId The unique ID of the account.
+ @param extraPasswordIndex The linked account's extra password index.              The index can be for Reconcile account, Logon account, or other linked account that is defined in the Platform configuration.
+ @return ApiAccountsClearAccountRequest
+*/
+func (a *AccountsApiService) AccountsClearAccount(ctx _context.Context, accountId string, extraPasswordIndex int32) ApiAccountsClearAccountRequest {
+	return ApiAccountsClearAccountRequest{
+		ApiService:         a,
+		ctx:                ctx,
+		accountId:          accountId,
+		extraPasswordIndex: extraPasswordIndex,
+	}
+}
+
+// Execute executes the request
+func (a *AccountsApiService) AccountsClearAccountExecute(r ApiAccountsClearAccountRequest) (*_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodDelete
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccountsApiService.AccountsClearAccount")
+	if err != nil {
+		return nil, GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/Accounts/{accountId}/LinkAccount/{extraPasswordIndex}"
+	localVarPath = strings.Replace(localVarPath, "{"+"accountId"+"}", _neturl.PathEscape(parameterToString(r.accountId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"extraPasswordIndex"+"}", _neturl.PathEscape(parameterToString(r.extraPasswordIndex, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
 type ApiAccountsDeleteAccountRequest struct {
 	ctx        _context.Context
 	ApiService *AccountsApiService
@@ -1479,7 +1581,7 @@ func (r ApiAccountsGetVersionsRequest) ShowTemporary(showTemporary bool) ApiAcco
 	return r
 }
 
-func (r ApiAccountsGetVersionsRequest) Execute() ([]PVFileVersion, *_nethttp.Response, error) {
+func (r ApiAccountsGetVersionsRequest) Execute() ([]VersionData, *_nethttp.Response, error) {
 	return r.ApiService.AccountsGetVersionsExecute(r)
 }
 
@@ -1504,15 +1606,15 @@ func (a *AccountsApiService) AccountsGetVersions(ctx _context.Context, accountId
 }
 
 // Execute executes the request
-//  @return []PVFileVersion
-func (a *AccountsApiService) AccountsGetVersionsExecute(r ApiAccountsGetVersionsRequest) ([]PVFileVersion, *_nethttp.Response, error) {
+//  @return []VersionData
+func (a *AccountsApiService) AccountsGetVersionsExecute(r ApiAccountsGetVersionsRequest) ([]VersionData, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  []PVFileVersion
+		localVarReturnValue  []VersionData
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AccountsApiService.AccountsGetVersions")
@@ -1833,7 +1935,7 @@ This method allows you to connect with an account through PSM using an RDP file 
 
 It requires the PVWA and PSM to be configured for transparent connections through PSM with RDP files or with PSMGW configuration.
 
-For more information, refer to Configuring the PSM Session User Experience for Connections Through PVWA in the Privileged Access Security Implementation Guide.
+For more information, refer to Configuring the PSM Session User Experience for Connections Through PVWA in the documentation.
 
 Note that the Accept header can be passed to receive the connection data as application/json
 
@@ -2244,10 +2346,10 @@ type ApiAccountsUpdateAccountRequest struct {
 	ctx          _context.Context
 	ApiService   *AccountsApiService
 	accountId    string
-	accountPatch *[]OperationAccountModel
+	accountPatch *JsonPatchDocumentAccountModel
 }
 
-func (r ApiAccountsUpdateAccountRequest) AccountPatch(accountPatch []OperationAccountModel) ApiAccountsUpdateAccountRequest {
+func (r ApiAccountsUpdateAccountRequest) AccountPatch(accountPatch JsonPatchDocumentAccountModel) ApiAccountsUpdateAccountRequest {
 	r.accountPatch = &accountPatch
 	return r
 }

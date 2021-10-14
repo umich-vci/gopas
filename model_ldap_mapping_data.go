@@ -42,11 +42,11 @@ type LDAPMappingData struct {
 	MappingID *int64 `json:"MappingID,omitempty"`
 	// The order in which the maps are matched with users and groups   from the External Directory when they are created in the Vault.  This field is read only.
 	DirectoryMappingOrder *int32 `json:"DirectoryMappingOrder,omitempty"`
-	// The name of the PAS role.  For example: Vault Admins, Safe Managers.
+	// The name of the role.  For example: Vault Admins, Safe Managers.
 	MappingName string `json:"MappingName"`
-	// LDAP users that the filter applies to them are assigned to relevant roles in the PAS system.
+	// LDAP users that the filter applies to them are assigned to relevant roles in the system.
 	LDAPQuery *string `json:"LDAPQuery,omitempty"`
-	// Users who belong to these LDAP groups are assigned to relevant roles in the PAS system.  Note: This field is required if the VaultGroups field was sent.
+	// Users who belong to these LDAP groups are assigned to relevant roles in the system.  Note: This field is required if the VaultGroups field was sent.
 	DomainGroups *[]string `json:"DomainGroups,omitempty"`
 }
 

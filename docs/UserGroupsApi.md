@@ -295,7 +295,7 @@ No authorization required
 
 ## UserGroupsGetUserGroups
 
-> GetUserGroupsResponse UserGroupsGetUserGroups(ctx).Search(search).Filter(filter).IncludeMembers(includeMembers).Execute()
+> GetUserGroupsResponse UserGroupsGetUserGroups(ctx).Search(search).Sort(sort).Filter(filter).IncludeMembers(includeMembers).Execute()
 
 
 
@@ -315,12 +315,13 @@ import (
 
 func main() {
     search := "search_example" // string |  (optional)
+    sort := []string{"Inner_example"} // []string |  (optional)
     filter := "filter_example" // string |  (optional)
     includeMembers := true // bool | Whether or not to return members for each User Group as part of the response. If not sent, the value will be False. (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.UserGroupsApi.UserGroupsGetUserGroups(context.Background()).Search(search).Filter(filter).IncludeMembers(includeMembers).Execute()
+    resp, r, err := api_client.UserGroupsApi.UserGroupsGetUserGroups(context.Background()).Search(search).Sort(sort).Filter(filter).IncludeMembers(includeMembers).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserGroupsApi.UserGroupsGetUserGroups``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -342,6 +343,7 @@ Other parameters are passed through a pointer to a apiUserGroupsGetUserGroupsReq
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **search** | **string** |  | 
+ **sort** | **[]string** |  | 
  **filter** | **string** |  | 
  **includeMembers** | **bool** | Whether or not to return members for each User Group as part of the response. If not sent, the value will be False. | 
 

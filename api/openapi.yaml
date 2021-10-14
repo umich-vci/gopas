@@ -618,6 +618,37 @@ paths:
           description: OK
       tags:
       - Accounts
+  /api/Accounts/{accountId}/LinkAccount/{extraPasswordIndex}:
+    delete:
+      description: "This method enables a user to remove association between linked\
+        \ account and source account.\r\nTo run this service, the user must have the\
+        \ following Safe member authorizations for the Safe of the source account:\r\
+        \nList accounts\r\nUpdate account properties\r\nManage Safe - This authorization\
+        \ is needed only in case \"RequireManageSafeToClearLinkedAccount\" is enabled\
+        \ in the configuration"
+      operationId: Accounts_ClearAccount
+      parameters:
+      - description: The unique ID of the account.
+        in: path
+        name: accountId
+        required: true
+        schema:
+          type: string
+      - description: "The linked account's extra password index.\r\n            The\
+          \ index can be for Reconcile account, Logon account, or other linked account\
+          \ that is defined in the Platform configuration."
+        in: path
+        name: extraPasswordIndex
+        required: true
+        schema:
+          format: int32
+          type: integer
+      responses:
+        "200":
+          content: {}
+          description: OK
+      tags:
+      - Accounts
   /api/Accounts/{accountId}/Password/Retrieve:
     post:
       description: This method enables users to retrieve the password or SSH key of
@@ -749,9 +780,8 @@ paths:
         It requires the PVWA and PSM to be configured for transparent connections\
         \ through PSM with RDP files or with PSMGW configuration. \r\n\r\nFor more\
         \ information, refer to Configuring the PSM Session User Experience for Connections\
-        \ Through PVWA in the Privileged Access Security Implementation Guide.\r\n\
-        \  \r\nNote that the Accept header can be passed to receive the connection\
-        \ data as application/json"
+        \ Through PVWA in the documentation.\r\n  \r\nNote that the Accept header\
+        \ can be passed to receive the connection data as application/json"
       operationId: Accounts_PSMConnect
       parameters:
       - description: The unique ID of the account to retrieve and use to connect to
@@ -1010,32 +1040,32 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/PVFileVersion'
+                  $ref: '#/components/schemas/VersionData'
                 type: array
             text/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/PVFileVersion'
+                  $ref: '#/components/schemas/VersionData'
                 type: array
             application/xml:
               schema:
                 items:
-                  $ref: '#/components/schemas/PVFileVersion'
+                  $ref: '#/components/schemas/VersionData'
                 type: array
             text/xml:
               schema:
                 items:
-                  $ref: '#/components/schemas/PVFileVersion'
+                  $ref: '#/components/schemas/VersionData'
                 type: array
             multipart/form-data:
               schema:
                 items:
-                  $ref: '#/components/schemas/PVFileVersion'
+                  $ref: '#/components/schemas/VersionData'
                 type: array
             application/vnd.cyberark.api+json:
               schema:
                 items:
-                  $ref: '#/components/schemas/PVFileVersion'
+                  $ref: '#/components/schemas/VersionData'
                 type: array
           description: OK
       tags:
@@ -1823,11 +1853,6 @@ paths:
         "200":
           content:
             application/json:
-              example:
-              - referrerURL: https://CompanyA/portal.com/testExample/
-                regularExpression: false
-              - referrerURL: https://.*portal.com.*test.*
-                regularExpression: true
               schema:
                 items:
                   $ref: '#/components/schemas/AllowedReferrerDto'
@@ -1890,9 +1915,6 @@ paths:
         "201":
           content:
             application/json:
-              example:
-                referrerURL: https://CompanyA/portal/
-                regularExpression: false
               schema:
                 $ref: '#/components/schemas/AllowedReferrerDto'
             text/json:
@@ -5988,69 +6010,48 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/AddSafeData'
+              $ref: '#/components/schemas/AddSafeRequest'
           text/json:
             schema:
-              $ref: '#/components/schemas/AddSafeData'
+              $ref: '#/components/schemas/AddSafeRequest'
           application/xml:
             schema:
-              $ref: '#/components/schemas/AddSafeData'
+              $ref: '#/components/schemas/AddSafeRequest'
           text/xml:
             schema:
-              $ref: '#/components/schemas/AddSafeData'
+              $ref: '#/components/schemas/AddSafeRequest'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/AddSafeData'
+              $ref: '#/components/schemas/AddSafeRequest'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/AddSafeData'
+              $ref: '#/components/schemas/AddSafeRequest'
         required: true
       responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                type: object
-            text/json:
-              schema:
-                type: object
-            application/xml:
-              schema:
-                type: object
-            text/xml:
-              schema:
-                type: object
-            multipart/form-data:
-              schema:
-                type: object
-            application/vnd.cyberark.api+json:
-              schema:
-                type: object
-          description: OK
         "201":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SafeItem'
+                $ref: '#/components/schemas/AddSafeResponse'
             text/json:
               schema:
-                $ref: '#/components/schemas/SafeItem'
+                $ref: '#/components/schemas/AddSafeResponse'
             application/xml:
               schema:
-                $ref: '#/components/schemas/SafeItem'
+                $ref: '#/components/schemas/AddSafeResponse'
             text/xml:
               schema:
-                $ref: '#/components/schemas/SafeItem'
+                $ref: '#/components/schemas/AddSafeResponse'
             multipart/form-data:
               schema:
-                $ref: '#/components/schemas/SafeItem'
+                $ref: '#/components/schemas/AddSafeResponse'
             application/vnd.cyberark.api+json:
               schema:
-                $ref: '#/components/schemas/SafeItem'
+                $ref: '#/components/schemas/AddSafeResponse'
           description: The added safe
       tags:
       - Safes
-      x-codegen-request-body-name: safe
+      x-codegen-request-body-name: addSafeRequest
   /api/Safes/{safeName}/accountgroups:
     get:
       description: "This method returns all the existing account groups in a specific\
@@ -6092,27 +6093,153 @@ paths:
     delete:
       description: "This method deletes a safe from the Vault.\r\nThe user who runs\
         \ this web service requires Manage Safe permission on the required Safe."
-      operationId: Safes_DeleteSafeDetails
+      operationId: Safes_DeleteSafe
       parameters:
-      - description: The unique ID of the Safe.
+      - description: The name of the Safe.
         in: path
         name: safeUrlId
         required: true
         schema:
           type: string
       responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: object
+            text/json:
+              schema:
+                type: object
+            application/xml:
+              schema:
+                type: object
+            text/xml:
+              schema:
+                type: object
+            multipart/form-data:
+              schema:
+                type: object
+            application/vnd.cyberark.api+json:
+              schema:
+                type: object
+          description: OK
         "204":
           content: {}
           description: NoContent
       tags:
       - Safes
+    get:
+      description: "This method returns information about a specific Safe in the Vault.\r\
+        \nThe user who runs this web service must be a member of the Safe in the Vault\
+        \ that is returned."
+      operationId: Safes_GetSafeDetails
+      parameters:
+      - description: The name of the Safe.
+        in: path
+        name: safeUrlId
+        required: true
+        schema:
+          type: string
+      - description: Whether or not to return accounts for each Safe as part of the
+          response. If not sent, the value will be False.
+        in: query
+        name: includeAccounts
+        schema:
+          type: boolean
+      - description: Whether to retrieve from session or not.
+        in: query
+        name: useCache
+        schema:
+          type: boolean
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetSafeDetailsResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GetSafeDetailsResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/GetSafeDetailsResponse'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/GetSafeDetailsResponse'
+            multipart/form-data:
+              schema:
+                $ref: '#/components/schemas/GetSafeDetailsResponse'
+            application/vnd.cyberark.api+json:
+              schema:
+                $ref: '#/components/schemas/GetSafeDetailsResponse'
+          description: Get Safe Details
+      tags:
+      - Safes
+    put:
+      description: "This method updates a single Safe in the Vault.\r\nThe user who\
+        \ runs this web service requires Manage safe permissions and ViewOwners permissions\
+        \ on the safe."
+      operationId: Safes_UpdateSafe
+      parameters:
+      - description: The name of the Safe used when calling Safe APIs.
+        in: path
+        name: safeUrlId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateSafeRequestBody'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/UpdateSafeRequestBody'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/UpdateSafeRequestBody'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/UpdateSafeRequestBody'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UpdateSafeRequestBody'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UpdateSafeRequestBody'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateSafeResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/UpdateSafeResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/UpdateSafeResponse'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/UpdateSafeResponse'
+            multipart/form-data:
+              schema:
+                $ref: '#/components/schemas/UpdateSafeResponse'
+            application/vnd.cyberark.api+json:
+              schema:
+                $ref: '#/components/schemas/UpdateSafeResponse'
+          description: The Updated safe
+      tags:
+      - Safes
+      x-codegen-request-body-name: updateSafeRequestBody
   /api/Safes/{safeUrlId}/members:
     get:
       description: "This method returns the list of members of a Safe.\r\nThe user\
         \ who run this web service requires View Safe Members permission on the Safe."
       operationId: Safes_GetSafeMembers
       parameters:
-      - description: The unique ID of the safe to return all its members
+      - description: The name of the safe to return all its members
         in: path
         name: safeUrlId
         required: true
@@ -6184,9 +6311,9 @@ paths:
       description: "This method adds an existing user as a Safe member.\r\nThe user\
         \ who run this web service requires Manage and View Members permissions in\
         \ the Safe."
-      operationId: Safes_AddSafeOwner
+      operationId: Safes_AddSafeMember
       parameters:
-      - description: The unique ID of the Safe.
+      - description: The name of the Safe used when calling Safe APIs.
         in: path
         name: safeUrlId
         required: true
@@ -6196,24 +6323,67 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/SafeMemberItem'
+              $ref: '#/components/schemas/AddSafeMemberRequestBody'
           text/json:
             schema:
-              $ref: '#/components/schemas/SafeMemberItem'
+              $ref: '#/components/schemas/AddSafeMemberRequestBody'
           application/xml:
             schema:
-              $ref: '#/components/schemas/SafeMemberItem'
+              $ref: '#/components/schemas/AddSafeMemberRequestBody'
           text/xml:
             schema:
-              $ref: '#/components/schemas/SafeMemberItem'
+              $ref: '#/components/schemas/AddSafeMemberRequestBody'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/SafeMemberItem'
+              $ref: '#/components/schemas/AddSafeMemberRequestBody'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/SafeMemberItem'
-        description: An existing user to add as a Safe member.
+              $ref: '#/components/schemas/AddSafeMemberRequestBody'
         required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddSafeMemberResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/AddSafeMemberResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/AddSafeMemberResponse'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/AddSafeMemberResponse'
+            multipart/form-data:
+              schema:
+                $ref: '#/components/schemas/AddSafeMemberResponse'
+            application/vnd.cyberark.api+json:
+              schema:
+                $ref: '#/components/schemas/AddSafeMemberResponse'
+          description: The added member
+      tags:
+      - Safes
+      x-codegen-request-body-name: addSafeMemberRequestBody
+  /api/Safes/{safeUrlId}/members/{memberName}:
+    delete:
+      description: "This method removes a specific member from a Safe.\r\nThe user\
+        \ who run this web service requires Manage Safe Members permission on the\
+        \ Safe."
+      operationId: Safes_DeleteSafeMember
+      parameters:
+      - description: The name of the Safe from which to delete the member.
+        in: path
+        name: safeUrlId
+        required: true
+        schema:
+          type: string
+      - description: The name of the Safe member to delete from the list of Safe members.
+        in: path
+        name: memberName
+        required: true
+        schema:
+          type: string
       responses:
         "200":
           content:
@@ -6236,30 +6406,123 @@ paths:
               schema:
                 type: object
           description: OK
-        "201":
+        "204":
+          content: {}
+          description: NoContent
+      tags:
+      - Safes
+    get:
+      description: "This method returns a member of a Safe.\r\nTo run this web service,\
+        \ the user must have View Safe Members permission for the Safe."
+      operationId: Safes_GetSafeMember
+      parameters:
+      - description: The name of the Safe used when calling Safe APIs.
+        in: path
+        name: safeUrlId
+        required: true
+        schema:
+          type: string
+      - description: The Vault user name, Domain user name or group name of the Safe
+          member.
+        in: path
+        name: memberName
+        required: true
+        schema:
+          type: string
+      - description: Whether to retrieve from session or not.
+        in: query
+        name: useCache
+        schema:
+          type: boolean
+      responses:
+        "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SafeMemberResponse'
+                $ref: '#/components/schemas/GetSafeMemberResponse'
             text/json:
               schema:
-                $ref: '#/components/schemas/SafeMemberResponse'
+                $ref: '#/components/schemas/GetSafeMemberResponse'
             application/xml:
               schema:
-                $ref: '#/components/schemas/SafeMemberResponse'
+                $ref: '#/components/schemas/GetSafeMemberResponse'
             text/xml:
               schema:
-                $ref: '#/components/schemas/SafeMemberResponse'
+                $ref: '#/components/schemas/GetSafeMemberResponse'
             multipart/form-data:
               schema:
-                $ref: '#/components/schemas/SafeMemberResponse'
+                $ref: '#/components/schemas/GetSafeMemberResponse'
             application/vnd.cyberark.api+json:
               schema:
-                $ref: '#/components/schemas/SafeMemberResponse'
-          description: The added member
+                $ref: '#/components/schemas/GetSafeMemberResponse'
+          description: OK
       tags:
       - Safes
-      x-codegen-request-body-name: member
+    put:
+      description: "This method updates an existing safe member.\r\nThe user who run\
+        \ this web service requires Manage and View Safe Members permissions on the\
+        \ Safe."
+      operationId: Safes_UpdateSafeMember
+      parameters:
+      - description: The name of the Safe used when calling Safe APIs.
+        in: path
+        name: safeUrlId
+        required: true
+        schema:
+          type: string
+      - description: The Vault user name, Domain user name or group name of the Safe
+          member.
+        in: path
+        name: memberName
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateSafeMemberRequestBody'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/UpdateSafeMemberRequestBody'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/UpdateSafeMemberRequestBody'
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/UpdateSafeMemberRequestBody'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UpdateSafeMemberRequestBody'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UpdateSafeMemberRequestBody'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateSafeMemberResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/UpdateSafeMemberResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/UpdateSafeMemberResponse'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/UpdateSafeMemberResponse'
+            multipart/form-data:
+              schema:
+                $ref: '#/components/schemas/UpdateSafeMemberResponse'
+            application/vnd.cyberark.api+json:
+              schema:
+                $ref: '#/components/schemas/UpdateSafeMemberResponse'
+          description: OK
+      tags:
+      - Safes
+      x-codegen-request-body-name: updateSafeMemberRequestBody
   /api/UserGroups:
     get:
       description: "This method will return a list of all existing groups in the Vault.\r\
@@ -6279,6 +6542,14 @@ paths:
           maxLength: 500
           minLength: 0
           type: string
+      - explode: true
+        in: query
+        name: sort
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
       - in: query
         name: filter
         schema:
@@ -6569,9 +6840,21 @@ paths:
       - User Groups
   /api/Users:
     get:
+      description: "This method will return a list of all existing users in the Vault\
+        \ except of the Master and the Batch built-in users.\r\n\r\nTo run this web\
+        \ service, the user must have the Audit users permissions in the Vault.\r\n\
+        \r\nThe user who runs this web service can see users only on the same location\
+        \ or lower in the Vault hierarchy.\r\n\r\nThe HideVaultUsersTree  parameter\
+        \ in the dbparam.ini determines the users that are displayed.If HideVaultUsersTree\
+        \ is set to No, all users will be returned (not only those in the same level\
+        \ or lower in the Vault hierarchy). If this parameter is set to Yes, only\
+        \ auditors and managers will be allowed to get all users.\r\n\r\nNote: We\
+        \ currently support returning up to X users in up to Y minutes. If the amount\
+        \ of users is above that number, the REST request might take longer"
       operationId: Users_GetUsers
       parameters:
-      - in: query
+      - description: returns users group membership if true
+        in: query
         name: ExtendedDetails
         schema:
           type: boolean
@@ -6580,6 +6863,19 @@ paths:
         schema:
           maxLength: 500
           minLength: 0
+          type: string
+      - explode: true
+        in: query
+        name: sort
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      - description: The name of the user.
+        in: query
+        name: userName
+        schema:
           type: string
       - description: The type of the user.
         in: query
@@ -6628,6 +6924,8 @@ paths:
       tags:
       - Users
     post:
+      description: "This method adds a new user to the Vault.\r\n\r\nTo run this web\
+        \ service, the user must have the Add/Update Users authorization in the Vault."
       operationId: Users_CreateUser
       requestBody:
         content:
@@ -6677,9 +6975,13 @@ paths:
       x-codegen-request-body-name: user
   /api/Users/{userID}:
     delete:
+      description: "This method deletes information about a specific User in the Vault.\r\
+        \n\r\nTo run this web service, the user must have the AddUpdate users permissions\
+        \ in the Vault."
       operationId: Users_DeleteUser
       parameters:
-      - in: path
+      - description: The ID of the User to delete.
+        in: path
         name: userID
         required: true
         schema:
@@ -6691,9 +6993,13 @@ paths:
       tags:
       - Users
     get:
+      description: "This method returns information about a specific User in the Vault.\r\
+        \n\r\nTo run this web service, the user must have the Audit users permissions\
+        \ in the Vault."
       operationId: Users_GetUserDetails
       parameters:
-      - in: path
+      - description: The ID of the User for which information is returned.
+        in: path
         name: userID
         required: true
         schema:
@@ -6723,9 +7029,14 @@ paths:
       tags:
       - Users
     put:
+      description: "This method edit an existing user.\r\nTo run this web service,\
+        \ the user must have the Add/Update Users authorization in the Vault.\r\n\
+        In order to Edit \"changePasswordOnTheNextLogon\" the user must have the Reset\
+        \ Password authorization in the Vault."
       operationId: Users_EditUser
       parameters:
-      - in: path
+      - description: The ID of the user to update.
+        in: path
         name: userID
         required: true
         schema:
@@ -6778,9 +7089,15 @@ paths:
       x-codegen-request-body-name: user
   /api/Users/{userID}/Activate:
     post:
+      description: "This method activates an existing Vault user who was suspended\
+        \ after reaching the maximum number of violations.\r\nTo run this web service,\
+        \ the user must have the Audit users and Activate Users permissions in the\
+        \ Vault.\r\nTo activate a user, the user must be associated with only one\
+        \ network area."
       operationId: Users_ActivateUser
       parameters:
-      - in: path
+      - description: The ID of the user to activate.
+        in: path
         name: userID
         required: true
         schema:
@@ -6793,9 +7110,15 @@ paths:
       - Users
   /api/Users/{userID}/ResetPassword:
     post:
+      description: "This method resets an existing Vault user's password.\r\nTo run\
+        \ this web service, the user must have the Audit users and Reset Users' Passwords\
+        \ permissions in the Vault.\r\nIn addition, the user who runs this web service\
+        \ must be in the same Vault Location or higher as the user whose password\
+        \ is being reset."
       operationId: Users_ResetUserPassword
       parameters:
-      - in: path
+      - description: The ID of the user whose password will be reset.
+        in: path
         name: userID
         required: true
         schema:
@@ -6830,9 +7153,13 @@ paths:
       x-codegen-request-body-name: resetUserPassword
   /api/Users/{userID}/Secret/SSHKeys:
     delete:
+      description: "This method deletes an ssh public key on the vault for the user\
+        \ id\r\n\r\nTo run this web service, the user must have the Audit users permissions\
+        \ in the Vault."
       operationId: Users_DeleteUserSSHKey
       parameters:
-      - in: path
+      - description: The ID of the user to delete the public ssh key from.
+        in: path
         name: userID
         required: true
         schema:
@@ -6857,6 +7184,7 @@ paths:
           application/x-www-form-urlencoded:
             schema:
               $ref: '#/components/schemas/DeleteUserSSHKeyModel'
+        description: The SSH Key fingerprint to delete
         required: true
       responses:
         "200":
@@ -6866,9 +7194,13 @@ paths:
       - Users
       x-codegen-request-body-name: sshKeyToDel
     get:
+      description: "This method gets the ssh public keys stored in the vault for the\
+        \ user\r\n\r\nTo run this web service, the user must have reset users password\
+        \ permissions."
       operationId: Users_GetUserSSHKeys
       parameters:
-      - in: path
+      - description: The ID of the user for which public ssh keys are returned.
+        in: path
         name: userID
         required: true
         schema:
@@ -6907,9 +7239,13 @@ paths:
       tags:
       - Users
     post:
+      description: "This method adds an ssh public key to the vault for the user id\r\
+        \n\r\nTo run this web service, the user must have the Audit users permissions\
+        \ in the Vault."
       operationId: Users_AddUserSSHKey
       parameters:
-      - in: path
+      - description: The ID of the user to add the ssh key to.
+        in: path
         name: userID
         required: true
         schema:
@@ -6934,6 +7270,7 @@ paths:
           application/x-www-form-urlencoded:
             schema:
               $ref: '#/components/schemas/AddUserSSHKeyModel'
+        description: The ssh key to add to the user
         required: true
       responses:
         "200":
@@ -6962,9 +7299,13 @@ paths:
       x-codegen-request-body-name: sshKeyToAdd
   /api/Users/{userID}/Secret/SSHKeys/Cache:
     delete:
+      description: "This method deletes the cached ssh public key for the given user\
+        \ id from the vault\r\n\r\nTo run this web service, the user must have the\
+        \ Audit users permissions in the Vault."
       operationId: Users_DestroyUserCachedSSHKey
       parameters:
-      - in: path
+      - description: The ID of the User for which the cached ssh key will be destroyed.
+        in: path
         name: userID
         required: true
         schema:
@@ -6976,9 +7317,13 @@ paths:
       tags:
       - Users
     post:
+      description: "This method generates a cached ssh public key a given user and\
+        \ stores it on the vault\r\n\r\nTo run this web service, the user must have\
+        \ the Audit users permissions in the Vault."
       operationId: Users_GenerateUserCachedSSHKey
       parameters:
-      - in: path
+      - description: The ID of the User for which the key will be generated
+        in: path
         name: userID
         required: true
         schema:
@@ -7003,6 +7348,8 @@ paths:
           application/x-www-form-urlencoded:
             schema:
               $ref: '#/components/schemas/GenerateUserCachedSSHKeyModel'
+        description: The information as to how to format and output the generated
+          ssh key
         required: true
       responses:
         "200":
@@ -7031,6 +7378,9 @@ paths:
       x-codegen-request-body-name: genModel
   /api/Users/Secret/SSHKeys/Cache:
     delete:
+      description: "This method deletes the cached ssh public key for the logged user\
+        \ from the vault\r\n\r\nTo run this web service, the user must only be authenticated\
+        \ to the vault"
       operationId: Users_DestroyCurrentUserCachedSSHKey
       responses:
         "200":
@@ -7039,6 +7389,9 @@ paths:
       tags:
       - Users
     post:
+      description: "This method generates a cached ssh public key for the logged user\
+        \ and stores it on the vault\r\n\r\nTo run this web service, the user must\
+        \ only be authenticated to the vault"
       operationId: Users_GenerateCurrentUserCachedSSHKey
       requestBody:
         content:
@@ -7060,6 +7413,8 @@ paths:
           application/x-www-form-urlencoded:
             schema:
               $ref: '#/components/schemas/GenerateUserCachedSSHKeyModel'
+        description: The information as to how to format and output the generated
+          ssh key
         required: true
       responses:
         "200":
@@ -7088,6 +7443,9 @@ paths:
       x-codegen-request-body-name: genModel
   /api/Users/Secret/SSHKeys/ClearCache:
     delete:
+      description: "This method deletes all the cached ssh public key for all the\
+        \ users with the given filters\r\n\r\nTo run this web service, the user must\
+        \ have the Audit users permissions in the Vault."
       operationId: Users_DestroyAllUsersCachedSSHKey
       parameters:
       - in: query
@@ -7243,406 +7601,27 @@ components:
           minimum: 0
           type: integer
       type: object
-    PVFileVersion:
+    VersionData:
       example:
-        ListAuth: true
-        CreationDate: 2000-01-23T04:56:07.000+00:00
-        MonitorAuth: true
-        Size: 5.637376656633329
-        OutputStream:
-          CreationDate: 2000-01-23T04:56:07.000+00:00
-          Position: 0
-          PerformedSeekResume: true
-          SeekHandle: SeekHandle
-          ReadTimeout: 1
-          CanWrite: true
-          CommitChangesOnClose: true
-          Exist: true
-          CanSeek: true
-          Length: 6
-          WriteTimeout: 5
-          ModificationDate: 2000-01-23T04:56:07.000+00:00
-          StayLockAfterUpdate: true
-          PerformedWrite: true
-          CanRead: true
-          CanTimeout: true
-        Safe: Safe
-        LastFailureBiosScan: 2000-01-23T04:56:07.000+00:00
-        InternalName: InternalName
-        History: 2
-        ModifiedBy: ModifiedBy
-        Name: Name
-        LastUsedBy: LastUsedBy
-        OwnerFlags: 9
-        LockedBy: LockedBy
-        RealModificationDate: 2000-01-23T04:56:07.000+00:00
-        ViewPermissionsAuth: true
-        MoveFromAuth: true
-        CategoryModificationDate: 2000-01-23T04:56:07.000+00:00
-        AllAuth: true
-        FileCreationDate: 2000-01-23T04:56:07.000+00:00
-        Deletiondate: 2000-01-23T04:56:07.000+00:00
-        DeletedBy: DeletedBy
-        IsDraft: true
-        SafeID: 7
-        UpdateObjectPropertiesAuth: true
-        CreatedBy: CreatedBy
-        PutAuth: true
-        EventsListAuth: true
-        AccessLevel: 1
-        InitiateCPMChangeAuth: true
-        EventsAddAuth: true
-        LastHumanRetrievedDate: 2000-01-23T04:56:07.000+00:00
-        LastHumanUsedBy: LastHumanUsedBy
-        BackupAuth: true
-        LockDate: 2000-01-23T04:56:07.000+00:00
-        IsTempVersion: true
-        FileNumber: 2
-        AgentLockedBy: AgentLockedBy
-        Options: 4
-        CreateFolderAuth: true
-        LastSuccessfulBiosScan: 2000-01-23T04:56:07.000+00:00
-        LastHumanRetrievedBy: LastHumanRetrievedBy
-        SupervisorAuth: true
-        Expdt: 2000-01-23T04:56:07.000+00:00
-        GetAuth: true
-        UnlockObjectAuth: true
-        Folder: Folder
-        IsRetrieveLock: true
-        FileAccessMarkFlags: 7
-        NoConfirmRequiredAuth: true
-        NeedConfirmStatus: 1
-        ObjectType: 3
-        ModificationDate: 2000-01-23T04:56:07.000+00:00
-        LastHumanUsedDate: 2000-01-23T04:56:07.000+00:00
-        UsePasswordAuth: true
-        DeleteFolderAuth: true
-        ValidateSafeContentAuth: true
-        FileCreatedBy: FileCreatedBy
-        CreateObjectAuth: true
-        DeleteAuth: true
-        InitiateCPMChangeWithManualPasswordAuth: true
-        InputStream:
-          CreationDate: 2000-01-23T04:56:07.000+00:00
-          Position: 0
-          PerformedSeekResume: true
-          SeekHandle: SeekHandle
-          ReadTimeout: 1
-          CanWrite: true
-          CommitChangesOnClose: true
-          Exist: true
-          CanSeek: true
-          Length: 6
-          WriteTimeout: 5
-          ModificationDate: 2000-01-23T04:56:07.000+00:00
-          StayLockAfterUpdate: true
-          PerformedWrite: true
-          CanRead: true
-          CanTimeout: true
-        LastFailureBiosScanReason: LastFailureBiosScanReason
-        RealModifiedBy: RealModifiedBy
-        ManagerAuth: true
-        LastUsedDate: 2000-01-23T04:56:07.000+00:00
-        OwnersManagerAuth: true
-        ViewAuditAuth: true
-        MoveIntoAuth: true
-        RenameObjectAuth: true
+        versionID: 0
+        modificationDate: 6
+        modifiedBy: modifiedBy
+        isTemporary: true
       properties:
-        InputStream:
-          $ref: '#/components/schemas/VaultFileStream'
-        OutputStream:
-          $ref: '#/components/schemas/VaultFileStream'
-        Name:
-          readOnly: true
-          type: string
-        Folder:
-          readOnly: true
-          type: string
-        Safe:
-          readOnly: true
-          type: string
-        InternalName:
-          readOnly: true
-          type: string
-        CreationDate:
-          format: date-time
-          readOnly: true
-          type: string
-        CreatedBy:
-          readOnly: true
-          type: string
-        Deletiondate:
-          format: date-time
-          readOnly: true
-          type: string
-        DeletedBy:
-          readOnly: true
-          type: string
-        LastUsedDate:
-          format: date-time
-          readOnly: true
-          type: string
-        LastUsedBy:
-          readOnly: true
-          type: string
-        Size:
-          format: double
-          readOnly: true
-          type: number
-        History:
-          format: int64
-          readOnly: true
-          type: integer
-        Expdt:
-          format: date-time
-          readOnly: true
-          type: string
-        FileAccessMarkFlags:
-          format: int32
-          readOnly: true
-          type: integer
-        OwnerFlags:
-          format: int32
-          readOnly: true
-          type: integer
-        LockDate:
-          format: date-time
-          readOnly: true
-          type: string
-        LockedBy:
-          readOnly: true
-          type: string
-        ObjectType:
-          enum:
-          - 0
-          - 1
-          format: int32
-          readOnly: true
-          type: integer
-        FileNumber:
-          format: int32
-          type: integer
-        IsDraft:
-          readOnly: true
-          type: boolean
-        IsRetrieveLock:
-          readOnly: true
-          type: boolean
-        FileCreationDate:
-          format: date-time
-          readOnly: true
-          type: string
-        FileCreatedBy:
-          readOnly: true
-          type: string
-        AgentLockedBy:
-          readOnly: true
-          type: string
-        Options:
-          format: int64
-          readOnly: true
-          type: integer
-        ModificationDate:
-          format: date-time
-          readOnly: true
-          type: string
-        RealModificationDate:
-          format: date-time
-          readOnly: true
-          type: string
-        RealModifiedBy:
-          readOnly: true
-          type: string
-        LastSuccessfulBiosScan:
-          format: date-time
-          type: string
-        LastFailureBiosScan:
-          format: date-time
-          type: string
-        LastFailureBiosScanReason:
-          type: string
-        ModifiedBy:
-          readOnly: true
-          type: string
-        LastHumanUsedBy:
-          readOnly: true
-          type: string
-        LastHumanUsedDate:
-          format: date-time
-          readOnly: true
-          type: string
-        LastHumanRetrievedBy:
-          readOnly: true
-          type: string
-        LastHumanRetrievedDate:
-          format: date-time
-          readOnly: true
-          type: string
-        SafeID:
+        versionID:
+          description: Secret's version unique ID
           format: int64
           type: integer
-        AccessLevel:
-          format: int64
-          readOnly: true
-          type: integer
-        MonitorAuth:
-          readOnly: true
-          type: boolean
-        ManagerAuth:
-          readOnly: true
-          type: boolean
-        GetAuth:
-          readOnly: true
-          type: boolean
-        PutAuth:
-          readOnly: true
-          type: boolean
-        DeleteAuth:
-          readOnly: true
-          type: boolean
-        SupervisorAuth:
-          readOnly: true
-          type: boolean
-        BackupAuth:
-          readOnly: true
-          type: boolean
-        OwnersManagerAuth:
-          readOnly: true
-          type: boolean
-        NoConfirmRequiredAuth:
-          readOnly: true
-          type: boolean
-        ValidateSafeContentAuth:
-          readOnly: true
-          type: boolean
-        ListAuth:
-          readOnly: true
-          type: boolean
-        UsePasswordAuth:
-          readOnly: true
-          type: boolean
-        UpdateObjectPropertiesAuth:
-          readOnly: true
-          type: boolean
-        InitiateCPMChangeAuth:
-          readOnly: true
-          type: boolean
-        InitiateCPMChangeWithManualPasswordAuth:
-          readOnly: true
-          type: boolean
-        CreateFolderAuth:
-          readOnly: true
-          type: boolean
-        DeleteFolderAuth:
-          readOnly: true
-          type: boolean
-        MoveFromAuth:
-          readOnly: true
-          type: boolean
-        MoveIntoAuth:
-          readOnly: true
-          type: boolean
-        ViewAuditAuth:
-          readOnly: true
-          type: boolean
-        ViewPermissionsAuth:
-          readOnly: true
-          type: boolean
-        EventsListAuth:
-          readOnly: true
-          type: boolean
-        EventsAddAuth:
-          readOnly: true
-          type: boolean
-        CreateObjectAuth:
-          readOnly: true
-          type: boolean
-        UnlockObjectAuth:
-          readOnly: true
-          type: boolean
-        RenameObjectAuth:
-          readOnly: true
-          type: boolean
-        AllAuth:
-          readOnly: true
-          type: boolean
-        NeedConfirmStatus:
-          format: int64
-          readOnly: true
-          type: integer
-        IsTempVersion:
-          readOnly: true
-          type: boolean
-        CategoryModificationDate:
-          format: date-time
-          readOnly: true
+        modifiedBy:
+          description: The user that modified the secret
           type: string
-      type: object
-    VaultFileStream:
-      example:
-        CreationDate: 2000-01-23T04:56:07.000+00:00
-        Position: 0
-        PerformedSeekResume: true
-        SeekHandle: SeekHandle
-        ReadTimeout: 1
-        CanWrite: true
-        CommitChangesOnClose: true
-        Exist: true
-        CanSeek: true
-        Length: 6
-        WriteTimeout: 5
-        ModificationDate: 2000-01-23T04:56:07.000+00:00
-        StayLockAfterUpdate: true
-        PerformedWrite: true
-        CanRead: true
-        CanTimeout: true
-      properties:
-        StayLockAfterUpdate:
-          type: boolean
-        SeekHandle:
-          type: string
-        CreationDate:
-          format: date-time
-          readOnly: true
-          type: string
-        ModificationDate:
-          format: date-time
-          readOnly: true
-          type: string
-        Exist:
-          readOnly: true
-          type: boolean
-        CanRead:
-          readOnly: true
-          type: boolean
-        CanSeek:
-          readOnly: true
-          type: boolean
-        CanWrite:
-          readOnly: true
-          type: boolean
-        Position:
+        modificationDate:
+          description: Secret's modification date
           format: int64
           type: integer
-        Length:
-          format: int64
-          readOnly: true
-          type: integer
-        PerformedWrite:
+        isTemporary:
+          description: Indication whether it's temporary or real password
           type: boolean
-        CommitChangesOnClose:
-          type: boolean
-        PerformedSeekResume:
-          type: boolean
-        CanTimeout:
-          readOnly: true
-          type: boolean
-        ReadTimeout:
-          format: int32
-          type: integer
-        WriteTimeout:
-          format: int32
-          type: integer
       type: object
     GetAccountsRequest:
       properties:
@@ -8007,9 +7986,13 @@ components:
           type: boolean
       type: object
     JsonPatchDocument[AccountModel]:
-      items:
-        $ref: '#/components/schemas/Operation[AccountModel]'
-      type: array
+      properties:
+        Operations:
+          items:
+            $ref: '#/components/schemas/Operation[AccountModel]'
+          readOnly: true
+          type: array
+      type: object
     Operation[AccountModel]:
       properties:
         value:
@@ -8105,8 +8088,8 @@ components:
       type: object
     AllowedReferrerDto:
       example:
-        referrerURL: https://CompanyA/portal/
-        regularExpression: false
+        regularExpression: true
+        referrerURL: referrerURL
       properties:
         referrerURL:
           description: "The URL from where users will be able to access PVWA. You\
@@ -10347,18 +10330,17 @@ components:
           format: int32
           type: integer
         MappingName:
-          description: "The name of the PAS role.\r\nFor example: Vault Admins, Safe\
-            \ Managers."
+          description: "The name of the role.\r\nFor example: Vault Admins, Safe Managers."
           maxLength: 28
           minLength: 0
           type: string
         LDAPQuery:
           description: LDAP users that the filter applies to them are assigned to
-            relevant roles in the PAS system.
+            relevant roles in the system.
           type: string
         DomainGroups:
           description: "Users who belong to these LDAP groups are assigned to relevant\
-            \ roles in the PAS system.\r\nNote: This field is required if the VaultGroups\
+            \ roles in the system.\r\nNote: This field is required if the VaultGroups\
             \ field was sent."
           items:
             type: string
@@ -11918,7 +11900,7 @@ components:
         PSMConnectors:
           description: List of PSM Connectors linked to the platform
           items:
-            $ref: '#/components/schemas/a2j'
+            $ref: '#/components/schemas/a4b'
           type: array
         PSMServerId:
           description: PSM server ID linked to the platform
@@ -11929,7 +11911,7 @@ components:
       required:
       - PSMServerId
       type: object
-    a2j:
+    a4b:
       example:
         Enabled: true
         PSMConnectorID: PSMConnectorID
@@ -12166,6 +12148,348 @@ components:
         DetailsUrl:
           type: string
       type: object
+    GetSafeDetailsRequest:
+      properties:
+        includeAccounts:
+          description: Whether or not to return accounts for each Safe as part of
+            the response. If not sent, the value will be False.
+          type: boolean
+        useCache:
+          description: Whether to retrieve from session or not.
+          type: boolean
+      type: object
+    GetSafeDetailsResponse:
+      example:
+        safeNumber: 0
+        creator:
+          name: name
+          id: id
+        managingCPM: managingCPM
+        autoPurgeEnabled: true
+        creationTime: 5
+        lastModificationTime: 5
+        description: description
+        olacEnabled: true
+        numberOfDaysRetention: 1
+        numberOfVersionsRetention: 6
+        safeUrlId: safeUrlId
+        location: location
+        accounts:
+        - name: name
+          id: id
+        - name: name
+          id: id
+        safeName: safeName
+        isExpiredMember: true
+      properties:
+        safeUrlId:
+          description: The name of the Safe to be used when calling Safe APIs.
+          type: string
+        safeName:
+          description: The name of the Safe.
+          type: string
+        safeNumber:
+          description: The unique numerical ID of the Safe.
+          format: int64
+          type: integer
+        description:
+          description: The description of the Safe.
+          type: string
+        location:
+          description: The location of the Safe in the Vault.
+          type: string
+        creator:
+          $ref: '#/components/schemas/SafeCreatorResponse'
+        olacEnabled:
+          description: Whether or not to enable Object Level Access Control for the
+            new Safe.
+          type: boolean
+        managingCPM:
+          description: The name of the CPM user who will manage the new Safe.
+          type: string
+        numberOfVersionsRetention:
+          description: The number of retained versions of every password that is stored
+            in the Safe.
+          format: int32
+          type: integer
+        numberOfDaysRetention:
+          description: The number of days that password versions are saved in the
+            Safe.
+          format: int32
+          type: integer
+        autoPurgeEnabled:
+          description: "Whether or not to automatically purge files after the end\
+            \ of the Object History Retention Period defined in the Safe properties.\r\
+            \nReports Safes and PSM Recording Safes are created automatically with\
+            \ AutoPurgeEnabled set to Yes.These Safes cannot be managed by the CPM."
+          type: boolean
+        creationTime:
+          description: Unix creation time of the Safe.
+          format: int64
+          type: integer
+        lastModificationTime:
+          description: Unix time when the Safe was last updated.
+          format: int64
+          type: integer
+        accounts:
+          items:
+            $ref: '#/components/schemas/AccountInSafeResponse'
+          type: array
+        isExpiredMember:
+          description: Whether or not the membership for the Safe is expired.For expired
+            member, the value will be True.
+          type: boolean
+      type: object
+    SafeCreatorResponse:
+      example:
+        name: name
+        id: id
+      properties:
+        id:
+          description: The ID of the user that created this Safe.
+          type: string
+        name:
+          description: The name of the user that created this safe.
+          type: string
+      type: object
+    AccountInSafeResponse:
+      example:
+        name: name
+        id: id
+      properties:
+        id:
+          description: The ID of the accounts that reside in this Safe.
+          type: string
+        name:
+          description: The name of the accounts that reside in this Safe.
+          type: string
+      type: object
+    DeleteSafeRequest:
+      type: object
+    UpdateSafeRequestUrl:
+      type: object
+    UpdateSafeRequestBody:
+      example:
+        Description: Description
+        OLACEnabled: true
+        SafeName: SafeName
+        NumberOfVersionsRetention: 602
+        NumberOfDaysRetention: 292
+        ManagingCPM: ManagingCPM
+        Location: Location
+      properties:
+        SafeName:
+          description: The name of the Safe.
+          type: string
+        Description:
+          description: The description of the Safe.
+          maxLength: 100
+          minLength: 0
+          type: string
+        Location:
+          description: The location of the Safe in the Vault.
+          type: string
+        NumberOfDaysRetention:
+          description: The number of days that password versions are saved in the
+            Safe.
+          format: int32
+          maximum: 3.65E+3
+          minimum: 0
+          type: integer
+        NumberOfVersionsRetention:
+          description: The number of retained versions of every password that is stored
+            in the Safe.
+          format: int32
+          maximum: 999
+          minimum: 0
+          type: integer
+        OLACEnabled:
+          description: Whether or not to enable Object Level Access Control for the
+            Safe.
+          type: boolean
+        ManagingCPM:
+          description: The name of the CPM user who will manage the Safe.
+          type: string
+      type: object
+    UpdateSafeResponse:
+      example:
+        safeNumber: 0
+        creator:
+          name: name
+          id: id
+        managingCPM: managingCPM
+        autoPurgeEnabled: true
+        creationTime: 5
+        lastModificationTime: 5
+        description: description
+        olacEnabled: true
+        numberOfDaysRetention: 1
+        numberOfVersionsRetention: 6
+        safeUrlId: safeUrlId
+        location: location
+        safeName: safeName
+      properties:
+        safeUrlId:
+          description: The name of the Safe to be used when calling Safe APIs.
+          type: string
+        safeName:
+          description: The name of the Safe.
+          type: string
+        safeNumber:
+          description: The unique numerical ID of the Safe.
+          format: int64
+          type: integer
+        description:
+          description: The description of the Safe.
+          type: string
+        location:
+          description: The location of the Safe in the Vault.
+          type: string
+        creator:
+          $ref: '#/components/schemas/SafeCreatorResponse'
+        olacEnabled:
+          description: Whether or not to enable Object Level Access Control for the
+            new Safe.
+          type: boolean
+        managingCPM:
+          description: The name of the CPM user who will manage the new Safe.
+          type: string
+        numberOfVersionsRetention:
+          description: The number of retained versions of every password that is stored
+            in the Safe.
+          format: int32
+          type: integer
+        numberOfDaysRetention:
+          description: The number of days that password versions are saved in the
+            Safe.
+          format: int32
+          type: integer
+        autoPurgeEnabled:
+          description: "Whether or not to automatically purge files after the end\
+            \ of the Object History Retention Period defined in the Safe properties.\r\
+            \nReports Safes and PSM Recording Safes are created automatically with\
+            \ AutoPurgeEnabled set to Yes.These Safes cannot be managed by the CPM."
+          type: boolean
+        creationTime:
+          description: Unix creation time of the Safe.
+          format: int64
+          type: integer
+        lastModificationTime:
+          description: Unix time when the Safe was last updated.
+          format: int64
+          type: integer
+      type: object
+    AddSafeRequest:
+      example:
+        Description: Description
+        OLACEnabled: true
+        SafeName: SafeName
+        NumberOfVersionsRetention: 602
+        NumberOfDaysRetention: 292
+        ManagingCPM: ManagingCPM
+        Location: Location
+      properties:
+        SafeName:
+          description: The name of the Safe.
+          type: string
+        Description:
+          description: The description of the Safe.
+          maxLength: 100
+          minLength: 0
+          type: string
+        Location:
+          description: The location of the Safe in the Vault.
+          type: string
+        NumberOfDaysRetention:
+          description: The number of days that password versions are saved in the
+            Safe.
+          format: int32
+          maximum: 3.65E+3
+          minimum: 0
+          type: integer
+        NumberOfVersionsRetention:
+          description: The number of retained versions of every password that is stored
+            in the Safe.
+          format: int32
+          maximum: 999
+          minimum: 0
+          type: integer
+        OLACEnabled:
+          description: Whether or not to enable Object Level Access Control for the
+            Safe.
+          type: boolean
+        ManagingCPM:
+          description: The name of the CPM user who will manage the Safe.
+          type: string
+      type: object
+    AddSafeResponse:
+      example:
+        safeNumber: 0
+        creator:
+          name: name
+          id: id
+        managingCPM: managingCPM
+        autoPurgeEnabled: true
+        creationTime: 5
+        lastModificationTime: 5
+        description: description
+        olacEnabled: true
+        numberOfDaysRetention: 1
+        numberOfVersionsRetention: 6
+        safeUrlId: safeUrlId
+        location: location
+        safeName: safeName
+      properties:
+        safeUrlId:
+          description: The name of the Safe to be used when calling Safe APIs.
+          type: string
+        safeName:
+          description: The name of the Safe.
+          type: string
+        safeNumber:
+          description: The unique numerical ID of the Safe.
+          format: int64
+          type: integer
+        description:
+          description: The description of the Safe.
+          type: string
+        location:
+          description: The location of the Safe in the Vault.
+          type: string
+        creator:
+          $ref: '#/components/schemas/SafeCreatorResponse'
+        olacEnabled:
+          description: Whether or not to enable Object Level Access Control for the
+            new Safe.
+          type: boolean
+        managingCPM:
+          description: The name of the CPM user who will manage the new Safe.
+          type: string
+        numberOfVersionsRetention:
+          description: The number of retained versions of every password that is stored
+            in the Safe.
+          format: int32
+          type: integer
+        numberOfDaysRetention:
+          description: The number of days that password versions are saved in the
+            Safe.
+          format: int32
+          type: integer
+        autoPurgeEnabled:
+          description: "Whether or not to automatically purge files after the end\
+            \ of the Object History Retention Period defined in the Safe properties.\r\
+            \nReports Safes and PSM Recording Safes are created automatically with\
+            \ AutoPurgeEnabled set to Yes.These Safes cannot be managed by the CPM."
+          type: boolean
+        creationTime:
+          description: Unix creation time of the Safe.
+          format: int64
+          type: integer
+        lastModificationTime:
+          description: Unix time when the Safe was last updated.
+          format: int64
+          type: integer
+      type: object
     SearchQS:
       properties:
         Search:
@@ -12190,9 +12514,9 @@ components:
         creator:
           name: name
           id: id
-        managingCPM: managingCPM
         autoPurgeEnabled: true
         creationTime: 5
+        managingCPM: managingCPM
         lastModificationTime: 5
         description: description
         olacEnabled: true
@@ -12208,21 +12532,10 @@ components:
         safeName: safeName
         isExpiredMember: true
       properties:
-        safeUrlId:
-          description: The unique ID of the Safe to be used when calling Safe APIs.
-          type: string
-        safeName:
-          description: The name of the Safe.
-          type: string
         safeNumber:
           description: The unique numerical ID of the Safe.
           format: int64
           type: integer
-        description:
-          description: The description of the Safe.
-          maxLength: 100
-          minLength: 0
-          type: string
         location:
           description: The location of the Safe in the Vault.
           type: string
@@ -12236,9 +12549,6 @@ components:
           description: Whether or not to enable Object Level Access Control for the
             new Safe.
           type: boolean
-        managingCPM:
-          description: The name of the CPM user who will manage the new Safe.
-          type: string
         numberOfVersionsRetention:
           description: The number of retained versions of every password that is stored
             in the Safe.
@@ -12267,6 +12577,20 @@ components:
           description: Unix time when the Safe was last updated.
           format: int64
           type: integer
+        safeUrlId:
+          description: The unique ID of the Safe to be used when calling Safe APIs.
+          type: string
+        safeName:
+          description: The name of the Safe.
+          type: string
+        description:
+          description: The description of the Safe.
+          maxLength: 100
+          minLength: 0
+          type: string
+        managingCPM:
+          description: The name of the CPM user who will manage the new Safe.
+          type: string
         isExpiredMember:
           description: Whether or not the membership for the Safe is expired.For expired
             member, the value will be True.
@@ -12296,114 +12620,215 @@ components:
           description: The name of the accounts that reside in this Safe.
           type: string
       type: object
-    AddSafeData:
-      example:
-        Description: Description
-        OLACEnabled: true
-        SafeName: SafeName
-        NumberOfVersionsRetention: 602
-        NumberOfDaysRetention: 292
-        ManagingCPM: ManagingCPM
-        Location: Location
+    GetSafeMemberRequest:
       properties:
-        NumberOfDaysRetention:
-          description: The number of days that password versions are saved in the
-            Safe.
-          format: int32
-          maximum: 3.65E+3
-          minimum: 0
-          type: integer
-        NumberOfVersionsRetention:
-          description: The number of retained versions of every password that is stored
-            in the Safe.
-          format: int32
-          maximum: 999
-          minimum: 0
-          type: integer
-        OLACEnabled:
-          description: Whether or not to enable Object Level Access Control for the
-            Safe.
+        useCache:
+          description: Whether to retrieve from session or not.
           type: boolean
-        ManagingCPM:
-          description: The name of the CPM user who will manage the Safe.
-          type: string
-        SafeName:
-          description: The name of the Safe.
-          type: string
-        Description:
-          description: The description of the Safe.
-          maxLength: 100
-          minLength: 0
-          type: string
-        Location:
-          description: The location of the Safe in the Vault.
-          type: string
       type: object
-    SafeItem:
+    GetSafeMemberResponse:
+      example:
+        safeNumber: 0
+        isExpiredMembershipEnable: true
+        isReadOnly: true
+        safeUrlId: safeUrlId
+        permissions:
+          key: true
+        memberName: memberName
+        isPredefinedUser: true
+        membershipExpirationDate: 1
+        memberType: memberType
+        safeName: safeName
+        memberId: 6
       properties:
         safeUrlId:
-          description: The unique ID of the Safe to be used when calling Safe APIs.
+          description: The name of the Safe to be used when calling Safe APIs.
           type: string
         safeName:
-          description: The name of the Safe.
+          description: The unique name of the Safe.
           type: string
         safeNumber:
           description: The unique numerical ID of the Safe.
           format: int64
           type: integer
-        description:
-          description: The description of the Safe.
-          maxLength: 100
-          minLength: 0
-          type: string
-        location:
-          description: The location of the Safe in the Vault.
-          type: string
-        creator:
-          $ref: '#/components/schemas/SafeCreator'
-        accounts:
-          items:
-            $ref: '#/components/schemas/AccountInSafe'
-          type: array
-        olacEnabled:
-          description: Whether or not to enable Object Level Access Control for the
-            new Safe.
-          type: boolean
-        managingCPM:
-          description: The name of the CPM user who will manage the new Safe.
-          type: string
-        numberOfVersionsRetention:
-          description: The number of retained versions of every password that is stored
-            in the Safe.
-          format: int32
-          maximum: 999
-          minimum: 0
-          type: integer
-        numberOfDaysRetention:
-          description: The number of days that password versions are saved in the
-            Safe.
-          format: int32
-          maximum: 3.65E+3
-          minimum: 0
-          type: integer
-        autoPurgeEnabled:
-          description: "Whether or not to automatically purge files after the end\
-            \ of the Object History Retention Period defined in the Safe properties.\r\
-            \nReports Safes and PSM Recording Safes are created automatically with\
-            \ AutoPurgeEnabled set to Yes.These Safes cannot be managed by the CPM."
-          type: boolean
-        creationTime:
-          description: Unix creation time of the Safe.
+        memberId:
+          description: The Vault user ID, Domain user ID, or group ID of the Safe
+            member.
           format: int64
           type: integer
-        lastModificationTime:
-          description: Unix time when the Safe was last updated.
+        memberName:
+          description: The Vault user name, Domain user name or group name of the
+            Safe member.
+          type: string
+        memberType:
+          description: "The member type.\r\nValid values: user\\group"
+          type: string
+        membershipExpirationDate:
+          description: "The member's expiration date for this Safe.\r\nFor members\
+            \ that do not have an expiration date, this value will be null."
           format: int64
           type: integer
-        isExpiredMember:
+        isExpiredMembershipEnable:
           description: Whether or not the membership for the Safe is expired.For expired
-            member, the value will be True.
+            members, the value will be True.
           type: boolean
+        isPredefinedUser:
+          description: Whether the member is a predefined user or group of the Vault.
+          type: boolean
+        isReadOnly:
+          description: Whether or not the current user can update the permissions
+            of the member
+          type: boolean
+        permissions:
+          additionalProperties:
+            type: boolean
+          description: "<p>The permissions that the user or group has in this Safe.</p>\r\
+            \n<p>\r\n  <B>useAccounts</B> - Use accounts but not view passwords.</p>\r\
+            \n<p>\r\n  <B>retrieveAccounts</B> - Retrieve and view accounts in the\
+            \ Safe.</p>\r\n<p>\r\n  <B>listAccounts</B> - View Accounts list.</p>\r\
+            \n<p>\r\n  <B>addAccounts</B> - Add accounts in the Safe. Users who have\
+            \ this permission automatically have UpdateAccountProperties as well.</p>\r\
+            \n<p>\r\n  <B>updateAccountContent</B> - Update existing account content.</p>\r\
+            \n<p>\r\n  <B>updateAccountProperties</B> - Update existing account properties.</p>\r\
+            \n<p>\r\n  <B>initiateCPMAccountManagementOperations</B> - Initiate password\
+            \ management operations through CPM, such as changing, verifying, and\
+            \ reconciling passwords. When this parameter is set to False, the SpecifyNextAccountContent\
+            \ parameter is also automatically set to False.</p>\r\n<p>\r\n  <B>specifyNextAccountContent</B>\
+            \ - Specify the password that is used when the CPM changes the password\
+            \ value. This parameter can only be specified when the InitiateCPMAccountManagementOperations\
+            \ parameter is set to True. When InitiateCPMAccountManagementOperations\
+            \ is set to False this parameter is automatically set to False.</p>\r\n\
+            <p>\r\n  <B>renameAccounts</B> - Rename existing accounts in the Safe.</p>\r\
+            \n<p>\r\n  <B>deleteAccounts</B> - Delete existing passwords in the Safe.</p>\r\
+            \n<p>\r\n  <B>unlockAccounts</B> - Unlock accounts that are locked by\
+            \ other users.</p>\r\n<p>\r\n  <B>manageSafe</B> - Perform administrative\
+            \ tasksin the Safe, including: Update Safe properties, Recover the Safe,\
+            \ Delete the Safe.</p>\r\n<p>\r\n  <B>manageSafeMembers</B> - Add and\
+            \ remove Safe members, and update their authorizations in the Safe.</p>\r\
+            \n<p>\r\n  <B>backupSafe</B> - Create a backup of a Safe and its contents,\
+            \ and store in another location.</p>\r\n<p>\r\n  <B>viewAuditLog</B> -\
+            \ View account and user activity in the Safe.</p>\r\n<p>\r\n  <B>viewSafeMembers</B>\
+            \ - View Safe member's permissions.</p>\r\n<p>\r\n  <B>requestsAuthorizationLevel1</B>\
+            \ - Request Authorization Level 1.</p>\r\n<p>\r\n  <B>requestsAuthorizationLevel2</B>\
+            \ - Request Authorization Level 2.</p>\r\n<p>\r\n  <B>accessWithoutConfirmation</B>\
+            \ - Access the Safe without confirmation from authorized users. This overrides\
+            \ the Safe properties that specify that Safe members require confirmation\
+            \ to access the Safe.</p>\r\n<p>\r\n  <B>createFolders</B> - Create folders\
+            \ in the Safe.</p>\r\n<p>\r\n  <B>deleteFolders</B> - Delete folders from\
+            \ the Safe.</p>\r\n<p>\r\n  <B>moveAccountsAndFolders</B> - Move accounts\
+            \ and folders in the Safe to different folders and subfolders.</p>"
+          type: object
+      type: object
+    UpdateSafeMemberRequestUrl:
+      type: object
+    UpdateSafeMemberRequestBody:
+      example:
+        MembershipExpirationDate: 0
+        Permissions:
+          key: true
+      properties:
+        MembershipExpirationDate:
+          format: int64
+          type: integer
+        Permissions:
+          additionalProperties:
+            type: boolean
+          type: object
+      required:
+      - Permissions
+      type: object
+    UpdateSafeMemberResponse:
+      example:
+        safeNumber: 0
+        isExpiredMembershipEnable: true
+        isReadOnly: true
+        safeUrlId: safeUrlId
+        permissions:
+          key: true
+        memberName: memberName
+        isPredefinedUser: true
+        membershipExpirationDate: 1
+        memberType: memberType
+        safeName: safeName
+        memberId: 6
+      properties:
+        safeUrlId:
+          description: The name of the Safe to be used when calling Safe APIs.
+          type: string
+        safeName:
+          description: The unique name of the Safe.
+          type: string
+        safeNumber:
+          description: The unique numerical ID of the Safe.
+          format: int64
+          type: integer
+        memberId:
+          description: The Vault user ID, Domain user ID, or group ID of the Safe
+            member.
+          format: int64
+          type: integer
+        memberName:
+          description: The Vault user name, Domain user name or group name of the
+            Safe member.
+          type: string
+        memberType:
+          description: "The member type.\r\nValid values: user\\group"
+          type: string
+        membershipExpirationDate:
+          description: "The member's expiration date for this Safe.\r\nFor members\
+            \ that do not have an expiration date, this value will be null."
+          format: int64
+          type: integer
+        isExpiredMembershipEnable:
+          description: Whether or not the membership for the Safe is expired.For expired
+            members, the value will be True.
+          type: boolean
+        isPredefinedUser:
+          description: Whether the member is a predefined user or group of the Vault.
+          type: boolean
+        isReadOnly:
+          description: Whether or not the current user can update the permissions
+            of the member
+          type: boolean
+        permissions:
+          additionalProperties:
+            type: boolean
+          description: "<p>The permissions that the user or group has in this Safe.</p>\r\
+            \n<p>\r\n  <B>useAccounts</B> - Use accounts but not view passwords.</p>\r\
+            \n<p>\r\n  <B>retrieveAccounts</B> - Retrieve and view accounts in the\
+            \ Safe.</p>\r\n<p>\r\n  <B>listAccounts</B> - View Accounts list.</p>\r\
+            \n<p>\r\n  <B>addAccounts</B> - Add accounts in the Safe. Users who have\
+            \ this permission automatically have UpdateAccountProperties as well.</p>\r\
+            \n<p>\r\n  <B>updateAccountContent</B> - Update existing account content.</p>\r\
+            \n<p>\r\n  <B>updateAccountProperties</B> - Update existing account properties.</p>\r\
+            \n<p>\r\n  <B>initiateCPMAccountManagementOperations</B> - Initiate password\
+            \ management operations through CPM, such as changing, verifying, and\
+            \ reconciling passwords. When this parameter is set to False, the SpecifyNextAccountContent\
+            \ parameter is also automatically set to False.</p>\r\n<p>\r\n  <B>specifyNextAccountContent</B>\
+            \ - Specify the password that is used when the CPM changes the password\
+            \ value. This parameter can only be specified when the InitiateCPMAccountManagementOperations\
+            \ parameter is set to True. When InitiateCPMAccountManagementOperations\
+            \ is set to False this parameter is automatically set to False.</p>\r\n\
+            <p>\r\n  <B>renameAccounts</B> - Rename existing accounts in the Safe.</p>\r\
+            \n<p>\r\n  <B>deleteAccounts</B> - Delete existing passwords in the Safe.</p>\r\
+            \n<p>\r\n  <B>unlockAccounts</B> - Unlock accounts that are locked by\
+            \ other users.</p>\r\n<p>\r\n  <B>manageSafe</B> - Perform administrative\
+            \ tasksin the Safe, including: Update Safe properties, Recover the Safe,\
+            \ Delete the Safe.</p>\r\n<p>\r\n  <B>manageSafeMembers</B> - Add and\
+            \ remove Safe members, and update their authorizations in the Safe.</p>\r\
+            \n<p>\r\n  <B>backupSafe</B> - Create a backup of a Safe and its contents,\
+            \ and store in another location.</p>\r\n<p>\r\n  <B>viewAuditLog</B> -\
+            \ View account and user activity in the Safe.</p>\r\n<p>\r\n  <B>viewSafeMembers</B>\
+            \ - View Safe member's permissions.</p>\r\n<p>\r\n  <B>requestsAuthorizationLevel1</B>\
+            \ - Request Authorization Level 1.</p>\r\n<p>\r\n  <B>requestsAuthorizationLevel2</B>\
+            \ - Request Authorization Level 2.</p>\r\n<p>\r\n  <B>accessWithoutConfirmation</B>\
+            \ - Access the Safe without confirmation from authorized users. This overrides\
+            \ the Safe properties that specify that Safe members require confirmation\
+            \ to access the Safe.</p>\r\n<p>\r\n  <B>createFolders</B> - Create folders\
+            \ in the Safe.</p>\r\n<p>\r\n  <B>deleteFolders</B> - Delete folders from\
+            \ the Safe.</p>\r\n<p>\r\n  <B>moveAccountsAndFolders</B> - Move accounts\
+            \ and folders in the Safe to different folders and subfolders.</p>"
+          type: object
       type: object
     SafeMembersFilter:
       properties:
@@ -12419,6 +12844,7 @@ components:
       example:
         safeNumber: 0
         isExpiredMembershipEnable: true
+        isReadOnly: true
         safeUrlId: safeUrlId
         permissions:
           key: true
@@ -12462,12 +12888,18 @@ components:
         isPredefinedUser:
           description: Whether the member is a vault built-in user or group.
           type: boolean
+        isReadOnly:
+          description: Whether or not the current user can update the permissions
+            of the member
+          type: boolean
         permissions:
           additionalProperties:
             type: boolean
           type: object
       type: object
-    SafeMemberItem:
+    AddSafeMemberRequestUrl:
+      type: object
+    AddSafeMemberRequestBody:
       example:
         MembershipExpirationDate: 0
         Permissions:
@@ -12483,11 +12915,70 @@ components:
           description: The Vault or Domain where the user or group was found.
           type: string
         MembershipExpirationDate:
+          format: int64
+          type: integer
+        Permissions:
+          additionalProperties:
+            type: boolean
+          type: object
+      required:
+      - MemberName
+      - Permissions
+      type: object
+    AddSafeMemberResponse:
+      example:
+        safeNumber: 0
+        isExpiredMembershipEnable: true
+        isReadOnly: true
+        safeUrlId: safeUrlId
+        permissions:
+          key: true
+        memberName: memberName
+        isPredefinedUser: true
+        membershipExpirationDate: 1
+        memberType: memberType
+        safeName: safeName
+        memberId: 6
+      properties:
+        safeUrlId:
+          description: The name of the Safe to be used when calling Safe APIs.
+          type: string
+        safeName:
+          description: The unique name of the Safe.
+          type: string
+        safeNumber:
+          description: The unique numerical ID of the Safe.
+          format: int64
+          type: integer
+        memberId:
+          description: The Vault user ID, Domain user ID, or group ID of the Safe
+            member.
+          format: int64
+          type: integer
+        memberName:
+          description: The Vault user name, Domain user name or group name of the
+            Safe member.
+          type: string
+        memberType:
+          description: "The member type.\r\nValid values: user\\group"
+          type: string
+        membershipExpirationDate:
           description: "The member's expiration date for this Safe.\r\nFor members\
             \ that do not have an expiration date, this value will be null."
           format: int64
           type: integer
-        Permissions:
+        isExpiredMembershipEnable:
+          description: Whether or not the membership for the Safe is expired.For expired
+            members, the value will be True.
+          type: boolean
+        isPredefinedUser:
+          description: Whether the member is a predefined user or group of the Vault.
+          type: boolean
+        isReadOnly:
+          description: Whether or not the current user can update the permissions
+            of the member
+          type: boolean
+        permissions:
           additionalProperties:
             type: boolean
           description: "<p>The permissions that the user or group has in this Safe.</p>\r\
@@ -12526,9 +13017,6 @@ components:
             \ the Safe.</p>\r\n<p>\r\n  <B>moveAccountsAndFolders</B> - Move accounts\
             \ and folders in the Safe to different folders and subfolders.</p>"
           type: object
-      required:
-      - MemberName
-      - Permissions
       type: object
     FilterQS:
       properties:
@@ -12695,6 +13183,9 @@ components:
       type: object
     UsersFilters:
       properties:
+        userName:
+          description: The name of the user.
+          type: string
         userType:
           description: The type of the user.
           type: string
@@ -13354,6 +13845,15 @@ components:
           - 5
           format: int32
           type: integer
+      type: object
+    BaseUsersFilters:
+      properties:
+        userType:
+          description: The type of the user.
+          type: string
+        componentUser:
+          description: Whether the user is a known component or not.
+          type: boolean
       type: object
     AccountModelv1_accounts:
       example:

@@ -16,6 +16,7 @@ import (
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
 	_neturl "net/url"
+	"reflect"
 	"strings"
 )
 
@@ -40,8 +41,12 @@ func (r ApiUsersActivateUserRequest) Execute() (*_nethttp.Response, error) {
 /*
 UsersActivateUser Method for UsersActivateUser
 
+This method activates an existing Vault user who was suspended after reaching the maximum number of violations.
+To run this web service, the user must have the Audit users and Activate Users permissions in the Vault.
+To activate a user, the user must be associated with only one network area.
+
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userID
+ @param userID The ID of the user to activate.
  @return ApiUsersActivateUserRequest
 */
 func (a *UsersApiService) UsersActivateUser(ctx _context.Context, userID string) ApiUsersActivateUserRequest {
@@ -126,6 +131,7 @@ type ApiUsersAddUserSSHKeyRequest struct {
 	sshKeyToAdd *AddUserSSHKeyModel
 }
 
+// The ssh key to add to the user
 func (r ApiUsersAddUserSSHKeyRequest) SshKeyToAdd(sshKeyToAdd AddUserSSHKeyModel) ApiUsersAddUserSSHKeyRequest {
 	r.sshKeyToAdd = &sshKeyToAdd
 	return r
@@ -138,8 +144,12 @@ func (r ApiUsersAddUserSSHKeyRequest) Execute() (PublicSSHKeyModel, *_nethttp.Re
 /*
 UsersAddUserSSHKey Method for UsersAddUserSSHKey
 
+This method adds an ssh public key to the vault for the user id
+
+To run this web service, the user must have the Audit users permissions in the Vault.
+
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userID
+ @param userID The ID of the user to add the ssh key to.
  @return ApiUsersAddUserSSHKeyRequest
 */
 func (a *UsersApiService) UsersAddUserSSHKey(ctx _context.Context, userID string) ApiUsersAddUserSSHKeyRequest {
@@ -251,6 +261,10 @@ func (r ApiUsersCreateUserRequest) Execute() (User, *_nethttp.Response, error) {
 /*
 UsersCreateUser Method for UsersCreateUser
 
+This method adds a new user to the Vault.
+
+To run this web service, the user must have the Add/Update Users authorization in the Vault.
+
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiUsersCreateUserRequest
 */
@@ -356,8 +370,12 @@ func (r ApiUsersDeleteUserRequest) Execute() (*_nethttp.Response, error) {
 /*
 UsersDeleteUser Method for UsersDeleteUser
 
+This method deletes information about a specific User in the Vault.
+
+To run this web service, the user must have the AddUpdate users permissions in the Vault.
+
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userID
+ @param userID The ID of the User to delete.
  @return ApiUsersDeleteUserRequest
 */
 func (a *UsersApiService) UsersDeleteUser(ctx _context.Context, userID string) ApiUsersDeleteUserRequest {
@@ -442,6 +460,7 @@ type ApiUsersDeleteUserSSHKeyRequest struct {
 	sshKeyToDel *DeleteUserSSHKeyModel
 }
 
+// The SSH Key fingerprint to delete
 func (r ApiUsersDeleteUserSSHKeyRequest) SshKeyToDel(sshKeyToDel DeleteUserSSHKeyModel) ApiUsersDeleteUserSSHKeyRequest {
 	r.sshKeyToDel = &sshKeyToDel
 	return r
@@ -454,8 +473,12 @@ func (r ApiUsersDeleteUserSSHKeyRequest) Execute() (*_nethttp.Response, error) {
 /*
 UsersDeleteUserSSHKey Method for UsersDeleteUserSSHKey
 
+This method deletes an ssh public key on the vault for the user id
+
+To run this web service, the user must have the Audit users permissions in the Vault.
+
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userID
+ @param userID The ID of the user to delete the public ssh key from.
  @return ApiUsersDeleteUserSSHKeyRequest
 */
 func (a *UsersApiService) UsersDeleteUserSSHKey(ctx _context.Context, userID string) ApiUsersDeleteUserSSHKeyRequest {
@@ -570,6 +593,10 @@ func (r ApiUsersDestroyAllUsersCachedSSHKeyRequest) Execute() (*_nethttp.Respons
 /*
 UsersDestroyAllUsersCachedSSHKey Method for UsersDestroyAllUsersCachedSSHKey
 
+This method deletes all the cached ssh public key for all the users with the given filters
+
+To run this web service, the user must have the Audit users permissions in the Vault.
+
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiUsersDestroyAllUsersCachedSSHKeyRequest
 */
@@ -667,6 +694,10 @@ func (r ApiUsersDestroyCurrentUserCachedSSHKeyRequest) Execute() (*_nethttp.Resp
 /*
 UsersDestroyCurrentUserCachedSSHKey Method for UsersDestroyCurrentUserCachedSSHKey
 
+This method deletes the cached ssh public key for the logged user from the vault
+
+To run this web service, the user must only be authenticated to the vault
+
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiUsersDestroyCurrentUserCachedSSHKeyRequest
 */
@@ -756,8 +787,12 @@ func (r ApiUsersDestroyUserCachedSSHKeyRequest) Execute() (*_nethttp.Response, e
 /*
 UsersDestroyUserCachedSSHKey Method for UsersDestroyUserCachedSSHKey
 
+This method deletes the cached ssh public key for the given user id from the vault
+
+To run this web service, the user must have the Audit users permissions in the Vault.
+
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userID
+ @param userID The ID of the User for which the cached ssh key will be destroyed.
  @return ApiUsersDestroyUserCachedSSHKeyRequest
 */
 func (a *UsersApiService) UsersDestroyUserCachedSSHKey(ctx _context.Context, userID string) ApiUsersDestroyUserCachedSSHKeyRequest {
@@ -854,8 +889,12 @@ func (r ApiUsersEditUserRequest) Execute() (User, *_nethttp.Response, error) {
 /*
 UsersEditUser Method for UsersEditUser
 
+This method edit an existing user.
+To run this web service, the user must have the Add/Update Users authorization in the Vault.
+In order to Edit "changePasswordOnTheNextLogon" the user must have the Reset Password authorization in the Vault.
+
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userID
+ @param userID The ID of the user to update.
  @return ApiUsersEditUserRequest
 */
 func (a *UsersApiService) UsersEditUser(ctx _context.Context, userID string) ApiUsersEditUserRequest {
@@ -955,6 +994,7 @@ type ApiUsersGenerateCurrentUserCachedSSHKeyRequest struct {
 	genModel   *GenerateUserCachedSSHKeyModel
 }
 
+// The information as to how to format and output the generated ssh key
 func (r ApiUsersGenerateCurrentUserCachedSSHKeyRequest) GenModel(genModel GenerateUserCachedSSHKeyModel) ApiUsersGenerateCurrentUserCachedSSHKeyRequest {
 	r.genModel = &genModel
 	return r
@@ -966,6 +1006,10 @@ func (r ApiUsersGenerateCurrentUserCachedSSHKeyRequest) Execute() (GenerateUserC
 
 /*
 UsersGenerateCurrentUserCachedSSHKey Method for UsersGenerateCurrentUserCachedSSHKey
+
+This method generates a cached ssh public key for the logged user and stores it on the vault
+
+To run this web service, the user must only be authenticated to the vault
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiUsersGenerateCurrentUserCachedSSHKeyRequest
@@ -1066,6 +1110,7 @@ type ApiUsersGenerateUserCachedSSHKeyRequest struct {
 	genModel   *GenerateUserCachedSSHKeyModel
 }
 
+// The information as to how to format and output the generated ssh key
 func (r ApiUsersGenerateUserCachedSSHKeyRequest) GenModel(genModel GenerateUserCachedSSHKeyModel) ApiUsersGenerateUserCachedSSHKeyRequest {
 	r.genModel = &genModel
 	return r
@@ -1078,8 +1123,12 @@ func (r ApiUsersGenerateUserCachedSSHKeyRequest) Execute() (GenerateUserCachedSS
 /*
 UsersGenerateUserCachedSSHKey Method for UsersGenerateUserCachedSSHKey
 
+This method generates a cached ssh public key a given user and stores it on the vault
+
+To run this web service, the user must have the Audit users permissions in the Vault.
+
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userID
+ @param userID The ID of the User for which the key will be generated
  @return ApiUsersGenerateUserCachedSSHKeyRequest
 */
 func (a *UsersApiService) UsersGenerateUserCachedSSHKey(ctx _context.Context, userID string) ApiUsersGenerateUserCachedSSHKeyRequest {
@@ -1186,8 +1235,12 @@ func (r ApiUsersGetUserDetailsRequest) Execute() (User, *_nethttp.Response, erro
 /*
 UsersGetUserDetails Method for UsersGetUserDetails
 
+This method returns information about a specific User in the Vault.
+
+To run this web service, the user must have the Audit users permissions in the Vault.
+
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userID
+ @param userID The ID of the User for which information is returned.
  @return ApiUsersGetUserDetailsRequest
 */
 func (a *UsersApiService) UsersGetUserDetails(ctx _context.Context, userID string) ApiUsersGetUserDetailsRequest {
@@ -1296,8 +1349,12 @@ func (r ApiUsersGetUserSSHKeysRequest) Execute() (GetUserSSHKeysResponse, *_neth
 /*
 UsersGetUserSSHKeys Method for UsersGetUserSSHKeys
 
+This method gets the ssh public keys stored in the vault for the user
+
+To run this web service, the user must have reset users password permissions.
+
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userID
+ @param userID The ID of the user for which public ssh keys are returned.
  @return ApiUsersGetUserSSHKeysRequest
 */
 func (a *UsersApiService) UsersGetUserSSHKeys(ctx _context.Context, userID string) ApiUsersGetUserSSHKeysRequest {
@@ -1394,16 +1451,29 @@ type ApiUsersGetUsersRequest struct {
 	ApiService      *UsersApiService
 	extendedDetails *bool
 	search          *string
+	sort            *[]string
+	userName        *string
 	userType        *string
 	componentUser   *bool
 }
 
+// returns users group membership if true
 func (r ApiUsersGetUsersRequest) ExtendedDetails(extendedDetails bool) ApiUsersGetUsersRequest {
 	r.extendedDetails = &extendedDetails
 	return r
 }
 func (r ApiUsersGetUsersRequest) Search(search string) ApiUsersGetUsersRequest {
 	r.search = &search
+	return r
+}
+func (r ApiUsersGetUsersRequest) Sort(sort []string) ApiUsersGetUsersRequest {
+	r.sort = &sort
+	return r
+}
+
+// The name of the user.
+func (r ApiUsersGetUsersRequest) UserName(userName string) ApiUsersGetUsersRequest {
+	r.userName = &userName
 	return r
 }
 
@@ -1425,6 +1495,16 @@ func (r ApiUsersGetUsersRequest) Execute() ([]BaseUser, *_nethttp.Response, erro
 
 /*
 UsersGetUsers Method for UsersGetUsers
+
+This method will return a list of all existing users in the Vault except of the Master and the Batch built-in users.
+
+To run this web service, the user must have the Audit users permissions in the Vault.
+
+The user who runs this web service can see users only on the same location or lower in the Vault hierarchy.
+
+The HideVaultUsersTree  parameter in the dbparam.ini determines the users that are displayed.If HideVaultUsersTree is set to No, all users will be returned (not only those in the same level or lower in the Vault hierarchy). If this parameter is set to Yes, only auditors and managers will be allowed to get all users.
+
+Note: We currently support returning up to X users in up to Y minutes. If the amount of users is above that number, the REST request might take longer
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiUsersGetUsersRequest
@@ -1464,6 +1544,20 @@ func (a *UsersApiService) UsersGetUsersExecute(r ApiUsersGetUsersRequest) ([]Bas
 	}
 	if r.search != nil {
 		localVarQueryParams.Add("search", parameterToString(*r.search, ""))
+	}
+	if r.sort != nil {
+		t := *r.sort
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				localVarQueryParams.Add("sort", parameterToString(s.Index(i), "multi"))
+			}
+		} else {
+			localVarQueryParams.Add("sort", parameterToString(t, "multi"))
+		}
+	}
+	if r.userName != nil {
+		localVarQueryParams.Add("userName", parameterToString(*r.userName, ""))
 	}
 	if r.userType != nil {
 		localVarQueryParams.Add("userType", parameterToString(*r.userType, ""))
@@ -1544,8 +1638,12 @@ func (r ApiUsersResetUserPasswordRequest) Execute() (*_nethttp.Response, error) 
 /*
 UsersResetUserPassword Method for UsersResetUserPassword
 
+This method resets an existing Vault user's password.
+To run this web service, the user must have the Audit users and Reset Users' Passwords permissions in the Vault.
+In addition, the user who runs this web service must be in the same Vault Location or higher as the user whose password is being reset.
+
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param userID
+ @param userID The ID of the user whose password will be reset.
  @return ApiUsersResetUserPasswordRequest
 */
 func (a *UsersApiService) UsersResetUserPassword(ctx _context.Context, userID string) ApiUsersResetUserPasswordRequest {

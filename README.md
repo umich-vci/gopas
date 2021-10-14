@@ -89,6 +89,7 @@ Class | Method | HTTP request | Description
 *AccountsApi* | [**AccountsCPMSetNext**](docs/AccountsApi.md#accountscpmsetnext) | **Post** /api/Accounts/{accountId}/SetNextPassword | 
 *AccountsApi* | [**AccountsChangeCredentialsInTheVault**](docs/AccountsApi.md#accountschangecredentialsinthevault) | **Post** /api/Accounts/{accountId}/Password/Update | 
 *AccountsApi* | [**AccountsCheckIn**](docs/AccountsApi.md#accountscheckin) | **Post** /api/Accounts/{accountId}/CheckIn | 
+*AccountsApi* | [**AccountsClearAccount**](docs/AccountsApi.md#accountsclearaccount) | **Delete** /api/Accounts/{accountId}/LinkAccount/{extraPasswordIndex} | 
 *AccountsApi* | [**AccountsDeleteAccount**](docs/AccountsApi.md#accountsdeleteaccount) | **Delete** /api/Accounts/{id} | 
 *AccountsApi* | [**AccountsDownload**](docs/AccountsApi.md#accountsdownload) | **Post** /api/Accounts/{accountId}/Secret/Retrieve | 
 *AccountsApi* | [**AccountsGeneratePassword**](docs/AccountsApi.md#accountsgeneratepassword) | **Post** /api/Accounts/{accountId}/Secret/Generate | 
@@ -198,11 +199,16 @@ Class | Method | HTTP request | Description
 *RecordingsApi* | [**RecordingsGetRecordings**](docs/RecordingsApi.md#recordingsgetrecordings) | **Get** /api/Recordings | 
 *RecordingsApi* | [**RecordingsPlayRecording**](docs/RecordingsApi.md#recordingsplayrecording) | **Post** /api/Recordings/{recordingId}/Play | 
 *SafesApi* | [**SafesAddSafe**](docs/SafesApi.md#safesaddsafe) | **Post** /api/Safes | 
-*SafesApi* | [**SafesAddSafeOwner**](docs/SafesApi.md#safesaddsafeowner) | **Post** /api/Safes/{safeUrlId}/members | 
-*SafesApi* | [**SafesDeleteSafeDetails**](docs/SafesApi.md#safesdeletesafedetails) | **Delete** /api/Safes/{safeUrlId} | 
+*SafesApi* | [**SafesAddSafeMember**](docs/SafesApi.md#safesaddsafemember) | **Post** /api/Safes/{safeUrlId}/members | 
+*SafesApi* | [**SafesDeleteSafe**](docs/SafesApi.md#safesdeletesafe) | **Delete** /api/Safes/{safeUrlId} | 
+*SafesApi* | [**SafesDeleteSafeMember**](docs/SafesApi.md#safesdeletesafemember) | **Delete** /api/Safes/{safeUrlId}/members/{memberName} | 
 *SafesApi* | [**SafesGetGroups**](docs/SafesApi.md#safesgetgroups) | **Get** /api/Safes/{safeName}/accountgroups | 
+*SafesApi* | [**SafesGetSafeDetails**](docs/SafesApi.md#safesgetsafedetails) | **Get** /api/Safes/{safeUrlId} | 
+*SafesApi* | [**SafesGetSafeMember**](docs/SafesApi.md#safesgetsafemember) | **Get** /api/Safes/{safeUrlId}/members/{memberName} | 
 *SafesApi* | [**SafesGetSafeMembers**](docs/SafesApi.md#safesgetsafemembers) | **Get** /api/Safes/{safeUrlId}/members | 
 *SafesApi* | [**SafesGetSafes**](docs/SafesApi.md#safesgetsafes) | **Get** /api/Safes | 
+*SafesApi* | [**SafesUpdateSafe**](docs/SafesApi.md#safesupdatesafe) | **Put** /api/Safes/{safeUrlId} | 
+*SafesApi* | [**SafesUpdateSafeMember**](docs/SafesApi.md#safesupdatesafemember) | **Put** /api/Safes/{safeUrlId}/members/{memberName} | 
 *UserGroupsApi* | [**UserGroupsAddMemberToGroup**](docs/UserGroupsApi.md#usergroupsaddmembertogroup) | **Post** /api/UserGroups/{groupId}/Members | 
 *UserGroupsApi* | [**UserGroupsCreateUserGroup**](docs/UserGroupsApi.md#usergroupscreateusergroup) | **Post** /api/UserGroups | 
 *UserGroupsApi* | [**UserGroupsDeleteUserGroup**](docs/UserGroupsApi.md#usergroupsdeleteusergroup) | **Delete** /api/UserGroups/{groupId} | 
@@ -228,12 +234,13 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
- - [A2j](docs/A2j.md)
+ - [A4b](docs/A4b.md)
  - [Account](docs/Account.md)
  - [AccountContentPrerequsites](docs/AccountContentPrerequsites.md)
  - [AccountGroup](docs/AccountGroup.md)
  - [AccountGroupMember](docs/AccountGroupMember.md)
  - [AccountInSafe](docs/AccountInSafe.md)
+ - [AccountInSafeResponse](docs/AccountInSafeResponse.md)
  - [AccountModel](docs/AccountModel.md)
  - [AccountModelv1](docs/AccountModelv1.md)
  - [AccountModelv1Accounts](docs/AccountModelv1Accounts.md)
@@ -241,7 +248,10 @@ Class | Method | HTTP request | Description
  - [AdHocConnectionData](docs/AdHocConnectionData.md)
  - [AddAccountGroupData](docs/AddAccountGroupData.md)
  - [AddMemberToAccountGroup](docs/AddMemberToAccountGroup.md)
- - [AddSafeData](docs/AddSafeData.md)
+ - [AddSafeMemberRequestBody](docs/AddSafeMemberRequestBody.md)
+ - [AddSafeMemberResponse](docs/AddSafeMemberResponse.md)
+ - [AddSafeRequest](docs/AddSafeRequest.md)
+ - [AddSafeResponse](docs/AddSafeResponse.md)
  - [AddUserSSHKeyModel](docs/AddUserSSHKeyModel.md)
  - [AllowedReferrerDto](docs/AllowedReferrerDto.md)
  - [AuthenticationMethod](docs/AuthenticationMethod.md)
@@ -253,6 +263,7 @@ Class | Method | HTTP request | Description
  - [BaseUser](docs/BaseUser.md)
  - [BaseUserGroup](docs/BaseUserGroup.md)
  - [BaseUserPersonalDetails](docs/BaseUserPersonalDetails.md)
+ - [BaseUsersFilters](docs/BaseUsersFilters.md)
  - [BulkAccountModel](docs/BulkAccountModel.md)
  - [BulkAccountsList](docs/BulkAccountsList.md)
  - [BulkAccountsModel](docs/BulkAccountsModel.md)
@@ -296,6 +307,10 @@ Class | Method | HTTP request | Description
  - [GetDiscoveredDependency](docs/GetDiscoveredDependency.md)
  - [GetPlatformsRequest](docs/GetPlatformsRequest.md)
  - [GetPlatformsRequestBase](docs/GetPlatformsRequestBase.md)
+ - [GetSafeDetailsRequest](docs/GetSafeDetailsRequest.md)
+ - [GetSafeDetailsResponse](docs/GetSafeDetailsResponse.md)
+ - [GetSafeMemberRequest](docs/GetSafeMemberRequest.md)
+ - [GetSafeMemberResponse](docs/GetSafeMemberResponse.md)
  - [GetSafesByPlatformRequest](docs/GetSafesByPlatformRequest.md)
  - [GetSafesParams](docs/GetSafesParams.md)
  - [GetTargetPlatformsRequest](docs/GetTargetPlatformsRequest.md)
@@ -313,6 +328,7 @@ Class | Method | HTTP request | Description
  - [ImportPlatformResponse](docs/ImportPlatformResponse.md)
  - [Incident](docs/Incident.md)
  - [IncomingRequest](docs/IncomingRequest.md)
+ - [JsonPatchDocumentAccountModel](docs/JsonPatchDocumentAccountModel.md)
  - [KeyValuePair](docs/KeyValuePair.md)
  - [LDAPDirectory](docs/LDAPDirectory.md)
  - [LDAPDirectoryBase](docs/LDAPDirectoryBase.md)
@@ -335,7 +351,6 @@ Class | Method | HTTP request | Description
  - [PSMConnector](docs/PSMConnector.md)
  - [PSMServer](docs/PSMServer.md)
  - [PTAData](docs/PTAData.md)
- - [PVFileVersion](docs/PVFileVersion.md)
  - [PageQS](docs/PageQS.md)
  - [Platform](docs/Platform.md)
  - [PlatformListModel](docs/PlatformListModel.md)
@@ -356,9 +371,8 @@ Class | Method | HTTP request | Description
  - [RotationalGroupPlatform](docs/RotationalGroupPlatform.md)
  - [RuleFiltersQS](docs/RuleFiltersQS.md)
  - [SafeCreator](docs/SafeCreator.md)
- - [SafeItem](docs/SafeItem.md)
+ - [SafeCreatorResponse](docs/SafeCreatorResponse.md)
  - [SafeListItem](docs/SafeListItem.md)
- - [SafeMemberItem](docs/SafeMemberItem.md)
  - [SafeMemberResponse](docs/SafeMemberResponse.md)
  - [SafeMembersFilter](docs/SafeMembersFilter.md)
  - [SearchQS](docs/SearchQS.md)
@@ -372,6 +386,10 @@ Class | Method | HTTP request | Description
  - [TargetPlatform](docs/TargetPlatform.md)
  - [TaskRole](docs/TaskRole.md)
  - [TicketingSystem](docs/TicketingSystem.md)
+ - [UpdateSafeMemberRequestBody](docs/UpdateSafeMemberRequestBody.md)
+ - [UpdateSafeMemberResponse](docs/UpdateSafeMemberResponse.md)
+ - [UpdateSafeRequestBody](docs/UpdateSafeRequestBody.md)
+ - [UpdateSafeResponse](docs/UpdateSafeResponse.md)
  - [User](docs/User.md)
  - [UserBusinessAddress](docs/UserBusinessAddress.md)
  - [UserGroup](docs/UserGroup.md)
@@ -379,7 +397,7 @@ Class | Method | HTTP request | Description
  - [UserPersonalDetails](docs/UserPersonalDetails.md)
  - [UserPhone](docs/UserPhone.md)
  - [UsersFilters](docs/UsersFilters.md)
- - [VaultFileStream](docs/VaultFileStream.md)
+ - [VersionData](docs/VersionData.md)
  - [WorkflowPolicy](docs/WorkflowPolicy.md)
 
 

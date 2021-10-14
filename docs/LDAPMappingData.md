@@ -17,9 +17,9 @@ Name | Type | Description | Notes
 **LogonToHour** | Pointer to **int32** | Read-only - Whether users in the current mapping can log on to the Vault only up to specific hours. | [optional] 
 **MappingID** | Pointer to **int64** | Read-only - Unique ID of the directory mapping | [optional] 
 **DirectoryMappingOrder** | Pointer to **int32** | The order in which the maps are matched with users and groups   from the External Directory when they are created in the Vault.  This field is read only. | [optional] 
-**MappingName** | **string** | The name of the PAS role.  For example: Vault Admins, Safe Managers. | 
-**LDAPQuery** | Pointer to **string** | LDAP users that the filter applies to them are assigned to relevant roles in the PAS system. | [optional] 
-**DomainGroups** | Pointer to **[]string** | Users who belong to these LDAP groups are assigned to relevant roles in the PAS system.  Note: This field is required if the VaultGroups field was sent. | [optional] 
+**MappingName** | **string** | The name of the role.  For example: Vault Admins, Safe Managers. | 
+**LDAPQuery** | Pointer to **string** | LDAP users that the filter applies to them are assigned to relevant roles in the system. | [optional] 
+**DomainGroups** | Pointer to **[]string** | Users who belong to these LDAP groups are assigned to relevant roles in the system.  Note: This field is required if the VaultGroups field was sent. | [optional] 
 
 ## Methods
 

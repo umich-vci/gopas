@@ -16,22 +16,14 @@ import (
 
 // SafeListItem struct for SafeListItem
 type SafeListItem struct {
-	// The unique ID of the Safe to be used when calling Safe APIs.
-	SafeUrlId *string `json:"safeUrlId,omitempty"`
-	// The name of the Safe.
-	SafeName *string `json:"safeName,omitempty"`
 	// The unique numerical ID of the Safe.
 	SafeNumber *int64 `json:"safeNumber,omitempty"`
-	// The description of the Safe.
-	Description *string `json:"description,omitempty"`
 	// The location of the Safe in the Vault.
 	Location *string          `json:"location,omitempty"`
 	Creator  *SafeCreator     `json:"creator,omitempty"`
 	Accounts *[]AccountInSafe `json:"accounts,omitempty"`
 	// Whether or not to enable Object Level Access Control for the new Safe.
 	OlacEnabled *bool `json:"olacEnabled,omitempty"`
-	// The name of the CPM user who will manage the new Safe.
-	ManagingCPM *string `json:"managingCPM,omitempty"`
 	// The number of retained versions of every password that is stored in the Safe.
 	NumberOfVersionsRetention *int32 `json:"numberOfVersionsRetention,omitempty"`
 	// The number of days that password versions are saved in the Safe.
@@ -42,6 +34,14 @@ type SafeListItem struct {
 	CreationTime *int64 `json:"creationTime,omitempty"`
 	// Unix time when the Safe was last updated.
 	LastModificationTime *int64 `json:"lastModificationTime,omitempty"`
+	// The unique ID of the Safe to be used when calling Safe APIs.
+	SafeUrlId *string `json:"safeUrlId,omitempty"`
+	// The name of the Safe.
+	SafeName *string `json:"safeName,omitempty"`
+	// The description of the Safe.
+	Description *string `json:"description,omitempty"`
+	// The name of the CPM user who will manage the new Safe.
+	ManagingCPM *string `json:"managingCPM,omitempty"`
 	// Whether or not the membership for the Safe is expired.For expired member, the value will be True.
 	IsExpiredMember *bool `json:"isExpiredMember,omitempty"`
 }
@@ -61,70 +61,6 @@ func NewSafeListItem() *SafeListItem {
 func NewSafeListItemWithDefaults() *SafeListItem {
 	this := SafeListItem{}
 	return &this
-}
-
-// GetSafeUrlId returns the SafeUrlId field value if set, zero value otherwise.
-func (o *SafeListItem) GetSafeUrlId() string {
-	if o == nil || o.SafeUrlId == nil {
-		var ret string
-		return ret
-	}
-	return *o.SafeUrlId
-}
-
-// GetSafeUrlIdOk returns a tuple with the SafeUrlId field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *SafeListItem) GetSafeUrlIdOk() (*string, bool) {
-	if o == nil || o.SafeUrlId == nil {
-		return nil, false
-	}
-	return o.SafeUrlId, true
-}
-
-// HasSafeUrlId returns a boolean if a field has been set.
-func (o *SafeListItem) HasSafeUrlId() bool {
-	if o != nil && o.SafeUrlId != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetSafeUrlId gets a reference to the given string and assigns it to the SafeUrlId field.
-func (o *SafeListItem) SetSafeUrlId(v string) {
-	o.SafeUrlId = &v
-}
-
-// GetSafeName returns the SafeName field value if set, zero value otherwise.
-func (o *SafeListItem) GetSafeName() string {
-	if o == nil || o.SafeName == nil {
-		var ret string
-		return ret
-	}
-	return *o.SafeName
-}
-
-// GetSafeNameOk returns a tuple with the SafeName field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *SafeListItem) GetSafeNameOk() (*string, bool) {
-	if o == nil || o.SafeName == nil {
-		return nil, false
-	}
-	return o.SafeName, true
-}
-
-// HasSafeName returns a boolean if a field has been set.
-func (o *SafeListItem) HasSafeName() bool {
-	if o != nil && o.SafeName != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetSafeName gets a reference to the given string and assigns it to the SafeName field.
-func (o *SafeListItem) SetSafeName(v string) {
-	o.SafeName = &v
 }
 
 // GetSafeNumber returns the SafeNumber field value if set, zero value otherwise.
@@ -157,38 +93,6 @@ func (o *SafeListItem) HasSafeNumber() bool {
 // SetSafeNumber gets a reference to the given int64 and assigns it to the SafeNumber field.
 func (o *SafeListItem) SetSafeNumber(v int64) {
 	o.SafeNumber = &v
-}
-
-// GetDescription returns the Description field value if set, zero value otherwise.
-func (o *SafeListItem) GetDescription() string {
-	if o == nil || o.Description == nil {
-		var ret string
-		return ret
-	}
-	return *o.Description
-}
-
-// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *SafeListItem) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
-		return nil, false
-	}
-	return o.Description, true
-}
-
-// HasDescription returns a boolean if a field has been set.
-func (o *SafeListItem) HasDescription() bool {
-	if o != nil && o.Description != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetDescription gets a reference to the given string and assigns it to the Description field.
-func (o *SafeListItem) SetDescription(v string) {
-	o.Description = &v
 }
 
 // GetLocation returns the Location field value if set, zero value otherwise.
@@ -317,38 +221,6 @@ func (o *SafeListItem) HasOlacEnabled() bool {
 // SetOlacEnabled gets a reference to the given bool and assigns it to the OlacEnabled field.
 func (o *SafeListItem) SetOlacEnabled(v bool) {
 	o.OlacEnabled = &v
-}
-
-// GetManagingCPM returns the ManagingCPM field value if set, zero value otherwise.
-func (o *SafeListItem) GetManagingCPM() string {
-	if o == nil || o.ManagingCPM == nil {
-		var ret string
-		return ret
-	}
-	return *o.ManagingCPM
-}
-
-// GetManagingCPMOk returns a tuple with the ManagingCPM field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *SafeListItem) GetManagingCPMOk() (*string, bool) {
-	if o == nil || o.ManagingCPM == nil {
-		return nil, false
-	}
-	return o.ManagingCPM, true
-}
-
-// HasManagingCPM returns a boolean if a field has been set.
-func (o *SafeListItem) HasManagingCPM() bool {
-	if o != nil && o.ManagingCPM != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetManagingCPM gets a reference to the given string and assigns it to the ManagingCPM field.
-func (o *SafeListItem) SetManagingCPM(v string) {
-	o.ManagingCPM = &v
 }
 
 // GetNumberOfVersionsRetention returns the NumberOfVersionsRetention field value if set, zero value otherwise.
@@ -511,6 +383,134 @@ func (o *SafeListItem) SetLastModificationTime(v int64) {
 	o.LastModificationTime = &v
 }
 
+// GetSafeUrlId returns the SafeUrlId field value if set, zero value otherwise.
+func (o *SafeListItem) GetSafeUrlId() string {
+	if o == nil || o.SafeUrlId == nil {
+		var ret string
+		return ret
+	}
+	return *o.SafeUrlId
+}
+
+// GetSafeUrlIdOk returns a tuple with the SafeUrlId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SafeListItem) GetSafeUrlIdOk() (*string, bool) {
+	if o == nil || o.SafeUrlId == nil {
+		return nil, false
+	}
+	return o.SafeUrlId, true
+}
+
+// HasSafeUrlId returns a boolean if a field has been set.
+func (o *SafeListItem) HasSafeUrlId() bool {
+	if o != nil && o.SafeUrlId != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSafeUrlId gets a reference to the given string and assigns it to the SafeUrlId field.
+func (o *SafeListItem) SetSafeUrlId(v string) {
+	o.SafeUrlId = &v
+}
+
+// GetSafeName returns the SafeName field value if set, zero value otherwise.
+func (o *SafeListItem) GetSafeName() string {
+	if o == nil || o.SafeName == nil {
+		var ret string
+		return ret
+	}
+	return *o.SafeName
+}
+
+// GetSafeNameOk returns a tuple with the SafeName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SafeListItem) GetSafeNameOk() (*string, bool) {
+	if o == nil || o.SafeName == nil {
+		return nil, false
+	}
+	return o.SafeName, true
+}
+
+// HasSafeName returns a boolean if a field has been set.
+func (o *SafeListItem) HasSafeName() bool {
+	if o != nil && o.SafeName != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSafeName gets a reference to the given string and assigns it to the SafeName field.
+func (o *SafeListItem) SetSafeName(v string) {
+	o.SafeName = &v
+}
+
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *SafeListItem) GetDescription() string {
+	if o == nil || o.Description == nil {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SafeListItem) GetDescriptionOk() (*string, bool) {
+	if o == nil || o.Description == nil {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *SafeListItem) HasDescription() bool {
+	if o != nil && o.Description != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *SafeListItem) SetDescription(v string) {
+	o.Description = &v
+}
+
+// GetManagingCPM returns the ManagingCPM field value if set, zero value otherwise.
+func (o *SafeListItem) GetManagingCPM() string {
+	if o == nil || o.ManagingCPM == nil {
+		var ret string
+		return ret
+	}
+	return *o.ManagingCPM
+}
+
+// GetManagingCPMOk returns a tuple with the ManagingCPM field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SafeListItem) GetManagingCPMOk() (*string, bool) {
+	if o == nil || o.ManagingCPM == nil {
+		return nil, false
+	}
+	return o.ManagingCPM, true
+}
+
+// HasManagingCPM returns a boolean if a field has been set.
+func (o *SafeListItem) HasManagingCPM() bool {
+	if o != nil && o.ManagingCPM != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetManagingCPM gets a reference to the given string and assigns it to the ManagingCPM field.
+func (o *SafeListItem) SetManagingCPM(v string) {
+	o.ManagingCPM = &v
+}
+
 // GetIsExpiredMember returns the IsExpiredMember field value if set, zero value otherwise.
 func (o *SafeListItem) GetIsExpiredMember() bool {
 	if o == nil || o.IsExpiredMember == nil {
@@ -545,17 +545,8 @@ func (o *SafeListItem) SetIsExpiredMember(v bool) {
 
 func (o SafeListItem) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.SafeUrlId != nil {
-		toSerialize["safeUrlId"] = o.SafeUrlId
-	}
-	if o.SafeName != nil {
-		toSerialize["safeName"] = o.SafeName
-	}
 	if o.SafeNumber != nil {
 		toSerialize["safeNumber"] = o.SafeNumber
-	}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
 	}
 	if o.Location != nil {
 		toSerialize["location"] = o.Location
@@ -568,9 +559,6 @@ func (o SafeListItem) MarshalJSON() ([]byte, error) {
 	}
 	if o.OlacEnabled != nil {
 		toSerialize["olacEnabled"] = o.OlacEnabled
-	}
-	if o.ManagingCPM != nil {
-		toSerialize["managingCPM"] = o.ManagingCPM
 	}
 	if o.NumberOfVersionsRetention != nil {
 		toSerialize["numberOfVersionsRetention"] = o.NumberOfVersionsRetention
@@ -586,6 +574,18 @@ func (o SafeListItem) MarshalJSON() ([]byte, error) {
 	}
 	if o.LastModificationTime != nil {
 		toSerialize["lastModificationTime"] = o.LastModificationTime
+	}
+	if o.SafeUrlId != nil {
+		toSerialize["safeUrlId"] = o.SafeUrlId
+	}
+	if o.SafeName != nil {
+		toSerialize["safeName"] = o.SafeName
+	}
+	if o.Description != nil {
+		toSerialize["description"] = o.Description
+	}
+	if o.ManagingCPM != nil {
+		toSerialize["managingCPM"] = o.ManagingCPM
 	}
 	if o.IsExpiredMember != nil {
 		toSerialize["isExpiredMember"] = o.IsExpiredMember

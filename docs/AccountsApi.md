@@ -10,6 +10,7 @@ Method | HTTP request | Description
 [**AccountsCPMSetNext**](AccountsApi.md#AccountsCPMSetNext) | **Post** /api/Accounts/{accountId}/SetNextPassword | 
 [**AccountsChangeCredentialsInTheVault**](AccountsApi.md#AccountsChangeCredentialsInTheVault) | **Post** /api/Accounts/{accountId}/Password/Update | 
 [**AccountsCheckIn**](AccountsApi.md#AccountsCheckIn) | **Post** /api/Accounts/{accountId}/CheckIn | 
+[**AccountsClearAccount**](AccountsApi.md#AccountsClearAccount) | **Delete** /api/Accounts/{accountId}/LinkAccount/{extraPasswordIndex} | 
 [**AccountsDeleteAccount**](AccountsApi.md#AccountsDeleteAccount) | **Delete** /api/Accounts/{id} | 
 [**AccountsDownload**](AccountsApi.md#AccountsDownload) | **Post** /api/Accounts/{accountId}/Secret/Retrieve | 
 [**AccountsGeneratePassword**](AccountsApi.md#AccountsGeneratePassword) | **Post** /api/Accounts/{accountId}/Secret/Generate | 
@@ -438,6 +439,77 @@ No authorization required
 
 - **Content-Type**: Not defined
 - **Accept**: application/json, text/json, application/xml, text/xml, multipart/form-data, application/vnd.cyberark.api+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## AccountsClearAccount
+
+> AccountsClearAccount(ctx, accountId, extraPasswordIndex).Execute()
+
+
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    accountId := "accountId_example" // string | The unique ID of the account.
+    extraPasswordIndex := int32(56) // int32 | The linked account's extra password index.              The index can be for Reconcile account, Logon account, or other linked account that is defined in the Platform configuration.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.AccountsApi.AccountsClearAccount(context.Background(), accountId, extraPasswordIndex).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `AccountsApi.AccountsClearAccount``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**accountId** | **string** | The unique ID of the account. | 
+**extraPasswordIndex** | **int32** | The linked account&#39;s extra password index.              The index can be for Reconcile account, Logon account, or other linked account that is defined in the Platform configuration. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiAccountsClearAccountRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -874,7 +946,7 @@ No authorization required
 
 ## AccountsGetVersions
 
-> []PVFileVersion AccountsGetVersions(ctx, accountId).ShowTemporary(showTemporary).Execute()
+> []VersionData AccountsGetVersions(ctx, accountId).ShowTemporary(showTemporary).Execute()
 
 
 
@@ -903,7 +975,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `AccountsApi.AccountsGetVersions``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `AccountsGetVersions`: []PVFileVersion
+    // response from `AccountsGetVersions`: []VersionData
     fmt.Fprintf(os.Stdout, "Response from `AccountsApi.AccountsGetVersions`: %v\n", resp)
 }
 ```
@@ -928,7 +1000,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[]PVFileVersion**](PVFileVersion.md)
+[**[]VersionData**](VersionData.md)
 
 ### Authorization
 
@@ -1386,7 +1458,7 @@ import (
 
 func main() {
     accountId := "accountId_example" // string | The unique ID of the account to update. This is retrieved by the Get Account Service.
-    accountPatch := []openapiclient.OperationAccountModel{*openapiclient.NewOperationAccountModel()} // []OperationAccountModel | 
+    accountPatch := *openapiclient.NewJsonPatchDocumentAccountModel() // JsonPatchDocumentAccountModel | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -1416,7 +1488,7 @@ Other parameters are passed through a pointer to a apiAccountsUpdateAccountReque
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **accountPatch** | [**[]OperationAccountModel**](OperationAccountModel.md) |  | 
+ **accountPatch** | [**JsonPatchDocumentAccountModel**](JsonPatchDocumentAccountModel.md) |  | 
 
 ### Return type
 

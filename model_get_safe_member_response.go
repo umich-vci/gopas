@@ -14,50 +14,51 @@ import (
 	"encoding/json"
 )
 
-// SafeMemberResponse struct for SafeMemberResponse
-type SafeMemberResponse struct {
-	// The unique ID of the Safe to be used when calling Safes APIs.
+// GetSafeMemberResponse struct for GetSafeMemberResponse
+type GetSafeMemberResponse struct {
+	// The name of the Safe to be used when calling Safe APIs.
 	SafeUrlId *string `json:"safeUrlId,omitempty"`
-	// The name of the Safe.
+	// The unique name of the Safe.
 	SafeName *string `json:"safeName,omitempty"`
 	// The unique numerical ID of the Safe.
 	SafeNumber *int64 `json:"safeNumber,omitempty"`
-	// Vault user Id, Domain user Id or group Id of the Safe member.
+	// The Vault user ID, Domain user ID, or group ID of the Safe member.
 	MemberId *int64 `json:"memberId,omitempty"`
-	// Vault user name, Domain user name or group name of the Safe member.
+	// The Vault user name, Domain user name or group name of the Safe member.
 	MemberName *string `json:"memberName,omitempty"`
 	// The member type.  Valid values: user\\group
 	MemberType *string `json:"memberType,omitempty"`
-	// The members expiration date for this Safe.  For members that will never expire, this value will be null.
+	// The member's expiration date for this Safe.  For members that do not have an expiration date, this value will be null.
 	MembershipExpirationDate *int64 `json:"membershipExpirationDate,omitempty"`
-	// Whether the membership on the safe is expired or not. For expired members the value will be true.
+	// Whether or not the membership for the Safe is expired.For expired members, the value will be True.
 	IsExpiredMembershipEnable *bool `json:"isExpiredMembershipEnable,omitempty"`
-	// Whether the member is a vault built-in user or group.
+	// Whether the member is a predefined user or group of the Vault.
 	IsPredefinedUser *bool `json:"isPredefinedUser,omitempty"`
 	// Whether or not the current user can update the permissions of the member
-	IsReadOnly  *bool            `json:"isReadOnly,omitempty"`
+	IsReadOnly *bool `json:"isReadOnly,omitempty"`
+	// <p>The permissions that the user or group has in this Safe.</p>  <p>    <B>useAccounts</B> - Use accounts but not view passwords.</p>  <p>    <B>retrieveAccounts</B> - Retrieve and view accounts in the Safe.</p>  <p>    <B>listAccounts</B> - View Accounts list.</p>  <p>    <B>addAccounts</B> - Add accounts in the Safe. Users who have this permission automatically have UpdateAccountProperties as well.</p>  <p>    <B>updateAccountContent</B> - Update existing account content.</p>  <p>    <B>updateAccountProperties</B> - Update existing account properties.</p>  <p>    <B>initiateCPMAccountManagementOperations</B> - Initiate password management operations through CPM, such as changing, verifying, and reconciling passwords. When this parameter is set to False, the SpecifyNextAccountContent parameter is also automatically set to False.</p>  <p>    <B>specifyNextAccountContent</B> - Specify the password that is used when the CPM changes the password value. This parameter can only be specified when the InitiateCPMAccountManagementOperations parameter is set to True. When InitiateCPMAccountManagementOperations is set to False this parameter is automatically set to False.</p>  <p>    <B>renameAccounts</B> - Rename existing accounts in the Safe.</p>  <p>    <B>deleteAccounts</B> - Delete existing passwords in the Safe.</p>  <p>    <B>unlockAccounts</B> - Unlock accounts that are locked by other users.</p>  <p>    <B>manageSafe</B> - Perform administrative tasksin the Safe, including: Update Safe properties, Recover the Safe, Delete the Safe.</p>  <p>    <B>manageSafeMembers</B> - Add and remove Safe members, and update their authorizations in the Safe.</p>  <p>    <B>backupSafe</B> - Create a backup of a Safe and its contents, and store in another location.</p>  <p>    <B>viewAuditLog</B> - View account and user activity in the Safe.</p>  <p>    <B>viewSafeMembers</B> - View Safe member's permissions.</p>  <p>    <B>requestsAuthorizationLevel1</B> - Request Authorization Level 1.</p>  <p>    <B>requestsAuthorizationLevel2</B> - Request Authorization Level 2.</p>  <p>    <B>accessWithoutConfirmation</B> - Access the Safe without confirmation from authorized users. This overrides the Safe properties that specify that Safe members require confirmation to access the Safe.</p>  <p>    <B>createFolders</B> - Create folders in the Safe.</p>  <p>    <B>deleteFolders</B> - Delete folders from the Safe.</p>  <p>    <B>moveAccountsAndFolders</B> - Move accounts and folders in the Safe to different folders and subfolders.</p>
 	Permissions *map[string]bool `json:"permissions,omitempty"`
 }
 
-// NewSafeMemberResponse instantiates a new SafeMemberResponse object
+// NewGetSafeMemberResponse instantiates a new GetSafeMemberResponse object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSafeMemberResponse() *SafeMemberResponse {
-	this := SafeMemberResponse{}
+func NewGetSafeMemberResponse() *GetSafeMemberResponse {
+	this := GetSafeMemberResponse{}
 	return &this
 }
 
-// NewSafeMemberResponseWithDefaults instantiates a new SafeMemberResponse object
+// NewGetSafeMemberResponseWithDefaults instantiates a new GetSafeMemberResponse object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewSafeMemberResponseWithDefaults() *SafeMemberResponse {
-	this := SafeMemberResponse{}
+func NewGetSafeMemberResponseWithDefaults() *GetSafeMemberResponse {
+	this := GetSafeMemberResponse{}
 	return &this
 }
 
 // GetSafeUrlId returns the SafeUrlId field value if set, zero value otherwise.
-func (o *SafeMemberResponse) GetSafeUrlId() string {
+func (o *GetSafeMemberResponse) GetSafeUrlId() string {
 	if o == nil || o.SafeUrlId == nil {
 		var ret string
 		return ret
@@ -67,7 +68,7 @@ func (o *SafeMemberResponse) GetSafeUrlId() string {
 
 // GetSafeUrlIdOk returns a tuple with the SafeUrlId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SafeMemberResponse) GetSafeUrlIdOk() (*string, bool) {
+func (o *GetSafeMemberResponse) GetSafeUrlIdOk() (*string, bool) {
 	if o == nil || o.SafeUrlId == nil {
 		return nil, false
 	}
@@ -75,7 +76,7 @@ func (o *SafeMemberResponse) GetSafeUrlIdOk() (*string, bool) {
 }
 
 // HasSafeUrlId returns a boolean if a field has been set.
-func (o *SafeMemberResponse) HasSafeUrlId() bool {
+func (o *GetSafeMemberResponse) HasSafeUrlId() bool {
 	if o != nil && o.SafeUrlId != nil {
 		return true
 	}
@@ -84,12 +85,12 @@ func (o *SafeMemberResponse) HasSafeUrlId() bool {
 }
 
 // SetSafeUrlId gets a reference to the given string and assigns it to the SafeUrlId field.
-func (o *SafeMemberResponse) SetSafeUrlId(v string) {
+func (o *GetSafeMemberResponse) SetSafeUrlId(v string) {
 	o.SafeUrlId = &v
 }
 
 // GetSafeName returns the SafeName field value if set, zero value otherwise.
-func (o *SafeMemberResponse) GetSafeName() string {
+func (o *GetSafeMemberResponse) GetSafeName() string {
 	if o == nil || o.SafeName == nil {
 		var ret string
 		return ret
@@ -99,7 +100,7 @@ func (o *SafeMemberResponse) GetSafeName() string {
 
 // GetSafeNameOk returns a tuple with the SafeName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SafeMemberResponse) GetSafeNameOk() (*string, bool) {
+func (o *GetSafeMemberResponse) GetSafeNameOk() (*string, bool) {
 	if o == nil || o.SafeName == nil {
 		return nil, false
 	}
@@ -107,7 +108,7 @@ func (o *SafeMemberResponse) GetSafeNameOk() (*string, bool) {
 }
 
 // HasSafeName returns a boolean if a field has been set.
-func (o *SafeMemberResponse) HasSafeName() bool {
+func (o *GetSafeMemberResponse) HasSafeName() bool {
 	if o != nil && o.SafeName != nil {
 		return true
 	}
@@ -116,12 +117,12 @@ func (o *SafeMemberResponse) HasSafeName() bool {
 }
 
 // SetSafeName gets a reference to the given string and assigns it to the SafeName field.
-func (o *SafeMemberResponse) SetSafeName(v string) {
+func (o *GetSafeMemberResponse) SetSafeName(v string) {
 	o.SafeName = &v
 }
 
 // GetSafeNumber returns the SafeNumber field value if set, zero value otherwise.
-func (o *SafeMemberResponse) GetSafeNumber() int64 {
+func (o *GetSafeMemberResponse) GetSafeNumber() int64 {
 	if o == nil || o.SafeNumber == nil {
 		var ret int64
 		return ret
@@ -131,7 +132,7 @@ func (o *SafeMemberResponse) GetSafeNumber() int64 {
 
 // GetSafeNumberOk returns a tuple with the SafeNumber field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SafeMemberResponse) GetSafeNumberOk() (*int64, bool) {
+func (o *GetSafeMemberResponse) GetSafeNumberOk() (*int64, bool) {
 	if o == nil || o.SafeNumber == nil {
 		return nil, false
 	}
@@ -139,7 +140,7 @@ func (o *SafeMemberResponse) GetSafeNumberOk() (*int64, bool) {
 }
 
 // HasSafeNumber returns a boolean if a field has been set.
-func (o *SafeMemberResponse) HasSafeNumber() bool {
+func (o *GetSafeMemberResponse) HasSafeNumber() bool {
 	if o != nil && o.SafeNumber != nil {
 		return true
 	}
@@ -148,12 +149,12 @@ func (o *SafeMemberResponse) HasSafeNumber() bool {
 }
 
 // SetSafeNumber gets a reference to the given int64 and assigns it to the SafeNumber field.
-func (o *SafeMemberResponse) SetSafeNumber(v int64) {
+func (o *GetSafeMemberResponse) SetSafeNumber(v int64) {
 	o.SafeNumber = &v
 }
 
 // GetMemberId returns the MemberId field value if set, zero value otherwise.
-func (o *SafeMemberResponse) GetMemberId() int64 {
+func (o *GetSafeMemberResponse) GetMemberId() int64 {
 	if o == nil || o.MemberId == nil {
 		var ret int64
 		return ret
@@ -163,7 +164,7 @@ func (o *SafeMemberResponse) GetMemberId() int64 {
 
 // GetMemberIdOk returns a tuple with the MemberId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SafeMemberResponse) GetMemberIdOk() (*int64, bool) {
+func (o *GetSafeMemberResponse) GetMemberIdOk() (*int64, bool) {
 	if o == nil || o.MemberId == nil {
 		return nil, false
 	}
@@ -171,7 +172,7 @@ func (o *SafeMemberResponse) GetMemberIdOk() (*int64, bool) {
 }
 
 // HasMemberId returns a boolean if a field has been set.
-func (o *SafeMemberResponse) HasMemberId() bool {
+func (o *GetSafeMemberResponse) HasMemberId() bool {
 	if o != nil && o.MemberId != nil {
 		return true
 	}
@@ -180,12 +181,12 @@ func (o *SafeMemberResponse) HasMemberId() bool {
 }
 
 // SetMemberId gets a reference to the given int64 and assigns it to the MemberId field.
-func (o *SafeMemberResponse) SetMemberId(v int64) {
+func (o *GetSafeMemberResponse) SetMemberId(v int64) {
 	o.MemberId = &v
 }
 
 // GetMemberName returns the MemberName field value if set, zero value otherwise.
-func (o *SafeMemberResponse) GetMemberName() string {
+func (o *GetSafeMemberResponse) GetMemberName() string {
 	if o == nil || o.MemberName == nil {
 		var ret string
 		return ret
@@ -195,7 +196,7 @@ func (o *SafeMemberResponse) GetMemberName() string {
 
 // GetMemberNameOk returns a tuple with the MemberName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SafeMemberResponse) GetMemberNameOk() (*string, bool) {
+func (o *GetSafeMemberResponse) GetMemberNameOk() (*string, bool) {
 	if o == nil || o.MemberName == nil {
 		return nil, false
 	}
@@ -203,7 +204,7 @@ func (o *SafeMemberResponse) GetMemberNameOk() (*string, bool) {
 }
 
 // HasMemberName returns a boolean if a field has been set.
-func (o *SafeMemberResponse) HasMemberName() bool {
+func (o *GetSafeMemberResponse) HasMemberName() bool {
 	if o != nil && o.MemberName != nil {
 		return true
 	}
@@ -212,12 +213,12 @@ func (o *SafeMemberResponse) HasMemberName() bool {
 }
 
 // SetMemberName gets a reference to the given string and assigns it to the MemberName field.
-func (o *SafeMemberResponse) SetMemberName(v string) {
+func (o *GetSafeMemberResponse) SetMemberName(v string) {
 	o.MemberName = &v
 }
 
 // GetMemberType returns the MemberType field value if set, zero value otherwise.
-func (o *SafeMemberResponse) GetMemberType() string {
+func (o *GetSafeMemberResponse) GetMemberType() string {
 	if o == nil || o.MemberType == nil {
 		var ret string
 		return ret
@@ -227,7 +228,7 @@ func (o *SafeMemberResponse) GetMemberType() string {
 
 // GetMemberTypeOk returns a tuple with the MemberType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SafeMemberResponse) GetMemberTypeOk() (*string, bool) {
+func (o *GetSafeMemberResponse) GetMemberTypeOk() (*string, bool) {
 	if o == nil || o.MemberType == nil {
 		return nil, false
 	}
@@ -235,7 +236,7 @@ func (o *SafeMemberResponse) GetMemberTypeOk() (*string, bool) {
 }
 
 // HasMemberType returns a boolean if a field has been set.
-func (o *SafeMemberResponse) HasMemberType() bool {
+func (o *GetSafeMemberResponse) HasMemberType() bool {
 	if o != nil && o.MemberType != nil {
 		return true
 	}
@@ -244,12 +245,12 @@ func (o *SafeMemberResponse) HasMemberType() bool {
 }
 
 // SetMemberType gets a reference to the given string and assigns it to the MemberType field.
-func (o *SafeMemberResponse) SetMemberType(v string) {
+func (o *GetSafeMemberResponse) SetMemberType(v string) {
 	o.MemberType = &v
 }
 
 // GetMembershipExpirationDate returns the MembershipExpirationDate field value if set, zero value otherwise.
-func (o *SafeMemberResponse) GetMembershipExpirationDate() int64 {
+func (o *GetSafeMemberResponse) GetMembershipExpirationDate() int64 {
 	if o == nil || o.MembershipExpirationDate == nil {
 		var ret int64
 		return ret
@@ -259,7 +260,7 @@ func (o *SafeMemberResponse) GetMembershipExpirationDate() int64 {
 
 // GetMembershipExpirationDateOk returns a tuple with the MembershipExpirationDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SafeMemberResponse) GetMembershipExpirationDateOk() (*int64, bool) {
+func (o *GetSafeMemberResponse) GetMembershipExpirationDateOk() (*int64, bool) {
 	if o == nil || o.MembershipExpirationDate == nil {
 		return nil, false
 	}
@@ -267,7 +268,7 @@ func (o *SafeMemberResponse) GetMembershipExpirationDateOk() (*int64, bool) {
 }
 
 // HasMembershipExpirationDate returns a boolean if a field has been set.
-func (o *SafeMemberResponse) HasMembershipExpirationDate() bool {
+func (o *GetSafeMemberResponse) HasMembershipExpirationDate() bool {
 	if o != nil && o.MembershipExpirationDate != nil {
 		return true
 	}
@@ -276,12 +277,12 @@ func (o *SafeMemberResponse) HasMembershipExpirationDate() bool {
 }
 
 // SetMembershipExpirationDate gets a reference to the given int64 and assigns it to the MembershipExpirationDate field.
-func (o *SafeMemberResponse) SetMembershipExpirationDate(v int64) {
+func (o *GetSafeMemberResponse) SetMembershipExpirationDate(v int64) {
 	o.MembershipExpirationDate = &v
 }
 
 // GetIsExpiredMembershipEnable returns the IsExpiredMembershipEnable field value if set, zero value otherwise.
-func (o *SafeMemberResponse) GetIsExpiredMembershipEnable() bool {
+func (o *GetSafeMemberResponse) GetIsExpiredMembershipEnable() bool {
 	if o == nil || o.IsExpiredMembershipEnable == nil {
 		var ret bool
 		return ret
@@ -291,7 +292,7 @@ func (o *SafeMemberResponse) GetIsExpiredMembershipEnable() bool {
 
 // GetIsExpiredMembershipEnableOk returns a tuple with the IsExpiredMembershipEnable field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SafeMemberResponse) GetIsExpiredMembershipEnableOk() (*bool, bool) {
+func (o *GetSafeMemberResponse) GetIsExpiredMembershipEnableOk() (*bool, bool) {
 	if o == nil || o.IsExpiredMembershipEnable == nil {
 		return nil, false
 	}
@@ -299,7 +300,7 @@ func (o *SafeMemberResponse) GetIsExpiredMembershipEnableOk() (*bool, bool) {
 }
 
 // HasIsExpiredMembershipEnable returns a boolean if a field has been set.
-func (o *SafeMemberResponse) HasIsExpiredMembershipEnable() bool {
+func (o *GetSafeMemberResponse) HasIsExpiredMembershipEnable() bool {
 	if o != nil && o.IsExpiredMembershipEnable != nil {
 		return true
 	}
@@ -308,12 +309,12 @@ func (o *SafeMemberResponse) HasIsExpiredMembershipEnable() bool {
 }
 
 // SetIsExpiredMembershipEnable gets a reference to the given bool and assigns it to the IsExpiredMembershipEnable field.
-func (o *SafeMemberResponse) SetIsExpiredMembershipEnable(v bool) {
+func (o *GetSafeMemberResponse) SetIsExpiredMembershipEnable(v bool) {
 	o.IsExpiredMembershipEnable = &v
 }
 
 // GetIsPredefinedUser returns the IsPredefinedUser field value if set, zero value otherwise.
-func (o *SafeMemberResponse) GetIsPredefinedUser() bool {
+func (o *GetSafeMemberResponse) GetIsPredefinedUser() bool {
 	if o == nil || o.IsPredefinedUser == nil {
 		var ret bool
 		return ret
@@ -323,7 +324,7 @@ func (o *SafeMemberResponse) GetIsPredefinedUser() bool {
 
 // GetIsPredefinedUserOk returns a tuple with the IsPredefinedUser field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SafeMemberResponse) GetIsPredefinedUserOk() (*bool, bool) {
+func (o *GetSafeMemberResponse) GetIsPredefinedUserOk() (*bool, bool) {
 	if o == nil || o.IsPredefinedUser == nil {
 		return nil, false
 	}
@@ -331,7 +332,7 @@ func (o *SafeMemberResponse) GetIsPredefinedUserOk() (*bool, bool) {
 }
 
 // HasIsPredefinedUser returns a boolean if a field has been set.
-func (o *SafeMemberResponse) HasIsPredefinedUser() bool {
+func (o *GetSafeMemberResponse) HasIsPredefinedUser() bool {
 	if o != nil && o.IsPredefinedUser != nil {
 		return true
 	}
@@ -340,12 +341,12 @@ func (o *SafeMemberResponse) HasIsPredefinedUser() bool {
 }
 
 // SetIsPredefinedUser gets a reference to the given bool and assigns it to the IsPredefinedUser field.
-func (o *SafeMemberResponse) SetIsPredefinedUser(v bool) {
+func (o *GetSafeMemberResponse) SetIsPredefinedUser(v bool) {
 	o.IsPredefinedUser = &v
 }
 
 // GetIsReadOnly returns the IsReadOnly field value if set, zero value otherwise.
-func (o *SafeMemberResponse) GetIsReadOnly() bool {
+func (o *GetSafeMemberResponse) GetIsReadOnly() bool {
 	if o == nil || o.IsReadOnly == nil {
 		var ret bool
 		return ret
@@ -355,7 +356,7 @@ func (o *SafeMemberResponse) GetIsReadOnly() bool {
 
 // GetIsReadOnlyOk returns a tuple with the IsReadOnly field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SafeMemberResponse) GetIsReadOnlyOk() (*bool, bool) {
+func (o *GetSafeMemberResponse) GetIsReadOnlyOk() (*bool, bool) {
 	if o == nil || o.IsReadOnly == nil {
 		return nil, false
 	}
@@ -363,7 +364,7 @@ func (o *SafeMemberResponse) GetIsReadOnlyOk() (*bool, bool) {
 }
 
 // HasIsReadOnly returns a boolean if a field has been set.
-func (o *SafeMemberResponse) HasIsReadOnly() bool {
+func (o *GetSafeMemberResponse) HasIsReadOnly() bool {
 	if o != nil && o.IsReadOnly != nil {
 		return true
 	}
@@ -372,12 +373,12 @@ func (o *SafeMemberResponse) HasIsReadOnly() bool {
 }
 
 // SetIsReadOnly gets a reference to the given bool and assigns it to the IsReadOnly field.
-func (o *SafeMemberResponse) SetIsReadOnly(v bool) {
+func (o *GetSafeMemberResponse) SetIsReadOnly(v bool) {
 	o.IsReadOnly = &v
 }
 
 // GetPermissions returns the Permissions field value if set, zero value otherwise.
-func (o *SafeMemberResponse) GetPermissions() map[string]bool {
+func (o *GetSafeMemberResponse) GetPermissions() map[string]bool {
 	if o == nil || o.Permissions == nil {
 		var ret map[string]bool
 		return ret
@@ -387,7 +388,7 @@ func (o *SafeMemberResponse) GetPermissions() map[string]bool {
 
 // GetPermissionsOk returns a tuple with the Permissions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SafeMemberResponse) GetPermissionsOk() (*map[string]bool, bool) {
+func (o *GetSafeMemberResponse) GetPermissionsOk() (*map[string]bool, bool) {
 	if o == nil || o.Permissions == nil {
 		return nil, false
 	}
@@ -395,7 +396,7 @@ func (o *SafeMemberResponse) GetPermissionsOk() (*map[string]bool, bool) {
 }
 
 // HasPermissions returns a boolean if a field has been set.
-func (o *SafeMemberResponse) HasPermissions() bool {
+func (o *GetSafeMemberResponse) HasPermissions() bool {
 	if o != nil && o.Permissions != nil {
 		return true
 	}
@@ -404,11 +405,11 @@ func (o *SafeMemberResponse) HasPermissions() bool {
 }
 
 // SetPermissions gets a reference to the given map[string]bool and assigns it to the Permissions field.
-func (o *SafeMemberResponse) SetPermissions(v map[string]bool) {
+func (o *GetSafeMemberResponse) SetPermissions(v map[string]bool) {
 	o.Permissions = &v
 }
 
-func (o SafeMemberResponse) MarshalJSON() ([]byte, error) {
+func (o GetSafeMemberResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.SafeUrlId != nil {
 		toSerialize["safeUrlId"] = o.SafeUrlId
@@ -446,38 +447,38 @@ func (o SafeMemberResponse) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-type NullableSafeMemberResponse struct {
-	value *SafeMemberResponse
+type NullableGetSafeMemberResponse struct {
+	value *GetSafeMemberResponse
 	isSet bool
 }
 
-func (v NullableSafeMemberResponse) Get() *SafeMemberResponse {
+func (v NullableGetSafeMemberResponse) Get() *GetSafeMemberResponse {
 	return v.value
 }
 
-func (v *NullableSafeMemberResponse) Set(val *SafeMemberResponse) {
+func (v *NullableGetSafeMemberResponse) Set(val *GetSafeMemberResponse) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableSafeMemberResponse) IsSet() bool {
+func (v NullableGetSafeMemberResponse) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableSafeMemberResponse) Unset() {
+func (v *NullableGetSafeMemberResponse) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableSafeMemberResponse(val *SafeMemberResponse) *NullableSafeMemberResponse {
-	return &NullableSafeMemberResponse{value: val, isSet: true}
+func NewNullableGetSafeMemberResponse(val *GetSafeMemberResponse) *NullableGetSafeMemberResponse {
+	return &NullableGetSafeMemberResponse{value: val, isSet: true}
 }
 
-func (v NullableSafeMemberResponse) MarshalJSON() ([]byte, error) {
+func (v NullableGetSafeMemberResponse) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableSafeMemberResponse) UnmarshalJSON(src []byte) error {
+func (v *NullableGetSafeMemberResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

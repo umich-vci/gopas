@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **MembershipExpirationDate** | Pointer to **int64** | The members expiration date for this Safe.  For members that will never expire, this value will be null. | [optional] 
 **IsExpiredMembershipEnable** | Pointer to **bool** | Whether the membership on the safe is expired or not. For expired members the value will be true. | [optional] 
 **IsPredefinedUser** | Pointer to **bool** | Whether the member is a vault built-in user or group. | [optional] 
+**IsReadOnly** | Pointer to **bool** | Whether or not the current user can update the permissions of the member | [optional] 
 **Permissions** | Pointer to **map[string]bool** |  | [optional] 
 
 ## Methods
@@ -258,6 +259,31 @@ SetIsPredefinedUser sets IsPredefinedUser field to given value.
 `func (o *SafeMemberResponse) HasIsPredefinedUser() bool`
 
 HasIsPredefinedUser returns a boolean if a field has been set.
+
+### GetIsReadOnly
+
+`func (o *SafeMemberResponse) GetIsReadOnly() bool`
+
+GetIsReadOnly returns the IsReadOnly field if non-nil, zero value otherwise.
+
+### GetIsReadOnlyOk
+
+`func (o *SafeMemberResponse) GetIsReadOnlyOk() (*bool, bool)`
+
+GetIsReadOnlyOk returns a tuple with the IsReadOnly field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIsReadOnly
+
+`func (o *SafeMemberResponse) SetIsReadOnly(v bool)`
+
+SetIsReadOnly sets IsReadOnly field to given value.
+
+### HasIsReadOnly
+
+`func (o *SafeMemberResponse) HasIsReadOnly() bool`
+
+HasIsReadOnly returns a boolean if a field has been set.
 
 ### GetPermissions
 

@@ -14,67 +14,33 @@ import (
 	"encoding/json"
 )
 
-// UsersFilters struct for UsersFilters
-type UsersFilters struct {
-	// The name of the user.
-	UserName *string `json:"userName,omitempty"`
+// BaseUsersFilters struct for BaseUsersFilters
+type BaseUsersFilters struct {
 	// The type of the user.
 	UserType *string `json:"userType,omitempty"`
 	// Whether the user is a known component or not.
 	ComponentUser *bool `json:"componentUser,omitempty"`
 }
 
-// NewUsersFilters instantiates a new UsersFilters object
+// NewBaseUsersFilters instantiates a new BaseUsersFilters object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewUsersFilters() *UsersFilters {
-	this := UsersFilters{}
+func NewBaseUsersFilters() *BaseUsersFilters {
+	this := BaseUsersFilters{}
 	return &this
 }
 
-// NewUsersFiltersWithDefaults instantiates a new UsersFilters object
+// NewBaseUsersFiltersWithDefaults instantiates a new BaseUsersFilters object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewUsersFiltersWithDefaults() *UsersFilters {
-	this := UsersFilters{}
+func NewBaseUsersFiltersWithDefaults() *BaseUsersFilters {
+	this := BaseUsersFilters{}
 	return &this
-}
-
-// GetUserName returns the UserName field value if set, zero value otherwise.
-func (o *UsersFilters) GetUserName() string {
-	if o == nil || o.UserName == nil {
-		var ret string
-		return ret
-	}
-	return *o.UserName
-}
-
-// GetUserNameOk returns a tuple with the UserName field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *UsersFilters) GetUserNameOk() (*string, bool) {
-	if o == nil || o.UserName == nil {
-		return nil, false
-	}
-	return o.UserName, true
-}
-
-// HasUserName returns a boolean if a field has been set.
-func (o *UsersFilters) HasUserName() bool {
-	if o != nil && o.UserName != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetUserName gets a reference to the given string and assigns it to the UserName field.
-func (o *UsersFilters) SetUserName(v string) {
-	o.UserName = &v
 }
 
 // GetUserType returns the UserType field value if set, zero value otherwise.
-func (o *UsersFilters) GetUserType() string {
+func (o *BaseUsersFilters) GetUserType() string {
 	if o == nil || o.UserType == nil {
 		var ret string
 		return ret
@@ -84,7 +50,7 @@ func (o *UsersFilters) GetUserType() string {
 
 // GetUserTypeOk returns a tuple with the UserType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UsersFilters) GetUserTypeOk() (*string, bool) {
+func (o *BaseUsersFilters) GetUserTypeOk() (*string, bool) {
 	if o == nil || o.UserType == nil {
 		return nil, false
 	}
@@ -92,7 +58,7 @@ func (o *UsersFilters) GetUserTypeOk() (*string, bool) {
 }
 
 // HasUserType returns a boolean if a field has been set.
-func (o *UsersFilters) HasUserType() bool {
+func (o *BaseUsersFilters) HasUserType() bool {
 	if o != nil && o.UserType != nil {
 		return true
 	}
@@ -101,12 +67,12 @@ func (o *UsersFilters) HasUserType() bool {
 }
 
 // SetUserType gets a reference to the given string and assigns it to the UserType field.
-func (o *UsersFilters) SetUserType(v string) {
+func (o *BaseUsersFilters) SetUserType(v string) {
 	o.UserType = &v
 }
 
 // GetComponentUser returns the ComponentUser field value if set, zero value otherwise.
-func (o *UsersFilters) GetComponentUser() bool {
+func (o *BaseUsersFilters) GetComponentUser() bool {
 	if o == nil || o.ComponentUser == nil {
 		var ret bool
 		return ret
@@ -116,7 +82,7 @@ func (o *UsersFilters) GetComponentUser() bool {
 
 // GetComponentUserOk returns a tuple with the ComponentUser field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UsersFilters) GetComponentUserOk() (*bool, bool) {
+func (o *BaseUsersFilters) GetComponentUserOk() (*bool, bool) {
 	if o == nil || o.ComponentUser == nil {
 		return nil, false
 	}
@@ -124,7 +90,7 @@ func (o *UsersFilters) GetComponentUserOk() (*bool, bool) {
 }
 
 // HasComponentUser returns a boolean if a field has been set.
-func (o *UsersFilters) HasComponentUser() bool {
+func (o *BaseUsersFilters) HasComponentUser() bool {
 	if o != nil && o.ComponentUser != nil {
 		return true
 	}
@@ -133,15 +99,12 @@ func (o *UsersFilters) HasComponentUser() bool {
 }
 
 // SetComponentUser gets a reference to the given bool and assigns it to the ComponentUser field.
-func (o *UsersFilters) SetComponentUser(v bool) {
+func (o *BaseUsersFilters) SetComponentUser(v bool) {
 	o.ComponentUser = &v
 }
 
-func (o UsersFilters) MarshalJSON() ([]byte, error) {
+func (o BaseUsersFilters) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.UserName != nil {
-		toSerialize["userName"] = o.UserName
-	}
 	if o.UserType != nil {
 		toSerialize["userType"] = o.UserType
 	}
@@ -151,38 +114,38 @@ func (o UsersFilters) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-type NullableUsersFilters struct {
-	value *UsersFilters
+type NullableBaseUsersFilters struct {
+	value *BaseUsersFilters
 	isSet bool
 }
 
-func (v NullableUsersFilters) Get() *UsersFilters {
+func (v NullableBaseUsersFilters) Get() *BaseUsersFilters {
 	return v.value
 }
 
-func (v *NullableUsersFilters) Set(val *UsersFilters) {
+func (v *NullableBaseUsersFilters) Set(val *BaseUsersFilters) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableUsersFilters) IsSet() bool {
+func (v NullableBaseUsersFilters) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableUsersFilters) Unset() {
+func (v *NullableBaseUsersFilters) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableUsersFilters(val *UsersFilters) *NullableUsersFilters {
-	return &NullableUsersFilters{value: val, isSet: true}
+func NewNullableBaseUsersFilters(val *BaseUsersFilters) *NullableBaseUsersFilters {
+	return &NullableBaseUsersFilters{value: val, isSet: true}
 }
 
-func (v NullableUsersFilters) MarshalJSON() ([]byte, error) {
+func (v NullableBaseUsersFilters) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableUsersFilters) UnmarshalJSON(src []byte) error {
+func (v *NullableBaseUsersFilters) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

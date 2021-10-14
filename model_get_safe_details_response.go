@@ -14,9 +14,9 @@ import (
 	"encoding/json"
 )
 
-// SafeItem struct for SafeItem
-type SafeItem struct {
-	// The unique ID of the Safe to be used when calling Safe APIs.
+// GetSafeDetailsResponse struct for GetSafeDetailsResponse
+type GetSafeDetailsResponse struct {
+	// The name of the Safe to be used when calling Safe APIs.
 	SafeUrlId *string `json:"safeUrlId,omitempty"`
 	// The name of the Safe.
 	SafeName *string `json:"safeName,omitempty"`
@@ -25,9 +25,8 @@ type SafeItem struct {
 	// The description of the Safe.
 	Description *string `json:"description,omitempty"`
 	// The location of the Safe in the Vault.
-	Location *string          `json:"location,omitempty"`
-	Creator  *SafeCreator     `json:"creator,omitempty"`
-	Accounts *[]AccountInSafe `json:"accounts,omitempty"`
+	Location *string              `json:"location,omitempty"`
+	Creator  *SafeCreatorResponse `json:"creator,omitempty"`
 	// Whether or not to enable Object Level Access Control for the new Safe.
 	OlacEnabled *bool `json:"olacEnabled,omitempty"`
 	// The name of the CPM user who will manage the new Safe.
@@ -41,30 +40,31 @@ type SafeItem struct {
 	// Unix creation time of the Safe.
 	CreationTime *int64 `json:"creationTime,omitempty"`
 	// Unix time when the Safe was last updated.
-	LastModificationTime *int64 `json:"lastModificationTime,omitempty"`
+	LastModificationTime *int64                   `json:"lastModificationTime,omitempty"`
+	Accounts             *[]AccountInSafeResponse `json:"accounts,omitempty"`
 	// Whether or not the membership for the Safe is expired.For expired member, the value will be True.
 	IsExpiredMember *bool `json:"isExpiredMember,omitempty"`
 }
 
-// NewSafeItem instantiates a new SafeItem object
+// NewGetSafeDetailsResponse instantiates a new GetSafeDetailsResponse object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSafeItem() *SafeItem {
-	this := SafeItem{}
+func NewGetSafeDetailsResponse() *GetSafeDetailsResponse {
+	this := GetSafeDetailsResponse{}
 	return &this
 }
 
-// NewSafeItemWithDefaults instantiates a new SafeItem object
+// NewGetSafeDetailsResponseWithDefaults instantiates a new GetSafeDetailsResponse object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewSafeItemWithDefaults() *SafeItem {
-	this := SafeItem{}
+func NewGetSafeDetailsResponseWithDefaults() *GetSafeDetailsResponse {
+	this := GetSafeDetailsResponse{}
 	return &this
 }
 
 // GetSafeUrlId returns the SafeUrlId field value if set, zero value otherwise.
-func (o *SafeItem) GetSafeUrlId() string {
+func (o *GetSafeDetailsResponse) GetSafeUrlId() string {
 	if o == nil || o.SafeUrlId == nil {
 		var ret string
 		return ret
@@ -74,7 +74,7 @@ func (o *SafeItem) GetSafeUrlId() string {
 
 // GetSafeUrlIdOk returns a tuple with the SafeUrlId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SafeItem) GetSafeUrlIdOk() (*string, bool) {
+func (o *GetSafeDetailsResponse) GetSafeUrlIdOk() (*string, bool) {
 	if o == nil || o.SafeUrlId == nil {
 		return nil, false
 	}
@@ -82,7 +82,7 @@ func (o *SafeItem) GetSafeUrlIdOk() (*string, bool) {
 }
 
 // HasSafeUrlId returns a boolean if a field has been set.
-func (o *SafeItem) HasSafeUrlId() bool {
+func (o *GetSafeDetailsResponse) HasSafeUrlId() bool {
 	if o != nil && o.SafeUrlId != nil {
 		return true
 	}
@@ -91,12 +91,12 @@ func (o *SafeItem) HasSafeUrlId() bool {
 }
 
 // SetSafeUrlId gets a reference to the given string and assigns it to the SafeUrlId field.
-func (o *SafeItem) SetSafeUrlId(v string) {
+func (o *GetSafeDetailsResponse) SetSafeUrlId(v string) {
 	o.SafeUrlId = &v
 }
 
 // GetSafeName returns the SafeName field value if set, zero value otherwise.
-func (o *SafeItem) GetSafeName() string {
+func (o *GetSafeDetailsResponse) GetSafeName() string {
 	if o == nil || o.SafeName == nil {
 		var ret string
 		return ret
@@ -106,7 +106,7 @@ func (o *SafeItem) GetSafeName() string {
 
 // GetSafeNameOk returns a tuple with the SafeName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SafeItem) GetSafeNameOk() (*string, bool) {
+func (o *GetSafeDetailsResponse) GetSafeNameOk() (*string, bool) {
 	if o == nil || o.SafeName == nil {
 		return nil, false
 	}
@@ -114,7 +114,7 @@ func (o *SafeItem) GetSafeNameOk() (*string, bool) {
 }
 
 // HasSafeName returns a boolean if a field has been set.
-func (o *SafeItem) HasSafeName() bool {
+func (o *GetSafeDetailsResponse) HasSafeName() bool {
 	if o != nil && o.SafeName != nil {
 		return true
 	}
@@ -123,12 +123,12 @@ func (o *SafeItem) HasSafeName() bool {
 }
 
 // SetSafeName gets a reference to the given string and assigns it to the SafeName field.
-func (o *SafeItem) SetSafeName(v string) {
+func (o *GetSafeDetailsResponse) SetSafeName(v string) {
 	o.SafeName = &v
 }
 
 // GetSafeNumber returns the SafeNumber field value if set, zero value otherwise.
-func (o *SafeItem) GetSafeNumber() int64 {
+func (o *GetSafeDetailsResponse) GetSafeNumber() int64 {
 	if o == nil || o.SafeNumber == nil {
 		var ret int64
 		return ret
@@ -138,7 +138,7 @@ func (o *SafeItem) GetSafeNumber() int64 {
 
 // GetSafeNumberOk returns a tuple with the SafeNumber field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SafeItem) GetSafeNumberOk() (*int64, bool) {
+func (o *GetSafeDetailsResponse) GetSafeNumberOk() (*int64, bool) {
 	if o == nil || o.SafeNumber == nil {
 		return nil, false
 	}
@@ -146,7 +146,7 @@ func (o *SafeItem) GetSafeNumberOk() (*int64, bool) {
 }
 
 // HasSafeNumber returns a boolean if a field has been set.
-func (o *SafeItem) HasSafeNumber() bool {
+func (o *GetSafeDetailsResponse) HasSafeNumber() bool {
 	if o != nil && o.SafeNumber != nil {
 		return true
 	}
@@ -155,12 +155,12 @@ func (o *SafeItem) HasSafeNumber() bool {
 }
 
 // SetSafeNumber gets a reference to the given int64 and assigns it to the SafeNumber field.
-func (o *SafeItem) SetSafeNumber(v int64) {
+func (o *GetSafeDetailsResponse) SetSafeNumber(v int64) {
 	o.SafeNumber = &v
 }
 
 // GetDescription returns the Description field value if set, zero value otherwise.
-func (o *SafeItem) GetDescription() string {
+func (o *GetSafeDetailsResponse) GetDescription() string {
 	if o == nil || o.Description == nil {
 		var ret string
 		return ret
@@ -170,7 +170,7 @@ func (o *SafeItem) GetDescription() string {
 
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SafeItem) GetDescriptionOk() (*string, bool) {
+func (o *GetSafeDetailsResponse) GetDescriptionOk() (*string, bool) {
 	if o == nil || o.Description == nil {
 		return nil, false
 	}
@@ -178,7 +178,7 @@ func (o *SafeItem) GetDescriptionOk() (*string, bool) {
 }
 
 // HasDescription returns a boolean if a field has been set.
-func (o *SafeItem) HasDescription() bool {
+func (o *GetSafeDetailsResponse) HasDescription() bool {
 	if o != nil && o.Description != nil {
 		return true
 	}
@@ -187,12 +187,12 @@ func (o *SafeItem) HasDescription() bool {
 }
 
 // SetDescription gets a reference to the given string and assigns it to the Description field.
-func (o *SafeItem) SetDescription(v string) {
+func (o *GetSafeDetailsResponse) SetDescription(v string) {
 	o.Description = &v
 }
 
 // GetLocation returns the Location field value if set, zero value otherwise.
-func (o *SafeItem) GetLocation() string {
+func (o *GetSafeDetailsResponse) GetLocation() string {
 	if o == nil || o.Location == nil {
 		var ret string
 		return ret
@@ -202,7 +202,7 @@ func (o *SafeItem) GetLocation() string {
 
 // GetLocationOk returns a tuple with the Location field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SafeItem) GetLocationOk() (*string, bool) {
+func (o *GetSafeDetailsResponse) GetLocationOk() (*string, bool) {
 	if o == nil || o.Location == nil {
 		return nil, false
 	}
@@ -210,7 +210,7 @@ func (o *SafeItem) GetLocationOk() (*string, bool) {
 }
 
 // HasLocation returns a boolean if a field has been set.
-func (o *SafeItem) HasLocation() bool {
+func (o *GetSafeDetailsResponse) HasLocation() bool {
 	if o != nil && o.Location != nil {
 		return true
 	}
@@ -219,14 +219,14 @@ func (o *SafeItem) HasLocation() bool {
 }
 
 // SetLocation gets a reference to the given string and assigns it to the Location field.
-func (o *SafeItem) SetLocation(v string) {
+func (o *GetSafeDetailsResponse) SetLocation(v string) {
 	o.Location = &v
 }
 
 // GetCreator returns the Creator field value if set, zero value otherwise.
-func (o *SafeItem) GetCreator() SafeCreator {
+func (o *GetSafeDetailsResponse) GetCreator() SafeCreatorResponse {
 	if o == nil || o.Creator == nil {
-		var ret SafeCreator
+		var ret SafeCreatorResponse
 		return ret
 	}
 	return *o.Creator
@@ -234,7 +234,7 @@ func (o *SafeItem) GetCreator() SafeCreator {
 
 // GetCreatorOk returns a tuple with the Creator field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SafeItem) GetCreatorOk() (*SafeCreator, bool) {
+func (o *GetSafeDetailsResponse) GetCreatorOk() (*SafeCreatorResponse, bool) {
 	if o == nil || o.Creator == nil {
 		return nil, false
 	}
@@ -242,7 +242,7 @@ func (o *SafeItem) GetCreatorOk() (*SafeCreator, bool) {
 }
 
 // HasCreator returns a boolean if a field has been set.
-func (o *SafeItem) HasCreator() bool {
+func (o *GetSafeDetailsResponse) HasCreator() bool {
 	if o != nil && o.Creator != nil {
 		return true
 	}
@@ -250,45 +250,13 @@ func (o *SafeItem) HasCreator() bool {
 	return false
 }
 
-// SetCreator gets a reference to the given SafeCreator and assigns it to the Creator field.
-func (o *SafeItem) SetCreator(v SafeCreator) {
+// SetCreator gets a reference to the given SafeCreatorResponse and assigns it to the Creator field.
+func (o *GetSafeDetailsResponse) SetCreator(v SafeCreatorResponse) {
 	o.Creator = &v
 }
 
-// GetAccounts returns the Accounts field value if set, zero value otherwise.
-func (o *SafeItem) GetAccounts() []AccountInSafe {
-	if o == nil || o.Accounts == nil {
-		var ret []AccountInSafe
-		return ret
-	}
-	return *o.Accounts
-}
-
-// GetAccountsOk returns a tuple with the Accounts field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *SafeItem) GetAccountsOk() (*[]AccountInSafe, bool) {
-	if o == nil || o.Accounts == nil {
-		return nil, false
-	}
-	return o.Accounts, true
-}
-
-// HasAccounts returns a boolean if a field has been set.
-func (o *SafeItem) HasAccounts() bool {
-	if o != nil && o.Accounts != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetAccounts gets a reference to the given []AccountInSafe and assigns it to the Accounts field.
-func (o *SafeItem) SetAccounts(v []AccountInSafe) {
-	o.Accounts = &v
-}
-
 // GetOlacEnabled returns the OlacEnabled field value if set, zero value otherwise.
-func (o *SafeItem) GetOlacEnabled() bool {
+func (o *GetSafeDetailsResponse) GetOlacEnabled() bool {
 	if o == nil || o.OlacEnabled == nil {
 		var ret bool
 		return ret
@@ -298,7 +266,7 @@ func (o *SafeItem) GetOlacEnabled() bool {
 
 // GetOlacEnabledOk returns a tuple with the OlacEnabled field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SafeItem) GetOlacEnabledOk() (*bool, bool) {
+func (o *GetSafeDetailsResponse) GetOlacEnabledOk() (*bool, bool) {
 	if o == nil || o.OlacEnabled == nil {
 		return nil, false
 	}
@@ -306,7 +274,7 @@ func (o *SafeItem) GetOlacEnabledOk() (*bool, bool) {
 }
 
 // HasOlacEnabled returns a boolean if a field has been set.
-func (o *SafeItem) HasOlacEnabled() bool {
+func (o *GetSafeDetailsResponse) HasOlacEnabled() bool {
 	if o != nil && o.OlacEnabled != nil {
 		return true
 	}
@@ -315,12 +283,12 @@ func (o *SafeItem) HasOlacEnabled() bool {
 }
 
 // SetOlacEnabled gets a reference to the given bool and assigns it to the OlacEnabled field.
-func (o *SafeItem) SetOlacEnabled(v bool) {
+func (o *GetSafeDetailsResponse) SetOlacEnabled(v bool) {
 	o.OlacEnabled = &v
 }
 
 // GetManagingCPM returns the ManagingCPM field value if set, zero value otherwise.
-func (o *SafeItem) GetManagingCPM() string {
+func (o *GetSafeDetailsResponse) GetManagingCPM() string {
 	if o == nil || o.ManagingCPM == nil {
 		var ret string
 		return ret
@@ -330,7 +298,7 @@ func (o *SafeItem) GetManagingCPM() string {
 
 // GetManagingCPMOk returns a tuple with the ManagingCPM field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SafeItem) GetManagingCPMOk() (*string, bool) {
+func (o *GetSafeDetailsResponse) GetManagingCPMOk() (*string, bool) {
 	if o == nil || o.ManagingCPM == nil {
 		return nil, false
 	}
@@ -338,7 +306,7 @@ func (o *SafeItem) GetManagingCPMOk() (*string, bool) {
 }
 
 // HasManagingCPM returns a boolean if a field has been set.
-func (o *SafeItem) HasManagingCPM() bool {
+func (o *GetSafeDetailsResponse) HasManagingCPM() bool {
 	if o != nil && o.ManagingCPM != nil {
 		return true
 	}
@@ -347,12 +315,12 @@ func (o *SafeItem) HasManagingCPM() bool {
 }
 
 // SetManagingCPM gets a reference to the given string and assigns it to the ManagingCPM field.
-func (o *SafeItem) SetManagingCPM(v string) {
+func (o *GetSafeDetailsResponse) SetManagingCPM(v string) {
 	o.ManagingCPM = &v
 }
 
 // GetNumberOfVersionsRetention returns the NumberOfVersionsRetention field value if set, zero value otherwise.
-func (o *SafeItem) GetNumberOfVersionsRetention() int32 {
+func (o *GetSafeDetailsResponse) GetNumberOfVersionsRetention() int32 {
 	if o == nil || o.NumberOfVersionsRetention == nil {
 		var ret int32
 		return ret
@@ -362,7 +330,7 @@ func (o *SafeItem) GetNumberOfVersionsRetention() int32 {
 
 // GetNumberOfVersionsRetentionOk returns a tuple with the NumberOfVersionsRetention field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SafeItem) GetNumberOfVersionsRetentionOk() (*int32, bool) {
+func (o *GetSafeDetailsResponse) GetNumberOfVersionsRetentionOk() (*int32, bool) {
 	if o == nil || o.NumberOfVersionsRetention == nil {
 		return nil, false
 	}
@@ -370,7 +338,7 @@ func (o *SafeItem) GetNumberOfVersionsRetentionOk() (*int32, bool) {
 }
 
 // HasNumberOfVersionsRetention returns a boolean if a field has been set.
-func (o *SafeItem) HasNumberOfVersionsRetention() bool {
+func (o *GetSafeDetailsResponse) HasNumberOfVersionsRetention() bool {
 	if o != nil && o.NumberOfVersionsRetention != nil {
 		return true
 	}
@@ -379,12 +347,12 @@ func (o *SafeItem) HasNumberOfVersionsRetention() bool {
 }
 
 // SetNumberOfVersionsRetention gets a reference to the given int32 and assigns it to the NumberOfVersionsRetention field.
-func (o *SafeItem) SetNumberOfVersionsRetention(v int32) {
+func (o *GetSafeDetailsResponse) SetNumberOfVersionsRetention(v int32) {
 	o.NumberOfVersionsRetention = &v
 }
 
 // GetNumberOfDaysRetention returns the NumberOfDaysRetention field value if set, zero value otherwise.
-func (o *SafeItem) GetNumberOfDaysRetention() int32 {
+func (o *GetSafeDetailsResponse) GetNumberOfDaysRetention() int32 {
 	if o == nil || o.NumberOfDaysRetention == nil {
 		var ret int32
 		return ret
@@ -394,7 +362,7 @@ func (o *SafeItem) GetNumberOfDaysRetention() int32 {
 
 // GetNumberOfDaysRetentionOk returns a tuple with the NumberOfDaysRetention field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SafeItem) GetNumberOfDaysRetentionOk() (*int32, bool) {
+func (o *GetSafeDetailsResponse) GetNumberOfDaysRetentionOk() (*int32, bool) {
 	if o == nil || o.NumberOfDaysRetention == nil {
 		return nil, false
 	}
@@ -402,7 +370,7 @@ func (o *SafeItem) GetNumberOfDaysRetentionOk() (*int32, bool) {
 }
 
 // HasNumberOfDaysRetention returns a boolean if a field has been set.
-func (o *SafeItem) HasNumberOfDaysRetention() bool {
+func (o *GetSafeDetailsResponse) HasNumberOfDaysRetention() bool {
 	if o != nil && o.NumberOfDaysRetention != nil {
 		return true
 	}
@@ -411,12 +379,12 @@ func (o *SafeItem) HasNumberOfDaysRetention() bool {
 }
 
 // SetNumberOfDaysRetention gets a reference to the given int32 and assigns it to the NumberOfDaysRetention field.
-func (o *SafeItem) SetNumberOfDaysRetention(v int32) {
+func (o *GetSafeDetailsResponse) SetNumberOfDaysRetention(v int32) {
 	o.NumberOfDaysRetention = &v
 }
 
 // GetAutoPurgeEnabled returns the AutoPurgeEnabled field value if set, zero value otherwise.
-func (o *SafeItem) GetAutoPurgeEnabled() bool {
+func (o *GetSafeDetailsResponse) GetAutoPurgeEnabled() bool {
 	if o == nil || o.AutoPurgeEnabled == nil {
 		var ret bool
 		return ret
@@ -426,7 +394,7 @@ func (o *SafeItem) GetAutoPurgeEnabled() bool {
 
 // GetAutoPurgeEnabledOk returns a tuple with the AutoPurgeEnabled field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SafeItem) GetAutoPurgeEnabledOk() (*bool, bool) {
+func (o *GetSafeDetailsResponse) GetAutoPurgeEnabledOk() (*bool, bool) {
 	if o == nil || o.AutoPurgeEnabled == nil {
 		return nil, false
 	}
@@ -434,7 +402,7 @@ func (o *SafeItem) GetAutoPurgeEnabledOk() (*bool, bool) {
 }
 
 // HasAutoPurgeEnabled returns a boolean if a field has been set.
-func (o *SafeItem) HasAutoPurgeEnabled() bool {
+func (o *GetSafeDetailsResponse) HasAutoPurgeEnabled() bool {
 	if o != nil && o.AutoPurgeEnabled != nil {
 		return true
 	}
@@ -443,12 +411,12 @@ func (o *SafeItem) HasAutoPurgeEnabled() bool {
 }
 
 // SetAutoPurgeEnabled gets a reference to the given bool and assigns it to the AutoPurgeEnabled field.
-func (o *SafeItem) SetAutoPurgeEnabled(v bool) {
+func (o *GetSafeDetailsResponse) SetAutoPurgeEnabled(v bool) {
 	o.AutoPurgeEnabled = &v
 }
 
 // GetCreationTime returns the CreationTime field value if set, zero value otherwise.
-func (o *SafeItem) GetCreationTime() int64 {
+func (o *GetSafeDetailsResponse) GetCreationTime() int64 {
 	if o == nil || o.CreationTime == nil {
 		var ret int64
 		return ret
@@ -458,7 +426,7 @@ func (o *SafeItem) GetCreationTime() int64 {
 
 // GetCreationTimeOk returns a tuple with the CreationTime field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SafeItem) GetCreationTimeOk() (*int64, bool) {
+func (o *GetSafeDetailsResponse) GetCreationTimeOk() (*int64, bool) {
 	if o == nil || o.CreationTime == nil {
 		return nil, false
 	}
@@ -466,7 +434,7 @@ func (o *SafeItem) GetCreationTimeOk() (*int64, bool) {
 }
 
 // HasCreationTime returns a boolean if a field has been set.
-func (o *SafeItem) HasCreationTime() bool {
+func (o *GetSafeDetailsResponse) HasCreationTime() bool {
 	if o != nil && o.CreationTime != nil {
 		return true
 	}
@@ -475,12 +443,12 @@ func (o *SafeItem) HasCreationTime() bool {
 }
 
 // SetCreationTime gets a reference to the given int64 and assigns it to the CreationTime field.
-func (o *SafeItem) SetCreationTime(v int64) {
+func (o *GetSafeDetailsResponse) SetCreationTime(v int64) {
 	o.CreationTime = &v
 }
 
 // GetLastModificationTime returns the LastModificationTime field value if set, zero value otherwise.
-func (o *SafeItem) GetLastModificationTime() int64 {
+func (o *GetSafeDetailsResponse) GetLastModificationTime() int64 {
 	if o == nil || o.LastModificationTime == nil {
 		var ret int64
 		return ret
@@ -490,7 +458,7 @@ func (o *SafeItem) GetLastModificationTime() int64 {
 
 // GetLastModificationTimeOk returns a tuple with the LastModificationTime field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SafeItem) GetLastModificationTimeOk() (*int64, bool) {
+func (o *GetSafeDetailsResponse) GetLastModificationTimeOk() (*int64, bool) {
 	if o == nil || o.LastModificationTime == nil {
 		return nil, false
 	}
@@ -498,7 +466,7 @@ func (o *SafeItem) GetLastModificationTimeOk() (*int64, bool) {
 }
 
 // HasLastModificationTime returns a boolean if a field has been set.
-func (o *SafeItem) HasLastModificationTime() bool {
+func (o *GetSafeDetailsResponse) HasLastModificationTime() bool {
 	if o != nil && o.LastModificationTime != nil {
 		return true
 	}
@@ -507,12 +475,44 @@ func (o *SafeItem) HasLastModificationTime() bool {
 }
 
 // SetLastModificationTime gets a reference to the given int64 and assigns it to the LastModificationTime field.
-func (o *SafeItem) SetLastModificationTime(v int64) {
+func (o *GetSafeDetailsResponse) SetLastModificationTime(v int64) {
 	o.LastModificationTime = &v
 }
 
+// GetAccounts returns the Accounts field value if set, zero value otherwise.
+func (o *GetSafeDetailsResponse) GetAccounts() []AccountInSafeResponse {
+	if o == nil || o.Accounts == nil {
+		var ret []AccountInSafeResponse
+		return ret
+	}
+	return *o.Accounts
+}
+
+// GetAccountsOk returns a tuple with the Accounts field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GetSafeDetailsResponse) GetAccountsOk() (*[]AccountInSafeResponse, bool) {
+	if o == nil || o.Accounts == nil {
+		return nil, false
+	}
+	return o.Accounts, true
+}
+
+// HasAccounts returns a boolean if a field has been set.
+func (o *GetSafeDetailsResponse) HasAccounts() bool {
+	if o != nil && o.Accounts != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAccounts gets a reference to the given []AccountInSafeResponse and assigns it to the Accounts field.
+func (o *GetSafeDetailsResponse) SetAccounts(v []AccountInSafeResponse) {
+	o.Accounts = &v
+}
+
 // GetIsExpiredMember returns the IsExpiredMember field value if set, zero value otherwise.
-func (o *SafeItem) GetIsExpiredMember() bool {
+func (o *GetSafeDetailsResponse) GetIsExpiredMember() bool {
 	if o == nil || o.IsExpiredMember == nil {
 		var ret bool
 		return ret
@@ -522,7 +522,7 @@ func (o *SafeItem) GetIsExpiredMember() bool {
 
 // GetIsExpiredMemberOk returns a tuple with the IsExpiredMember field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SafeItem) GetIsExpiredMemberOk() (*bool, bool) {
+func (o *GetSafeDetailsResponse) GetIsExpiredMemberOk() (*bool, bool) {
 	if o == nil || o.IsExpiredMember == nil {
 		return nil, false
 	}
@@ -530,7 +530,7 @@ func (o *SafeItem) GetIsExpiredMemberOk() (*bool, bool) {
 }
 
 // HasIsExpiredMember returns a boolean if a field has been set.
-func (o *SafeItem) HasIsExpiredMember() bool {
+func (o *GetSafeDetailsResponse) HasIsExpiredMember() bool {
 	if o != nil && o.IsExpiredMember != nil {
 		return true
 	}
@@ -539,11 +539,11 @@ func (o *SafeItem) HasIsExpiredMember() bool {
 }
 
 // SetIsExpiredMember gets a reference to the given bool and assigns it to the IsExpiredMember field.
-func (o *SafeItem) SetIsExpiredMember(v bool) {
+func (o *GetSafeDetailsResponse) SetIsExpiredMember(v bool) {
 	o.IsExpiredMember = &v
 }
 
-func (o SafeItem) MarshalJSON() ([]byte, error) {
+func (o GetSafeDetailsResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.SafeUrlId != nil {
 		toSerialize["safeUrlId"] = o.SafeUrlId
@@ -562,9 +562,6 @@ func (o SafeItem) MarshalJSON() ([]byte, error) {
 	}
 	if o.Creator != nil {
 		toSerialize["creator"] = o.Creator
-	}
-	if o.Accounts != nil {
-		toSerialize["accounts"] = o.Accounts
 	}
 	if o.OlacEnabled != nil {
 		toSerialize["olacEnabled"] = o.OlacEnabled
@@ -587,44 +584,47 @@ func (o SafeItem) MarshalJSON() ([]byte, error) {
 	if o.LastModificationTime != nil {
 		toSerialize["lastModificationTime"] = o.LastModificationTime
 	}
+	if o.Accounts != nil {
+		toSerialize["accounts"] = o.Accounts
+	}
 	if o.IsExpiredMember != nil {
 		toSerialize["isExpiredMember"] = o.IsExpiredMember
 	}
 	return json.Marshal(toSerialize)
 }
 
-type NullableSafeItem struct {
-	value *SafeItem
+type NullableGetSafeDetailsResponse struct {
+	value *GetSafeDetailsResponse
 	isSet bool
 }
 
-func (v NullableSafeItem) Get() *SafeItem {
+func (v NullableGetSafeDetailsResponse) Get() *GetSafeDetailsResponse {
 	return v.value
 }
 
-func (v *NullableSafeItem) Set(val *SafeItem) {
+func (v *NullableGetSafeDetailsResponse) Set(val *GetSafeDetailsResponse) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableSafeItem) IsSet() bool {
+func (v NullableGetSafeDetailsResponse) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableSafeItem) Unset() {
+func (v *NullableGetSafeDetailsResponse) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableSafeItem(val *SafeItem) *NullableSafeItem {
-	return &NullableSafeItem{value: val, isSet: true}
+func NewNullableGetSafeDetailsResponse(val *GetSafeDetailsResponse) *NullableGetSafeDetailsResponse {
+	return &NullableGetSafeDetailsResponse{value: val, isSet: true}
 }
 
-func (v NullableSafeItem) MarshalJSON() ([]byte, error) {
+func (v NullableGetSafeDetailsResponse) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableSafeItem) UnmarshalJSON(src []byte) error {
+func (v *NullableGetSafeDetailsResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

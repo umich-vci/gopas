@@ -28,6 +28,8 @@ Method | HTTP request | Description
 
 
 
+
+
 ### Example
 
 ```go
@@ -41,7 +43,7 @@ import (
 )
 
 func main() {
-    userID := "userID_example" // string | 
+    userID := "userID_example" // string | The ID of the user to activate.
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -59,7 +61,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**userID** | **string** |  | 
+**userID** | **string** | The ID of the user to activate. | 
 
 ### Other Parameters
 
@@ -94,6 +96,8 @@ No authorization required
 
 
 
+
+
 ### Example
 
 ```go
@@ -107,8 +111,8 @@ import (
 )
 
 func main() {
-    userID := "userID_example" // string | 
-    sshKeyToAdd := *openapiclient.NewAddUserSSHKeyModel("PublicKey_example") // AddUserSSHKeyModel | 
+    userID := "userID_example" // string | The ID of the user to add the ssh key to.
+    sshKeyToAdd := *openapiclient.NewAddUserSSHKeyModel("PublicKey_example") // AddUserSSHKeyModel | The ssh key to add to the user
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -128,7 +132,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**userID** | **string** |  | 
+**userID** | **string** | The ID of the user to add the ssh key to. | 
 
 ### Other Parameters
 
@@ -138,7 +142,7 @@ Other parameters are passed through a pointer to a apiUsersAddUserSSHKeyRequest 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **sshKeyToAdd** | [**AddUserSSHKeyModel**](AddUserSSHKeyModel.md) |  | 
+ **sshKeyToAdd** | [**AddUserSSHKeyModel**](AddUserSSHKeyModel.md) | The ssh key to add to the user | 
 
 ### Return type
 
@@ -161,6 +165,8 @@ No authorization required
 ## UsersCreateUser
 
 > User UsersCreateUser(ctx).User(user).Execute()
+
+
 
 
 
@@ -228,6 +234,8 @@ No authorization required
 
 
 
+
+
 ### Example
 
 ```go
@@ -241,7 +249,7 @@ import (
 )
 
 func main() {
-    userID := "userID_example" // string | 
+    userID := "userID_example" // string | The ID of the User to delete.
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -259,7 +267,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**userID** | **string** |  | 
+**userID** | **string** | The ID of the User to delete. | 
 
 ### Other Parameters
 
@@ -294,6 +302,8 @@ No authorization required
 
 
 
+
+
 ### Example
 
 ```go
@@ -307,8 +317,8 @@ import (
 )
 
 func main() {
-    userID := "userID_example" // string | 
-    sshKeyToDel := *openapiclient.NewDeleteUserSSHKeyModel("KeyFingerprint_example") // DeleteUserSSHKeyModel | 
+    userID := "userID_example" // string | The ID of the user to delete the public ssh key from.
+    sshKeyToDel := *openapiclient.NewDeleteUserSSHKeyModel("KeyFingerprint_example") // DeleteUserSSHKeyModel | The SSH Key fingerprint to delete
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -326,7 +336,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**userID** | **string** |  | 
+**userID** | **string** | The ID of the user to delete the public ssh key from. | 
 
 ### Other Parameters
 
@@ -336,7 +346,7 @@ Other parameters are passed through a pointer to a apiUsersDeleteUserSSHKeyReque
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **sshKeyToDel** | [**DeleteUserSSHKeyModel**](DeleteUserSSHKeyModel.md) |  | 
+ **sshKeyToDel** | [**DeleteUserSSHKeyModel**](DeleteUserSSHKeyModel.md) | The SSH Key fingerprint to delete | 
 
 ### Return type
 
@@ -359,6 +369,8 @@ No authorization required
 ## UsersDestroyAllUsersCachedSSHKey
 
 > UsersDestroyAllUsersCachedSSHKey(ctx).Search(search).UserType(userType).ComponentUser(componentUser).Execute()
+
+
 
 
 
@@ -428,6 +440,8 @@ No authorization required
 
 
 
+
+
 ### Example
 
 ```go
@@ -485,6 +499,8 @@ No authorization required
 
 
 
+
+
 ### Example
 
 ```go
@@ -498,7 +514,7 @@ import (
 )
 
 func main() {
-    userID := "userID_example" // string | 
+    userID := "userID_example" // string | The ID of the User for which the cached ssh key will be destroyed.
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -516,7 +532,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**userID** | **string** |  | 
+**userID** | **string** | The ID of the User for which the cached ssh key will be destroyed. | 
 
 ### Other Parameters
 
@@ -551,6 +567,8 @@ No authorization required
 
 
 
+
+
 ### Example
 
 ```go
@@ -564,7 +582,7 @@ import (
 )
 
 func main() {
-    userID := "userID_example" // string | 
+    userID := "userID_example" // string | The ID of the user to update.
     user := *openapiclient.NewUser("Username_example") // User | 
 
     configuration := openapiclient.NewConfiguration()
@@ -585,7 +603,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**userID** | **string** |  | 
+**userID** | **string** | The ID of the user to update. | 
 
 ### Other Parameters
 
@@ -621,6 +639,8 @@ No authorization required
 
 
 
+
+
 ### Example
 
 ```go
@@ -634,7 +654,7 @@ import (
 )
 
 func main() {
-    genModel := *openapiclient.NewGenerateUserCachedSSHKeyModel() // GenerateUserCachedSSHKeyModel | 
+    genModel := *openapiclient.NewGenerateUserCachedSSHKeyModel() // GenerateUserCachedSSHKeyModel | The information as to how to format and output the generated ssh key
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -659,7 +679,7 @@ Other parameters are passed through a pointer to a apiUsersGenerateCurrentUserCa
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **genModel** | [**GenerateUserCachedSSHKeyModel**](GenerateUserCachedSSHKeyModel.md) |  | 
+ **genModel** | [**GenerateUserCachedSSHKeyModel**](GenerateUserCachedSSHKeyModel.md) | The information as to how to format and output the generated ssh key | 
 
 ### Return type
 
@@ -685,6 +705,8 @@ No authorization required
 
 
 
+
+
 ### Example
 
 ```go
@@ -698,8 +720,8 @@ import (
 )
 
 func main() {
-    userID := "userID_example" // string | 
-    genModel := *openapiclient.NewGenerateUserCachedSSHKeyModel() // GenerateUserCachedSSHKeyModel | 
+    userID := "userID_example" // string | The ID of the User for which the key will be generated
+    genModel := *openapiclient.NewGenerateUserCachedSSHKeyModel() // GenerateUserCachedSSHKeyModel | The information as to how to format and output the generated ssh key
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -719,7 +741,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**userID** | **string** |  | 
+**userID** | **string** | The ID of the User for which the key will be generated | 
 
 ### Other Parameters
 
@@ -729,7 +751,7 @@ Other parameters are passed through a pointer to a apiUsersGenerateUserCachedSSH
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **genModel** | [**GenerateUserCachedSSHKeyModel**](GenerateUserCachedSSHKeyModel.md) |  | 
+ **genModel** | [**GenerateUserCachedSSHKeyModel**](GenerateUserCachedSSHKeyModel.md) | The information as to how to format and output the generated ssh key | 
 
 ### Return type
 
@@ -755,6 +777,8 @@ No authorization required
 
 
 
+
+
 ### Example
 
 ```go
@@ -768,7 +792,7 @@ import (
 )
 
 func main() {
-    userID := "userID_example" // string | 
+    userID := "userID_example" // string | The ID of the User for which information is returned.
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -788,7 +812,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**userID** | **string** |  | 
+**userID** | **string** | The ID of the User for which information is returned. | 
 
 ### Other Parameters
 
@@ -823,6 +847,8 @@ No authorization required
 
 
 
+
+
 ### Example
 
 ```go
@@ -836,7 +862,7 @@ import (
 )
 
 func main() {
-    userID := "userID_example" // string | 
+    userID := "userID_example" // string | The ID of the user for which public ssh keys are returned.
     keyStoreTypeFilter := int32(56) // int32 | The key type filter (optional)
 
     configuration := openapiclient.NewConfiguration()
@@ -857,7 +883,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**userID** | **string** |  | 
+**userID** | **string** | The ID of the user for which public ssh keys are returned. | 
 
 ### Other Parameters
 
@@ -889,7 +915,9 @@ No authorization required
 
 ## UsersGetUsers
 
-> []BaseUser UsersGetUsers(ctx).ExtendedDetails(extendedDetails).Search(search).UserType(userType).ComponentUser(componentUser).Execute()
+> []BaseUser UsersGetUsers(ctx).ExtendedDetails(extendedDetails).Search(search).Sort(sort).UserName(userName).UserType(userType).ComponentUser(componentUser).Execute()
+
+
 
 
 
@@ -906,14 +934,16 @@ import (
 )
 
 func main() {
-    extendedDetails := true // bool |  (optional)
+    extendedDetails := true // bool | returns users group membership if true (optional)
     search := "search_example" // string |  (optional)
+    sort := []string{"Inner_example"} // []string |  (optional)
+    userName := "userName_example" // string | The name of the user. (optional)
     userType := "userType_example" // string | The type of the user. (optional)
     componentUser := true // bool | Whether the user is a known component or not. (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.UsersApi.UsersGetUsers(context.Background()).ExtendedDetails(extendedDetails).Search(search).UserType(userType).ComponentUser(componentUser).Execute()
+    resp, r, err := api_client.UsersApi.UsersGetUsers(context.Background()).ExtendedDetails(extendedDetails).Search(search).Sort(sort).UserName(userName).UserType(userType).ComponentUser(componentUser).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UsersApi.UsersGetUsers``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -934,8 +964,10 @@ Other parameters are passed through a pointer to a apiUsersGetUsersRequest struc
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **extendedDetails** | **bool** |  | 
+ **extendedDetails** | **bool** | returns users group membership if true | 
  **search** | **string** |  | 
+ **sort** | **[]string** |  | 
+ **userName** | **string** | The name of the user. | 
  **userType** | **string** | The type of the user. | 
  **componentUser** | **bool** | Whether the user is a known component or not. | 
 
@@ -963,6 +995,8 @@ No authorization required
 
 
 
+
+
 ### Example
 
 ```go
@@ -976,7 +1010,7 @@ import (
 )
 
 func main() {
-    userID := "userID_example" // string | 
+    userID := "userID_example" // string | The ID of the user whose password will be reset.
     resetUserPassword := *openapiclient.NewResetUserPassword("NewPassword_example") // ResetUserPassword | 
 
     configuration := openapiclient.NewConfiguration()
@@ -995,7 +1029,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**userID** | **string** |  | 
+**userID** | **string** | The ID of the user whose password will be reset. | 
 
 ### Other Parameters
 
