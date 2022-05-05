@@ -213,6 +213,7 @@ Class | Method | HTTP request | Description
 *UserGroupsApi* | [**UserGroupsCreateUserGroup**](docs/UserGroupsApi.md#usergroupscreateusergroup) | **Post** /api/UserGroups | 
 *UserGroupsApi* | [**UserGroupsDeleteUserGroup**](docs/UserGroupsApi.md#usergroupsdeleteusergroup) | **Delete** /api/UserGroups/{groupId} | 
 *UserGroupsApi* | [**UserGroupsEditUserGroup**](docs/UserGroupsApi.md#usergroupseditusergroup) | **Put** /api/UserGroups/{groupId} | 
+*UserGroupsApi* | [**UserGroupsGetGroupDetails**](docs/UserGroupsApi.md#usergroupsgetgroupdetails) | **Get** /api/UserGroups/{groupID} | 
 *UserGroupsApi* | [**UserGroupsGetUserGroups**](docs/UserGroupsApi.md#usergroupsgetusergroups) | **Get** /api/UserGroups | 
 *UserGroupsApi* | [**UserGroupsRemoveUserFromGroup**](docs/UserGroupsApi.md#usergroupsremoveuserfromgroup) | **Delete** /api/UserGroups/{groupId}/Members/{memberName} | 
 *UsersApi* | [**UsersActivateUser**](docs/UsersApi.md#usersactivateuser) | **Post** /api/Users/{userID}/Activate | 
@@ -234,7 +235,7 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
- - [A4b](docs/A4b.md)
+ - [A4c](docs/A4c.md)
  - [Account](docs/Account.md)
  - [AccountContentPrerequsites](docs/AccountContentPrerequsites.md)
  - [AccountGroup](docs/AccountGroup.md)

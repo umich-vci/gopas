@@ -8,6 +8,7 @@ Method | HTTP request | Description
 [**UserGroupsCreateUserGroup**](UserGroupsApi.md#UserGroupsCreateUserGroup) | **Post** /api/UserGroups | 
 [**UserGroupsDeleteUserGroup**](UserGroupsApi.md#UserGroupsDeleteUserGroup) | **Delete** /api/UserGroups/{groupId} | 
 [**UserGroupsEditUserGroup**](UserGroupsApi.md#UserGroupsEditUserGroup) | **Put** /api/UserGroups/{groupId} | 
+[**UserGroupsGetGroupDetails**](UserGroupsApi.md#UserGroupsGetGroupDetails) | **Get** /api/UserGroups/{groupID} | 
 [**UserGroupsGetUserGroups**](UserGroupsApi.md#UserGroupsGetUserGroups) | **Get** /api/UserGroups | 
 [**UserGroupsRemoveUserFromGroup**](UserGroupsApi.md#UserGroupsRemoveUserFromGroup) | **Delete** /api/UserGroups/{groupId}/Members/{memberName} | 
 
@@ -293,11 +294,79 @@ No authorization required
 [[Back to README]](../README.md)
 
 
+## UserGroupsGetGroupDetails
+
+> UserGroup UserGroupsGetGroupDetails(ctx, groupID).Execute()
+
+
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    groupID := "groupID_example" // string | The ID of the User Group for which information is returned.
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.UserGroupsApi.UserGroupsGetGroupDetails(context.Background(), groupID).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserGroupsApi.UserGroupsGetGroupDetails``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `UserGroupsGetGroupDetails`: UserGroup
+    fmt.Fprintf(os.Stdout, "Response from `UserGroupsApi.UserGroupsGetGroupDetails`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**groupID** | **string** | The ID of the User Group for which information is returned. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiUserGroupsGetGroupDetailsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**UserGroup**](UserGroup.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, text/json, application/xml, text/xml, multipart/form-data, application/vnd.cyberark.api+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## UserGroupsGetUserGroups
 
 > GetUserGroupsResponse UserGroupsGetUserGroups(ctx).Search(search).Sort(sort).Filter(filter).IncludeMembers(includeMembers).Execute()
-
-
 
 
 

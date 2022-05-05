@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**PSMConnectors** | Pointer to [**[]A4b**](A4b.md) | List of PSM Connectors linked to the platform | [optional] 
+**PSMConnectors** | Pointer to [**[]A4c**](A4c.md) | List of PSM Connectors linked to the platform | [optional] 
 **PSMServerId** | **string** | PSM server ID linked to the platform | 
 **PSMServerName** | Pointer to **string** | Name of the PSM server linked to the platform | [optional] 
 
@@ -29,20 +29,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetPSMConnectors
 
-`func (o *PrivilegedSessionManagement) GetPSMConnectors() []A4b`
+`func (o *PrivilegedSessionManagement) GetPSMConnectors() []A4c`
 
 GetPSMConnectors returns the PSMConnectors field if non-nil, zero value otherwise.
 
 ### GetPSMConnectorsOk
 
-`func (o *PrivilegedSessionManagement) GetPSMConnectorsOk() (*[]A4b, bool)`
+`func (o *PrivilegedSessionManagement) GetPSMConnectorsOk() (*[]A4c, bool)`
 
 GetPSMConnectorsOk returns a tuple with the PSMConnectors field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPSMConnectors
 
-`func (o *PrivilegedSessionManagement) SetPSMConnectors(v []A4b)`
+`func (o *PrivilegedSessionManagement) SetPSMConnectors(v []A4c)`
 
 SetPSMConnectors sets PSMConnectors field to given value.
 

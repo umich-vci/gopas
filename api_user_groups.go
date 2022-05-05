@@ -486,6 +486,113 @@ func (a *UserGroupsApiService) UserGroupsEditUserGroupExecute(r ApiUserGroupsEdi
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ApiUserGroupsGetGroupDetailsRequest struct {
+	ctx        _context.Context
+	ApiService *UserGroupsApiService
+	groupID    string
+}
+
+func (r ApiUserGroupsGetGroupDetailsRequest) Execute() (UserGroup, *_nethttp.Response, error) {
+	return r.ApiService.UserGroupsGetGroupDetailsExecute(r)
+}
+
+/*
+UserGroupsGetGroupDetails Method for UserGroupsGetGroupDetails
+
+This method returns information about a specific user group.
+
+To run this web service, the user must have the Audit users permissions in the Vault.
+
+ @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param groupID The ID of the User Group for which information is returned.
+ @return ApiUserGroupsGetGroupDetailsRequest
+*/
+func (a *UserGroupsApiService) UserGroupsGetGroupDetails(ctx _context.Context, groupID string) ApiUserGroupsGetGroupDetailsRequest {
+	return ApiUserGroupsGetGroupDetailsRequest{
+		ApiService: a,
+		ctx:        ctx,
+		groupID:    groupID,
+	}
+}
+
+// Execute executes the request
+//  @return UserGroup
+func (a *UserGroupsApiService) UserGroupsGetGroupDetailsExecute(r ApiUserGroupsGetGroupDetailsRequest) (UserGroup, *_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  UserGroup
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserGroupsApiService.UserGroupsGetGroupDetails")
+	if err != nil {
+		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/UserGroups/{groupID}"
+	localVarPath = strings.Replace(localVarPath, "{"+"groupID"+"}", _neturl.PathEscape(parameterToString(r.groupID, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "text/json", "application/xml", "text/xml", "multipart/form-data", "application/vnd.cyberark.api+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiUserGroupsGetUserGroupsRequest struct {
 	ctx            _context.Context
 	ApiService     *UserGroupsApiService
@@ -520,14 +627,6 @@ func (r ApiUserGroupsGetUserGroupsRequest) Execute() (GetUserGroupsResponse, *_n
 
 /*
 UserGroupsGetUserGroups Method for UserGroupsGetUserGroups
-
-This method will return a list of all existing groups in the Vault.
-
-To run this web service, the user must have Audit users permissions in the Vault.
-
-The user who runs this web service can see groups either only on the same level, or lower in the Vault hierarchy: this depends on the HideVaultUsersTree parameter defined in the dbparam.ini.
-If HideVaultUsersTree is set to No, all groups will be returned (not only those in the same level or lower in the Vault hierarchy).
-If this parameter is set to Yes, only auditors and managers will be allowed to get all groups.
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiUserGroupsGetUserGroupsRequest

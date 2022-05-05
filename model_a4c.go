@@ -14,33 +14,33 @@ import (
 	"encoding/json"
 )
 
-// A4b struct for A4b
-type A4b struct {
+// A4c struct for A4c
+type A4c struct {
 	PSMConnectorID string `json:"PSMConnectorID"`
 	Enabled        bool   `json:"Enabled"`
 }
 
-// NewA4b instantiates a new A4b object
+// NewA4c instantiates a new A4c object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewA4b(pSMConnectorID string, enabled bool) *A4b {
-	this := A4b{}
+func NewA4c(pSMConnectorID string, enabled bool) *A4c {
+	this := A4c{}
 	this.PSMConnectorID = pSMConnectorID
 	this.Enabled = enabled
 	return &this
 }
 
-// NewA4bWithDefaults instantiates a new A4b object
+// NewA4cWithDefaults instantiates a new A4c object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewA4bWithDefaults() *A4b {
-	this := A4b{}
+func NewA4cWithDefaults() *A4c {
+	this := A4c{}
 	return &this
 }
 
 // GetPSMConnectorID returns the PSMConnectorID field value
-func (o *A4b) GetPSMConnectorID() string {
+func (o *A4c) GetPSMConnectorID() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -51,7 +51,7 @@ func (o *A4b) GetPSMConnectorID() string {
 
 // GetPSMConnectorIDOk returns a tuple with the PSMConnectorID field value
 // and a boolean to check if the value has been set.
-func (o *A4b) GetPSMConnectorIDOk() (*string, bool) {
+func (o *A4c) GetPSMConnectorIDOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -59,12 +59,12 @@ func (o *A4b) GetPSMConnectorIDOk() (*string, bool) {
 }
 
 // SetPSMConnectorID sets field value
-func (o *A4b) SetPSMConnectorID(v string) {
+func (o *A4c) SetPSMConnectorID(v string) {
 	o.PSMConnectorID = v
 }
 
 // GetEnabled returns the Enabled field value
-func (o *A4b) GetEnabled() bool {
+func (o *A4c) GetEnabled() bool {
 	if o == nil {
 		var ret bool
 		return ret
@@ -75,7 +75,7 @@ func (o *A4b) GetEnabled() bool {
 
 // GetEnabledOk returns a tuple with the Enabled field value
 // and a boolean to check if the value has been set.
-func (o *A4b) GetEnabledOk() (*bool, bool) {
+func (o *A4c) GetEnabledOk() (*bool, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -83,11 +83,11 @@ func (o *A4b) GetEnabledOk() (*bool, bool) {
 }
 
 // SetEnabled sets field value
-func (o *A4b) SetEnabled(v bool) {
+func (o *A4c) SetEnabled(v bool) {
 	o.Enabled = v
 }
 
-func (o A4b) MarshalJSON() ([]byte, error) {
+func (o A4c) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
 		toSerialize["PSMConnectorID"] = o.PSMConnectorID
@@ -98,38 +98,38 @@ func (o A4b) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-type NullableA4b struct {
-	value *A4b
+type NullableA4c struct {
+	value *A4c
 	isSet bool
 }
 
-func (v NullableA4b) Get() *A4b {
+func (v NullableA4c) Get() *A4c {
 	return v.value
 }
 
-func (v *NullableA4b) Set(val *A4b) {
+func (v *NullableA4c) Set(val *A4c) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableA4b) IsSet() bool {
+func (v NullableA4c) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableA4b) Unset() {
+func (v *NullableA4c) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableA4b(val *A4b) *NullableA4b {
-	return &NullableA4b{value: val, isSet: true}
+func NewNullableA4c(val *A4c) *NullableA4c {
+	return &NullableA4c{value: val, isSet: true}
 }
 
-func (v NullableA4b) MarshalJSON() ([]byte, error) {
+func (v NullableA4c) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableA4b) UnmarshalJSON(src []byte) error {
+func (v *NullableA4c) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

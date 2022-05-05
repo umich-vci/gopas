@@ -16,7 +16,7 @@ import (
 
 // MemberGroup struct for MemberGroup
 type MemberGroup struct {
-	UserName *string `json:"UserName,omitempty"`
+	Username *string `json:"username,omitempty"`
 	Id       *int64  `json:"id,omitempty"`
 }
 
@@ -37,36 +37,36 @@ func NewMemberGroupWithDefaults() *MemberGroup {
 	return &this
 }
 
-// GetUserName returns the UserName field value if set, zero value otherwise.
-func (o *MemberGroup) GetUserName() string {
-	if o == nil || o.UserName == nil {
+// GetUsername returns the Username field value if set, zero value otherwise.
+func (o *MemberGroup) GetUsername() string {
+	if o == nil || o.Username == nil {
 		var ret string
 		return ret
 	}
-	return *o.UserName
+	return *o.Username
 }
 
-// GetUserNameOk returns a tuple with the UserName field value if set, nil otherwise
+// GetUsernameOk returns a tuple with the Username field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *MemberGroup) GetUserNameOk() (*string, bool) {
-	if o == nil || o.UserName == nil {
+func (o *MemberGroup) GetUsernameOk() (*string, bool) {
+	if o == nil || o.Username == nil {
 		return nil, false
 	}
-	return o.UserName, true
+	return o.Username, true
 }
 
-// HasUserName returns a boolean if a field has been set.
-func (o *MemberGroup) HasUserName() bool {
-	if o != nil && o.UserName != nil {
+// HasUsername returns a boolean if a field has been set.
+func (o *MemberGroup) HasUsername() bool {
+	if o != nil && o.Username != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetUserName gets a reference to the given string and assigns it to the UserName field.
-func (o *MemberGroup) SetUserName(v string) {
-	o.UserName = &v
+// SetUsername gets a reference to the given string and assigns it to the Username field.
+func (o *MemberGroup) SetUsername(v string) {
+	o.Username = &v
 }
 
 // GetId returns the Id field value if set, zero value otherwise.
@@ -103,8 +103,8 @@ func (o *MemberGroup) SetId(v int64) {
 
 func (o MemberGroup) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.UserName != nil {
-		toSerialize["UserName"] = o.UserName
+	if o.Username != nil {
+		toSerialize["username"] = o.Username
 	}
 	if o.Id != nil {
 		toSerialize["id"] = o.Id

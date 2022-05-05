@@ -17,7 +17,7 @@ import (
 // PrivilegedSessionManagement struct for PrivilegedSessionManagement
 type PrivilegedSessionManagement struct {
 	// List of PSM Connectors linked to the platform
-	PSMConnectors *[]A4b `json:"PSMConnectors,omitempty"`
+	PSMConnectors *[]A4c `json:"PSMConnectors,omitempty"`
 	// PSM server ID linked to the platform
 	PSMServerId string `json:"PSMServerId"`
 	// Name of the PSM server linked to the platform
@@ -43,9 +43,9 @@ func NewPrivilegedSessionManagementWithDefaults() *PrivilegedSessionManagement {
 }
 
 // GetPSMConnectors returns the PSMConnectors field value if set, zero value otherwise.
-func (o *PrivilegedSessionManagement) GetPSMConnectors() []A4b {
+func (o *PrivilegedSessionManagement) GetPSMConnectors() []A4c {
 	if o == nil || o.PSMConnectors == nil {
-		var ret []A4b
+		var ret []A4c
 		return ret
 	}
 	return *o.PSMConnectors
@@ -53,7 +53,7 @@ func (o *PrivilegedSessionManagement) GetPSMConnectors() []A4b {
 
 // GetPSMConnectorsOk returns a tuple with the PSMConnectors field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PrivilegedSessionManagement) GetPSMConnectorsOk() (*[]A4b, bool) {
+func (o *PrivilegedSessionManagement) GetPSMConnectorsOk() (*[]A4c, bool) {
 	if o == nil || o.PSMConnectors == nil {
 		return nil, false
 	}
@@ -69,8 +69,8 @@ func (o *PrivilegedSessionManagement) HasPSMConnectors() bool {
 	return false
 }
 
-// SetPSMConnectors gets a reference to the given []A4b and assigns it to the PSMConnectors field.
-func (o *PrivilegedSessionManagement) SetPSMConnectors(v []A4b) {
+// SetPSMConnectors gets a reference to the given []A4c and assigns it to the PSMConnectors field.
+func (o *PrivilegedSessionManagement) SetPSMConnectors(v []A4c) {
 	o.PSMConnectors = &v
 }
 

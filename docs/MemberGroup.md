@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**UserName** | Pointer to **string** |  | [optional] 
+**Username** | Pointer to **string** |  | [optional] 
 **Id** | Pointer to **int64** |  | [optional] 
 
 ## Methods
@@ -26,30 +26,30 @@ NewMemberGroupWithDefaults instantiates a new MemberGroup object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetUserName
+### GetUsername
 
-`func (o *MemberGroup) GetUserName() string`
+`func (o *MemberGroup) GetUsername() string`
 
-GetUserName returns the UserName field if non-nil, zero value otherwise.
+GetUsername returns the Username field if non-nil, zero value otherwise.
 
-### GetUserNameOk
+### GetUsernameOk
 
-`func (o *MemberGroup) GetUserNameOk() (*string, bool)`
+`func (o *MemberGroup) GetUsernameOk() (*string, bool)`
 
-GetUserNameOk returns a tuple with the UserName field if it's non-nil, zero value otherwise
+GetUsernameOk returns a tuple with the Username field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetUserName
+### SetUsername
 
-`func (o *MemberGroup) SetUserName(v string)`
+`func (o *MemberGroup) SetUsername(v string)`
 
-SetUserName sets UserName field to given value.
+SetUsername sets Username field to given value.
 
-### HasUserName
+### HasUsername
 
-`func (o *MemberGroup) HasUserName() bool`
+`func (o *MemberGroup) HasUsername() bool`
 
-HasUserName returns a boolean if a field has been set.
+HasUsername returns a boolean if a field has been set.
 
 ### GetId
 

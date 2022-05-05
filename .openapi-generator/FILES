@@ -28,7 +28,7 @@ api_user_groups.go
 api_users.go
 client.go
 configuration.go
-docs/A4b.md
+docs/A4c.md
 docs/Account.md
 docs/AccountContentPrerequsites.md
 docs/AccountGroup.md
@@ -220,7 +220,7 @@ docs/WorkflowPolicy.md
 git_push.sh
 go.mod
 go.sum
-model_a4b.go
+model_a4c.go
 model_account.go
 model_account_content_prerequsites.go
 model_account_group.go

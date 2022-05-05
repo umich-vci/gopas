@@ -6525,15 +6525,6 @@ paths:
       x-codegen-request-body-name: updateSafeMemberRequestBody
   /api/UserGroups:
     get:
-      description: "This method will return a list of all existing groups in the Vault.\r\
-        \n            \r\nTo run this web service, the user must have Audit users\
-        \ permissions in the Vault.\r\n            \r\nThe user who runs this web\
-        \ service can see groups either only on the same level, or lower in the Vault\
-        \ hierarchy: this depends on the HideVaultUsersTree parameter defined in the\
-        \ dbparam.ini.\r\nIf HideVaultUsersTree is set to No, all groups will be returned\
-        \ (not only those in the same level or lower in the Vault hierarchy).\r\n\
-        If this parameter is set to Yes, only auditors and managers will be allowed\
-        \ to get all groups."
       operationId: UserGroups_GetUserGroups
       parameters:
       - in: query
@@ -6750,6 +6741,43 @@ paths:
       tags:
       - User Groups
       x-codegen-request-body-name: group
+  /api/UserGroups/{groupID}:
+    get:
+      description: "This method returns information about a specific user group.\r\
+        \n\r\nTo run this web service, the user must have the Audit users permissions\
+        \ in the Vault."
+      operationId: UserGroups_GetGroupDetails
+      parameters:
+      - description: The ID of the User Group for which information is returned.
+        in: path
+        name: groupID
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserGroup'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/UserGroup'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/UserGroup'
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/UserGroup'
+            multipart/form-data:
+              schema:
+                $ref: '#/components/schemas/UserGroup'
+            application/vnd.cyberark.api+json:
+              schema:
+                $ref: '#/components/schemas/UserGroup'
+          description: OK
+      tags:
+      - User Groups
   /api/UserGroups/{groupId}/Members:
     post:
       description: "This method adds a member (that can be regular Vault user, LDAP\
@@ -11900,7 +11928,7 @@ components:
         PSMConnectors:
           description: List of PSM Connectors linked to the platform
           items:
-            $ref: '#/components/schemas/a4b'
+            $ref: '#/components/schemas/a4c'
           type: array
         PSMServerId:
           description: PSM server ID linked to the platform
@@ -11911,7 +11939,7 @@ components:
       required:
       - PSMServerId
       type: object
-    a4b:
+    a4c:
       example:
         Enabled: true
         PSMConnectorID: PSMConnectorID
@@ -13018,67 +13046,15 @@ components:
             \ and folders in the Safe to different folders and subfolders.</p>"
           type: object
       type: object
-    FilterQS:
-      properties:
-        Filter:
-          type: string
-      type: object
-    GetUsersGroupParams:
-      properties:
-        includeMembers:
-          description: Whether or not to return members for each User Group as part
-            of the response. If not sent, the value will be False.
-          type: boolean
-      type: object
-    GetUserGroupsResponse:
-      example:
-        count: 1
-        value:
-        - groupType: Vault
-          groupName: groupName
-          members:
-          - UserName: UserName
-            id: 6
-          - UserName: UserName
-            id: 6
-          description: description
-          dn: dn
-          location: location
-          id: 0
-          directory: directory
-        - groupType: Vault
-          groupName: groupName
-          members:
-          - UserName: UserName
-            id: 6
-          - UserName: UserName
-            id: 6
-          description: description
-          dn: dn
-          location: location
-          id: 0
-          directory: directory
-        nextLink: nextLink
-      properties:
-        value:
-          items:
-            $ref: '#/components/schemas/UserGroup'
-          type: array
-        count:
-          format: int32
-          type: integer
-        nextLink:
-          type: string
-      type: object
     UserGroup:
       example:
         groupType: Vault
         groupName: groupName
         members:
-        - UserName: UserName
-          id: 6
-        - UserName: UserName
-          id: 6
+        - id: 6
+          username: username
+        - id: 6
+          username: username
         description: description
         dn: dn
         location: location
@@ -13127,14 +13103,66 @@ components:
       type: object
     MemberGroup:
       example:
-        UserName: UserName
         id: 6
+        username: username
       properties:
-        UserName:
+        username:
           type: string
         id:
           format: int64
           type: integer
+      type: object
+    FilterQS:
+      properties:
+        Filter:
+          type: string
+      type: object
+    GetUsersGroupParams:
+      properties:
+        includeMembers:
+          description: Whether or not to return members for each User Group as part
+            of the response. If not sent, the value will be False.
+          type: boolean
+      type: object
+    GetUserGroupsResponse:
+      example:
+        count: 1
+        value:
+        - groupType: Vault
+          groupName: groupName
+          members:
+          - id: 6
+            username: username
+          - id: 6
+            username: username
+          description: description
+          dn: dn
+          location: location
+          id: 0
+          directory: directory
+        - groupType: Vault
+          groupName: groupName
+          members:
+          - id: 6
+            username: username
+          - id: 6
+            username: username
+          description: description
+          dn: dn
+          location: location
+          id: 0
+          directory: directory
+        nextLink: nextLink
+      properties:
+        value:
+          items:
+            $ref: '#/components/schemas/UserGroup'
+          type: array
+        count:
+          format: int32
+          type: integer
+        nextLink:
+          type: string
       type: object
     BaseUserGroup:
       example:
